@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:55 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 11:39:09 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/10/28 11:12:51 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/10/28 11:19:17 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/str_utils.h"
+#ifndef LEXER_H
+#define LEXER_H
 
-size_t	ft_strlen(const char *string)
+#define	WORD		1
+#define	PIPE		2
+#define	REDIR_IN	3
+#define	REDIR_OUT	4
+#define	APPEND		5
+#define	HERE_DOC	6
+#define	END			0
+
+typedef struct s_lexer
 {
-	size_t	len;
+	char	*token;
+	int		type;
+	//maybe add index (?)
+	t_lexer	*next;
+	t_lexer	*prev;
+}	t_lexer;
 
-	len = 0;
-	while (string[len] != '\0')
-	{
-		len++;
-	}
-	return (len);
-}
-
-char	*ft_strdup(const char *s)
-{
-	size_t	size;
-	char	*str;
-	int		i;
-
-	size = ft_strlen(s) + 1;
-	str = (char *)malloc(size);
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
+#endif
