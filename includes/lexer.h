@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:12:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 13:47:48 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:18:29 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@
 #define	REDIR_OUT	4
 #define	APPEND		5
 #define	HERE_DOC	6
-#define	END			0
 
 typedef struct s_lexer
 {
 	char	*token;
 	int		type;
-	//maybe add index (?)
+	int		idx;
 	t_lexer	*next;
 	t_lexer	*prev;
 }	t_lexer;
@@ -36,5 +35,6 @@ int 	store_token(char *input, t_lexer **token_list);
 int		store_word(char *input, t_lexer **token_list);
 int 	store_left_brackets(char *input, t_lexer **token_list);
 int 	store_right_brackets(char *input, t_lexer **token_list);
+t_lexer *new_node_lexer(char *str, int type, t_lexer **token_list);
 
 #endif
