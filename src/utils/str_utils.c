@@ -6,11 +6,11 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:55 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 11:39:09 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:31:39 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/str_utils.h"
+#include "../../includes/str_utils.h"
 
 size_t	ft_strlen(const char *string)
 {

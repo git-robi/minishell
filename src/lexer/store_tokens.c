@@ -6,11 +6,11 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 13:42:05 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 14:05:25 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:30:53 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../../includes/lexer.h"
 
 int	store_right_brackets(char *input, t_lexer **token_list)
 {
@@ -19,10 +19,11 @@ int	store_right_brackets(char *input, t_lexer **token_list)
 	if (*(input + 1) == '<')
 	{
 		new_node = new_node_lexer("<<", APPEND, token_list); //add check for malloc fail
-		//add node to the list
+		add_node_lexer(new_node, token_list);
 		return (2);
 	}
 	new_node = new_node_lexer("<", REDIR_IN, token_list); //add check for malloc fail
+	add_node_lexer(new_node, token_list);
 	return (1);
 }
 
@@ -33,10 +34,11 @@ int	store_left_brackets(char *input, t_lexer **token_list)
 	if (*(input + 1) == '<')
 	{
 		new_node = new_node_lexer("<<", APPEND, token_list); //add check for malloc fail
-		//add node to the list
+		add_node_lexer(new_node, token_list);
 		return (2);
 	}
 	new_node = new_node_lexer("<", REDIR_IN, token_list); //add check for malloc fail
+	add_node_lexer(new_node, token_list);
 	return (1);
 }
 
@@ -54,7 +56,7 @@ int	store_word(char *input, t_lexer **token_list)
 		i++
 	}
 	new_node = new_node_lexer(ft_substr(input, 0, i), WORD, token_list); //add check for malloc fail
-	//add node to list
+	add_node_lexer(new_node, token_list);
 	return (i);
 }
 
@@ -69,7 +71,7 @@ int	store_token(char *input, t_lexer **token_list)
 	else if (*input == '|')
 	{
 		new_node = new_node_lexer("|", PIPE, token_list);
-		//add node to list
+		add_node_lexer(new_node, token_list);
 	}
 	else
 		return (store_word(input, token_list);

@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:12:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 14:18:29 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:28:36 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		store_word(char *input, t_lexer **token_list);
 int 	store_left_brackets(char *input, t_lexer **token_list);
 int 	store_right_brackets(char *input, t_lexer **token_list);
 t_lexer *new_node_lexer(char *str, int type, t_lexer **token_list);
+void    add_node_lexer(t_lexer *new_node, t_lexer **token_list);
 
 #endif

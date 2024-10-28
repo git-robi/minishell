@@ -6,12 +6,12 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:45 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 10:44:19 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:31:28 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/str_utils.h"
-#include "../include/strarr_utils.h"
+#include "../../includes/str_utils.h"
+#include "../../include/strarr_utils.h"
 
 size_t	strarr_len(char **strarr)
 {

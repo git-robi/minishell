@@ -6,11 +6,11 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 13:45:04 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:30:29 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../../includes/lexer.h"
 
 //a function that takes the input line and returns a linked list with a token in each node.
 
