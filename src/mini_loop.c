@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 10:46:46 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:17:09 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,15 @@
 #include <readline/history.h>
 #include <stdlib.h>
 
-void	mini_loop(char **env)
+void	mini_loop(t_mini *data)
 {
-	char	*line; //line in which we store the input
-
 	while (1)
 	{
-
-	//read input
-		line = readline("minishell$ " );
-	//check for empty input
-		if (!line)
+		data->line = readline("minishell$ " );
+		if (!data->line)
 			//exit with right exit status
 	//check if input is exit (?) maybe not necessary here
-		
-	//add in history
-		add_history(line);
-
-	//add tokenization, parsing, ecc...
-
-	//free the line
-		free(line);
+		add_history(data->line);
+		read_token(&data);
+		free(data->line);
 }

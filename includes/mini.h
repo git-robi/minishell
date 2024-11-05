@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:19:19 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#ifndef MINI_H
+#define MINI_H
 
-int	is_whitespace(char c)
+#include "lexer.h"
+#include "parser.h"
+
+typedef struct s_mini
 {
-	if (c == ' ' || c > 8 && c < 14)
-		return (1);
-	return (0);
-}
+	char		*line;
+	char		**env;
+	t_lexer		*lexer;
+	t_parser	*parser;
+}	t_mini;
 
-int	read_token(t_mini *data)
-{	
-	int		i;
-
-	i = 0;
-	//remove leading and trailing white spaces:
-	data->line = ft_strtrim(input, " ");
-	while (data->line[i])
-	{
-		while (is_whitespace(data->line[i]))
-			i++;
-		i = i + store_token(&data->line[i], &data->lexer);
-	}
-}
+#endif

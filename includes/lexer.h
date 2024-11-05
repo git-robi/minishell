@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:12:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 14:28:36 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:14:05 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_lexer
 	t_lexer	*prev;
 }	t_lexer;
 
-t_lexer read_token(char *input);
+int		read_token(t_mini *data);
 int 	is_whitespace(char c);
 int 	store_token(char *input, t_lexer **token_list);
 int		store_word(char *input, t_lexer **token_list);

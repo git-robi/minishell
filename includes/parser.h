@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:19:19 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/11/05 13:54:06 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/11/05 13:57:14 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#ifndef PARSER_H
+#define PARSER_H
 
-int	is_whitespace(char c)
+typedef struct s_parser
 {
-	if (c == ' ' || c > 8 && c < 14)
-		return (1);
-	return (0);
-}
+	char	**commands;
+	//builtin function
+	int		redir_num;
+	//redirection type;
+	t_parser	*next;
+	t_parser	*prev;
+}	t_parser;
 
-int	read_token(t_mini *data)
-{	
-	int		i;
-
-	i = 0;
-	//remove leading and trailing white spaces:
-	data->line = ft_strtrim(input, " ");
-	while (data->line[i])
-	{
-		while (is_whitespace(data->line[i]))
-			i++;
-		i = i + store_token(&data->line[i], &data->lexer);
-	}
-}
+#endif
