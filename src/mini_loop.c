@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:31:45 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:53:59 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	mini_loop(t_mini *data)
 	//check if input is exit (?) maybe not necessary here
 		add_history(data->line);
 		read_token(&data);
+		parser(&data);
 		free(data->line);
 }
