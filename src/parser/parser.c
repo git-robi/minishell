@@ -6,38 +6,38 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 15:08:56 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:13:11 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
-#include "../../includes/lexer.h"
+#include "../../includes/lexer.h"	
 
-int	pipes_error_check(t_mini *data)
+void	store_commands(t_mini *data, t_parser *node)
 {
-	t_lexer	*node;
+	int	cmds_num;
+	int	i;
 
-	node = data->lexer;
-	if (node->type == PIPE)
-		return (1); //check for correct error code
-	node = node->next;
-	while (node)
-	{
-		if (node->type == PIPE)
-		{
-			if (node->next == NULL)
-				return (1);
-			else if (node->prev.type != WORD || node->next.type != WORD)
-				return (1);
-		}
-		node = node->next;
-	}
-	return (0);
+	i = 0;
+	cmds_num = count_commands(data);
+	data->parser.commands = calloc(sizeof(char *) * cmds_num + 1);
+	if (data->parser.commands == NULL)
+		exit (0); //create function for error and exit
+	
+	
 }
 
 int	parser(t_mini *data)
 {
-	if (pipes_error_check(data))
-		return (code);
+	t_parser	*node;
+	
+	node = NULL;
+	if (error_check(data))
+		return (code); //create function for error and exit
+	while (data->lexer)
+	{
+		store_commands(data, node);
+		
+	}
 }
 	
