@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:54:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/06 11:56:33 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:38:52 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_parser
 	char	**commands;
 	//builtin function
 	int		redir_num;
-	//redirection type;
+	t_lexer		*redirections;
 	t_parser	*next;
 	t_parser	*prev;
 }	t_parser;
