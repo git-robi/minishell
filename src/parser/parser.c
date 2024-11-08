@@ -13,11 +13,21 @@
 #include "../../includes/parser.h"
 #include "../../includes/lexer.h"	
 
-void	store_redirection(t_lexer *tmp, t_parser *node)
+void	store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
 {
 	t_lexer	*new_node;
+	static int	i;
+	char	*redirection;
 
-	
+	i = 0;
+	redirection = ft_strdup((*token)->next->str);
+	new_node = new_node_lexer(redirection, (*token)->type);
+	new_node->idx = i;
+	i++;
+	add_node_lexer(new_node, (*parser_node)->redirections);
+	delete_node_lexer(data, &(*token)->next);
+	delete_node_lexer(data, token);
+}
 
 void	handle_redirections(t_mini *data, t_parser *node)
 {
@@ -30,7 +40,7 @@ void	handle_redirections(t_mini *data, t_parser *node)
 			break ;
 		if (tmp->type != WORD)
 		{
-			store_redirection(tmp, node);
+			store_redirection(tmp, node, data);
 			tmp = tmp->next;
 		}
 		tmp = tmp->next;
@@ -38,19 +48,26 @@ void	handle_redirections(t_mini *data, t_parser *node)
 }
 		  
 
-void	store_commands(t_mini *data, t_parser *node)
+void	store_commands(t_mini *data, t_parser **parser_node)
 {
 	int	cmds_num;
 	int	i;
+	t_lexer	*tmp;
 
 	i = 0;
 	handle_redirections(data, node);
 	cmds_num = count_commands(data);
-	data->parser.commands = calloc(sizeof(char *) * cmds_num + 1);
-	if (data->parser.commands == NULL)
+	tmp = data->lexer;
+	parser_node.commands = calloc(sizeof(char *) * cmds_num + 1);
+	if (data->parser_node.commands == NULL)
 		exit (0); //create function for error and exit
-	
-	
+	while (tmp && tmp->type != PIPE)
+	{
+		parser_node->commands[i] = ft_strdup(tmp->token);
+		i++;
+		tmp = tmp->next;
+	}
+		
 }
 
 /*int	count_pipes(t_mini *data)

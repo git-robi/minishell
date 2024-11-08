@@ -17,7 +17,7 @@ typedef struct s_parser
 {
 	char	**commands;
 	//builtin function
-	int		redir_num;
+//	int		redir_num; not sure about this
 	t_lexer		*redirections;
 	t_parser	*next;
 	t_parser	*prev;

@@ -12,7 +12,34 @@
 
 #include <stdlib.h>
 
-void	add_node_lexer(t_list *new_node, t_lexer **token_list)
+void	free_node_lexer(t_lexer **node)
+{
+	if ((*node)->token)
+	{
+		free((*node)->token);
+		(*node)->token = NULL;
+	}
+	free(*node);
+	*node = NULL;
+}
+
+void	delete_node_lexer(t_mini *data, t_lexer **node)
+{
+	if ((*node)->prev == NULL)
+		data->lexer = (*node)->next;
+	else if ((*node)->next == NULL)
+		(*node)->prev->next = NULL;
+	else if ((*node)->prev == NULL && (*node)->next == NULL)
+		data->lexer = NULL;
+	else
+	{
+		(*node)->prev->next = (*node)->next;
+		(*node)->next->prev = (*node)->prev;
+	}
+	free_node_lexer(node);
+}
+
+void	add_node_lexer(t_lexer *new_node, t_lexer **token_list)
 {
 	t_lexer	*temp_node;
 
@@ -28,7 +55,7 @@ void	add_node_lexer(t_list *new_node, t_lexer **token_list)
 	new_node->prev = temp_node;
 }
 
-t_lexer	*new_node_lexer(char *str, int type, t_lexer **token_list)
+t_lexer	*new_node_lexer(char *str, int type)
 {
 	t_lexer		*new_node;
 	static	int	idx = 0;
