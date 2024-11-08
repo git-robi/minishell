@@ -89,16 +89,19 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 int	parser(t_mini *data)
 {
 	t_parser	*node;
+	t_parser	*parser;
 	int			pipes_num;
 
 	node = NULL;
+	parser = NULL;
 	if (error_check(data))
 		return (code); //create function for error and exit
 //	pipes_num = count_pipes(data);
 	while (data->lexer)
 	{
+		node = new_node_parser(); //create function
 		store_commands(data, node);
-		
+		add_new_node_parser(node, &parser); //create function
+		data->lexer = remove_pipe(data->lexer); //remove pipe and return first node after pipe
 	}
 }
-	
