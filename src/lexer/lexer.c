@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 13:40:37 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:15:46 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_whitespace(char c)
 	return (0);
 }
 
-int	read_token(t_mini *data)
+void	read_token(t_mini *data)
 {	
 	int		i;
 	int		j;
@@ -35,5 +35,4 @@ int	read_token(t_mini *data)
 			free_data(data, EXIT_FAILURE);
 		i = i + j;
 	}
-	return (0);
 }

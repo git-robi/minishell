@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/07 14:43:18 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:40:19 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
 
 	i = 0;
 	redirection = ft_strdup((*token)->next->str);
+	if (redirection == NULL)
+		free_data_and_exit(data, EXIT_FAILURE);
 	new_node = new_node_lexer(redirection, (*token)->type);
+	if (new_node == NULL)
+		free_data_and_exit(data, EXIT_FAILURE);
 	new_node->idx = i;
 	i++;
 	add_node_lexer(new_node, (*parser_node)->redirections);
@@ -60,10 +64,12 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 	tmp = data->lexer;
 	parser_node.commands = calloc(sizeof(char *) * cmds_num + 1);
 	if (data->parser_node.commands == NULL)
-		exit (0); //create function for error and exit
+		free_data_and_exit(data, EXIT_FAILURE);
 	while (tmp && tmp->type != PIPE)
 	{
 		parser_node->commands[i] = ft_strdup(tmp->token);
+		if (parser_node->commands[i] == NULL)
+			free_data_and_exit(data, EXIT_FAILURE);
 		i++;
 		tmp = tmp->next;
 	}
@@ -99,9 +105,11 @@ int	parser(t_mini *data)
 //	pipes_num = count_pipes(data);
 	while (data->lexer)
 	{
-		node = new_node_parser(); //create function
+		node = new_node_parser();
+		if (node == NULL)
+			free_data_and_exit(data, EXIT_FAILURE);
 		store_commands(data, node);
-		add_new_node_parser(node, &parser); //create function
+		add_new_node_parser(node, &parser);
 		data->lexer = remove_pipe(data->lexer); //remove pipe and return first node after pipe
 	}
 }

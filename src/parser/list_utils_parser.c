@@ -1,9 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_utils_parser.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/10 15:18:39 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/11/10 16:01:05 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+void	free_node_parser(t_parser **node)
+{
+	if ((*node)->commands != NULL)
+		free_strarr((*node)->commands);
+	if ((*node)->redirections != NULL)
+		free_lexer_list((*node)->redirections);
+	free(*node);
+	*node = NULL;
+}
+
 t_parser	new_node_parser(void)
 {
 	t_parser	*new_node;
 
 	new_node = malloc(sizeof(t_parser));
-		//add malloc check
+	if (new_node == NULL)
+		return (NULL);
 	new_node->commands = NULL;
 	new_node->redirections = NULL;
 	//add builtin function

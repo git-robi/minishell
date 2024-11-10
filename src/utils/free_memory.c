@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:11:02 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 13:39:29 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:03:25 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 void	free_strarr(char **strarr)
@@ -23,22 +23,46 @@ void	free_strarr(char **strarr)
 	strarr = NULL;
 }
 
+void	free_parser_list(t_parser **parser_list)
+{
+	t_parser	*tmp;
+	t_parser	*next;
+
+	tmp = *parser_list;
+	while (tmp)
+	{
+		next = tmp->next;
+		free_node_parser(&tmp);
+		tmp = next;
+	}
+	*parser_list = NULL;
+}
+
 void	free_lexer_list(t_lexer **lexer_list)
 {
-	while (*lexer_list)
+	t_lexer	*tmp;
+	t_lexer	*next;
+	
+	tmp = *lexer_list;
+	while (tmp)
 	{
-		
+		next = tmp->next;
+		free_node_lexer(&tmp);
+		tmp = next;
+	}
+	*lexer_list = NULL;
+}
 
-void	free_data(t_mini *data, int exit_code)
+void	free_data_and_exit(t_mini *data, int exit_code)
 {
 	if (data->line != NULL)
 		free(data->line);
 	if (data->env != NULL)
 		free_strarr(data->env);
 	if (data->lexer != NULL)
-		free_lexer_list(&data->tokens)
+		free_lexer_list(&data->lexer)
 	if (data->parser != NULL)
-		//function that frees parser list
+		free_parser_list(&data->parser);
 	if (exit_code >= 0)
 		exit (exit_code);
 }

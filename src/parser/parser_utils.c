@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:27 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/06 11:56:45 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:30:13 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/parser.h"
@@ -18,7 +18,7 @@ int	error_check(t_mini *data)
 
 	node = data->lexer;
 	if (node->type == PIPE)
-		return (1); //check for correct error code
+		return (1);
 	node = node->next;
 	while (node)
 	{
