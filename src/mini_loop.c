@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:53:59 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/10 12:50:37 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	mini_loop(t_mini *data)
 		data->line = readline("minishell$ " );
 		if (!data->line)
 		{
-		//	exit_msg(?)
-			exit (0); //EXIT_SUCCESS
+			ft_putstr_fd("exit\n");
+			exit (EXIT_SUCCESS);
 		}
-	//check if input is exit (?) maybe not necessary here
 		add_history(data->line);
+	//handle quotes here (?)
 		read_token(&data);
 		parser(&data);
 		free(data->line);

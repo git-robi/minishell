@@ -6,12 +6,13 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:45 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 14:31:28 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:15:19 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/str_utils.h"
 #include "../../include/strarr_utils.h"
+#include <stdlib.h>
 
 size_t	strarr_len(char **strarr)
 {
@@ -28,14 +29,17 @@ char	**strarr_cpy(char **strarr)
 	char	**cpy;
 	int	i;
 
-	cpy = (char **)malloc(sizeof(char *) * (strarr_len(strarr) + 1));
+	cpy = (char **)calloc(sizeof(char *) * (strarr_len(strarr) + 1));
 	if (cpy == NULL)
-		exit (); //check exit code
+		exit (EXIT_FAILURE);
 	while (strarr[i])
 	{
 		cpy[i] = ft_strdup(strarr[i]);
 		if (cpy[i] == NULL)
-			exit (); //check exit code (again) and also discuss if we have to free in cases like this.
+		{
+			free_strarr(cpy);
+			return (NULL);
+		}
 		i++;
 	}
 	cpy[i] = NULL;
