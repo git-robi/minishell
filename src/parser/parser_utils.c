@@ -6,12 +6,49 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:27 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 08:23:13 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/11 09:45:04 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/parser.h"
 #include "../../includes/lexer.h"
 
+void	count_quotes(t_mini *data)
+{
+	int	in_single;
+	int	in_double;
+	int	total;
+	int	i;
+
+	i = 0;
+	in_single = 0;
+	in_double = 0;
+	total = 0;
+	while (data->line[i])
+	{
+		if (data->line[i] == '"')
+		{
+			if (!in_double && !in_single)
+				in_double = 1;
+			else if (in_double)
+				in_double = 0;
+			total++;
+		}
+		if (data->line[i] == ''')
+		{
+			if (!in_double && !in_single)
+				in_single = 1;
+			else if (in_single)
+				in_single = 0;
+			total++;
+		}
+		i++;
+	}
+	if (total % 2 != 0)
+		unclosed_quotes_error();
+} 	
+	
+	
+}
 
 void	unexpected_token_error(t_mini *data, t_lexer *node)
 {

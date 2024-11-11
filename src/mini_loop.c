@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 12:50:37 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	mini_loop(t_mini *data)
 			exit (EXIT_SUCCESS);
 		}
 		add_history(data->line);
-	//handle quotes here (?)
+		count_quotes(data);
 		read_token(&data);
 		parser(&data);
 		free(data->line);
