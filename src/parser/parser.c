@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 15:40:19 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/11 08:45:42 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,22 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 	return (pipes_num);
 }*/
 
+t_lexer	*remove_pipe(t_mini *data, t_lexer	**data->lexer)
+{
+	t_lexer	*tmp;
+	t_lexer	*new_position;
+
+	new_position = NULL;
+	tmp = (*data)->lexer;
+	while (tmp && tmp->type != PIPE)
+		tmp = tmp->next;
+	if (tmp->type == PIPE)
+	{
+		new_position = tmp->next;
+		delete_node_lexer(data, tmp);
+	}
+	return (new_position);
+}
 int	parser(t_mini *data)
 {
 	t_parser	*node;
@@ -100,8 +116,7 @@ int	parser(t_mini *data)
 
 	node = NULL;
 	parser = NULL;
-	if (error_check(data))
-		return (code); //create function for error and exit
+	unexpected_token_error(error_check(data));
 //	pipes_num = count_pipes(data);
 	while (data->lexer)
 	{
@@ -110,6 +125,6 @@ int	parser(t_mini *data)
 			free_data_and_exit(data, EXIT_FAILURE);
 		store_commands(data, node);
 		add_new_node_parser(node, &parser);
-		data->lexer = remove_pipe(data->lexer); //remove pipe and return first node after pipe
+		data->lexer = remove_pipe(data, &data->lexer);
 	}
 }
