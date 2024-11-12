@@ -52,22 +52,23 @@ int	store_left_brackets(char *input, t_lexer **token_list)
 
 int	store_word(char *input, t_lexer **token_list)
 {
-	int	i;
+	int	end;
 	t_lexer	*new_node;
 
-	i = 0;
-	while (input[i])
+	end = 0;
+	if (input[0] == '\'' || input[0] == '\"')
+		return (store_token_in_quotes(input,  token_list));
+	while (input[end])
 	{
-		//add some quotes handling.. if in between quotes count as a single token (?)
-		if (input[i] == '<' || input[i] == '>' || input [i] == '|')
+		if (input[end] == '<' || input[end] == '>' || input [end] == '|')
 			break ;
-		i++
+		end++
 	}
-	new_node = new_node_lexer(ft_substr(input, 0, i), WORD, token_list);
+	new_node = new_node_lexer(ft_substr(input, 0, end), WORD, token_list);
 	if (new_node == NULL)
 		return (-1);
 	add_node_lexer(new_node, token_list);
-	return (i);
+	return (end);
 }
 
 int	store_token(char *input, t_mini *data)
