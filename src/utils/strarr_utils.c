@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/str_utils.h"
-#include "../../include/strarr_utils.h"
+#include "../../includes/mini.h"
 #include <stdlib.h>
 
 size_t	strarr_len(char **strarr)
@@ -29,7 +28,8 @@ char	**strarr_cpy(char **strarr)
 	char	**cpy;
 	int	i;
 
-	cpy = (char **)calloc(sizeof(char *) * (strarr_len(strarr) + 1));
+	i = 0;
+	cpy = (char **)ft_calloc(strarr_len(strarr) + 1, sizeof(char *));
 	if (cpy == NULL)
 		exit (EXIT_FAILURE);
 	while (strarr[i])

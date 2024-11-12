@@ -1,41 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 15:15:46 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/09 08:11:57 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/09 12:58:20 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini.h"
+#include "libft.h"
 
-int	is_whitespace(char c)
+int	ft_isascii(int character)
 {
-	if (c == ' ' || (c > 8 && c < 14))
+	if (character >= 0 && character <= 127)
 		return (1);
 	return (0);
-}
-
-void	read_token(t_mini *data)
-{	
-	int		i;
-	int		j;
-	char		*str;
-	i = 0;
-
-	str = ft_strtrim(data->line, " ");
-	free(data->line);
-	data->line = str;
-	while (data->line[i])
-	{
-		while (is_whitespace(data->line[i]))
-			i++;
-		j = store_token(&data->line[i], data);
-		if (j < 0)
-			free_data_and_exit(data, EXIT_FAILURE);
-		i = i + j;
-	}
 }

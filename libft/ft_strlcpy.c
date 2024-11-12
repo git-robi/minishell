@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/10 09:35:16 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/22 09:41:58 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	while (1)
+	size_t	src_len;
+	size_t	i;
+
+	if (!src || !dst)
+		return (0);
+	src_len = ft_strlen(src);
+	if (dstsize == 0)
+		return (src_len);
+	i = 0;
+	while (i < (dstsize - 1) && src[i] != 0)
 	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
-		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
-		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
+		dst[i] = src[i];
+		i++;
 	}
+	dst[i] = '\0';
+	return (src_len);
 }

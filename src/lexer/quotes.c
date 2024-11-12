@@ -1,5 +1,6 @@
+#include "../../includes/mini.h"
 
-int	store_token_in_quotes(char *input, t_list **token_list)
+int	store_token_in_quotes(char *input, t_lexer **token_list)
 {
 	int	end;
 	t_lexer	*new_node;
@@ -7,14 +8,14 @@ int	store_token_in_quotes(char *input, t_list **token_list)
 	end = 0;
 	while (input[end] != '\'' && input[end] != '\"')
 		end++;
-	new_node = new_node_lexer(ft_substr(input, 0, end), WORD, token_list);
+	new_node = new_node_lexer(ft_substr(input, 0, end), WORD);
 	if (new_node == NULL)
 		return (-1);
 	add_node_lexer(new_node, token_list);
 	return (end + 1);
 }
 
-void	count_quotes(char *line)
+void	count_quotes(char *line, t_mini *data)
 {
 	int	in_single;
 	int	in_double;
@@ -56,7 +57,8 @@ void	count_quotes(char *line)
 		i++;
 	}
 	if (total % 2 != 0)
-		//function that prints error and exit;
+	{
+		ft_putstr_fd("quotes not properly closed\n", 2);
+		free_data_and_exit(data, EXIT_FAILURE);
+	}	
 }
-
-

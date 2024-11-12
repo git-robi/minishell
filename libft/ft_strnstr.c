@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/09 11:58:49 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/19 11:54:49 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+char	*ft_strnstr(const char *str, const char *to_find, size_t n)
 {
-	while (1)
+	size_t	i;
+	size_t	j;
+
+	if (to_find[0] == '\0')
+		return ((char *)str);
+	i = 0;
+	j = 0;
+	while (i < n && str[i] != '\0')
 	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
+		j = 0;
+		while (i + j < n && str[i + j] == to_find[j] && to_find[j] != '\0')
 		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
+			j++;
 		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
+		if (to_find[j] == '\0')
+			return ((char *)&str[i]);
+		i++;
 	}
+	return (0);
 }

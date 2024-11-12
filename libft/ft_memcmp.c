@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/10 09:44:57 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/10 09:45:38 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
-	while (1)
+	const unsigned char	*s1;
+	const unsigned char	*s2;
+	size_t				i;
+
+	s1 = (const unsigned char *)str1;
+	s2 = (const unsigned char *)str2;
+	i = 0;
+	while (i < n)
 	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
-		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
-		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
+	return (0);
 }

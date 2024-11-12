@@ -12,12 +12,13 @@
 
 #include "../includes/strarr_utils.h"
 #include <stdlib.h>
+#include "../includes/mini.h"
 
 void	init_data(t_mini *data, char **env)
 {
 	data->line = NULL;
-	data->envp = strarr_copy(env);
-	if (data->envp == NULL)
+	data->env = strarr_cpy(env);
+	if (data->env == NULL)
 		exit(EXIT_FAILURE);
 	data->lexer = NULL;
 	data->parser = NULL;
@@ -27,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_mini		data;
 	
-	if (argc != 1)
+	if (argc != 1 || argv[1])
 	{
 		printf("No arguments accepted.\n");
 		return (EXIT_SUCCESS);
@@ -37,6 +38,4 @@ int	main(int argc, char **argv, char **env)
 	mini_loop(&data);
 	
 	return (EXIT_SUCCESS);
-}
-	
-	
+}	

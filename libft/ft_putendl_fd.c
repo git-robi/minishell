@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/11 09:53:02 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/14 14:13:22 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+void	ft_putendl_fd(char *s, int fd)
 {
-	while (1)
-	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
-		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
-		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
-	}
+	if (!s || fd < 0)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

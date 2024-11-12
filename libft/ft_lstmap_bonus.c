@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/14 15:39:33 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/22 11:38:24 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	while (1)
+	t_list	*new_list;
+	t_list	*temp;
+
+	if (!lst || !f)
+		return (0);
+	new_list = 0;
+	while (lst)
 	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
+		temp = ft_lstnew((*f)(lst->content));
+		if (!temp)
 		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
+			ft_lstclear(&new_list, del);
+			return (0);
 		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
+		ft_lstadd_back(&new_list, temp);
+		lst = lst->next;
 	}
+	return (new_list);
 }

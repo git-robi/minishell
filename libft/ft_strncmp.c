@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/10 12:03:02 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/19 20:02:31 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	while (1)
+	size_t				i;
+	const unsigned char	*s1;
+	const unsigned char	*s2;
+
+	if (n == 0)
+		return (0);
+	s1 = (const unsigned char *)str1;
+	s2 = (const unsigned char *)str2;
+	i = 0;
+	while (s1[i] && s2[i] && i < n && (s1[i] == s2[i]))
 	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
-		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
-		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
+		i++;
 	}
+	if (i == n)
+		return (0);
+	return (s1[i] - s2[i]);
 }

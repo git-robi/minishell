@@ -9,6 +9,9 @@
 /*   Updated: 2024/11/10 16:03:25 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/mini.h"
+
 void	free_strarr(char **strarr)
 {
 	int	i;
@@ -60,7 +63,7 @@ void	free_data_and_exit(t_mini *data, int exit_code)
 	if (data->env != NULL)
 		free_strarr(data->env);
 	if (data->lexer != NULL)
-		free_lexer_list(&data->lexer)
+		free_lexer_list(&data->lexer);
 	if (data->parser != NULL)
 		free_parser_list(&data->parser);
 	if (exit_code >= 0)

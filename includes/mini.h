@@ -15,6 +15,11 @@
 
 #include "lexer.h"
 #include "parser.h"
+#include "strarr_utils.h"
+#include "str_utils.h"
+#include "utils.h"
+#include "../libft/libft.h"
+#include <stdio.h>
 
 typedef struct s_mini
 {
@@ -23,5 +28,7 @@ typedef struct s_mini
 	t_lexer		*lexer;
 	t_parser	*parser;
 }	t_mini;
+
+void    mini_loop(t_mini *data);
 
 #endif

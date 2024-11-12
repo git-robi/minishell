@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_loop.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 09:31:17 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/12 09:42:25 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/19 20:01:40 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include "../includes/mini.h"
+#include "libft.h"
 
-void	mini_loop(t_mini *data)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	while (1)
+	char		*new_str;
+	size_t		size;
+	size_t		i;
+	size_t		j;
+
+	if (!s1 || !s2)
+		return (0);
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	new_str = (char *)malloc(size);
+	if (new_str == 0)
+		return (0);
+	i = 0;
+	while (s1[i])
 	{
-		data->line = readline("minishell$ " );
-		if (!data->line)
-		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
-		}
-		add_history(data->line);
-		count_quotes(data->line, data);
-		read_token(data);
-		parser(data);
-		free(data->line);
+		new_str[i] = s1[i];
+		++i;
 	}
+	j = 0;
+	while (s2[j])
+	{
+		new_str[i++] = s2[j];
+		++j;
+	}
+	new_str[i] = '\0';
+	return (new_str);
 }

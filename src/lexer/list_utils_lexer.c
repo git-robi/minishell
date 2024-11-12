@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "../../includes/mini.h"
 
 void	free_node_lexer(t_lexer **node)
 {

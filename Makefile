@@ -13,14 +13,14 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = src/main.c  src/mini_loop.c  src/lexer.c src/strarr_utils.c  src/str_utils.c
+SRCS = src/main.c  src/mini_loop.c  src/lexer/lexer.c src/lexer/list_utils_lexer.c src/lexer/quotes.c src/utils/strarr_utils.c  src/utils/str_utils.c src/utils/free_memory.c src/parser/parser.c src/parser/list_utils_parser.c src/parser/parser_utils.c 
 OBJS = $(SRCS:.c=.o)
-HEADER = includes/strarr_utils.h includes/str_utils.h 
+HEADER = includes/strarr_utils.h includes/str_utils.h includes/mini.h includes/parser.h includes/lexer.h includes/utils.c
 
 all: $(NAME)
 
 $(NAME): $(OBJS) 
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft
 	chmod +x $(NAME)
 
 %.o: %.c Makefile $(HEADER)
