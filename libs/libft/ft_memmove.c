@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/09 10:40:30 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/17 18:34:15 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-#define MINI_H
+#include "libft.h"
 
-#include "lexer.h"
-#include "parser.h"
-#include "strarr_utils.h"
-#include "str_utils.h"
-#include "utils.h"
-#include "../libs/libft/libft.h"
-#include <stdio.h>
-
-typedef struct s_mini
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char		*line;
-	char		**env;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+	unsigned char		*d;
+	const unsigned char	*s;
+	size_t				i;
 
-void    mini_loop(t_mini *data);
-
-#endif
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;
+	if (d > s && d < s + n)
+	{
+		while (n--)
+			d[n] = s[n];
+	}
+	else
+	{
+		i = 0;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	}
+	return (dest);
+}

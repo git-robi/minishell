@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/mini.h"
+
 void	free_node_parser(t_parser **node)
 {
 	if ((*node)->commands != NULL)
 		free_strarr((*node)->commands);
 	if ((*node)->redirections != NULL)
-		free_lexer_list((*node)->redirections);
+		free_lexer_list(&(*node)->redirections);
 	free(*node);
 	*node = NULL;
 }
 
-t_parser	new_node_parser(void)
+t_parser	*new_node_parser(void)
 {
 	t_parser	*new_node;
 
@@ -36,7 +38,7 @@ t_parser	new_node_parser(void)
 	return (new_node);
 }
 
-void	add_node_parser(t_parser *node, t_parser **parser_list)
+void	add_node_parser(t_parser *new_node, t_parser **parser_list)
 {
 	t_parser	*temp_node;
 

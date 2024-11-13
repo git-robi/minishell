@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/09 12:10:02 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/09 12:21:01 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-#define MINI_H
+#include "libft.h"
 
-#include "lexer.h"
-#include "parser.h"
-#include "strarr_utils.h"
-#include "str_utils.h"
-#include "utils.h"
-#include "../libs/libft/libft.h"
-#include <stdio.h>
-
-typedef struct s_mini
+t_list	*ft_lstnew(void *content)
 {
-	char		*line;
-	char		**env;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+	t_list	*newnode;
 
-void    mini_loop(t_mini *data);
-
-#endif
+	newnode = (t_list *)malloc(sizeof(t_list));
+	if (newnode == 0)
+		return (0);
+	newnode->content = content;
+	newnode->next = 0;
+	return (newnode);
+}

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/09 11:58:49 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/19 11:54:49 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-#define MINI_H
+#include "libft.h"
 
-#include "lexer.h"
-#include "parser.h"
-#include "strarr_utils.h"
-#include "str_utils.h"
-#include "utils.h"
-#include "../libs/libft/libft.h"
-#include <stdio.h>
-
-typedef struct s_mini
+char	*ft_strnstr(const char *str, const char *to_find, size_t n)
 {
-	char		*line;
-	char		**env;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+	size_t	i;
+	size_t	j;
 
-void    mini_loop(t_mini *data);
-
-#endif
+	if (to_find[0] == '\0')
+		return ((char *)str);
+	i = 0;
+	j = 0;
+	while (i < n && str[i] != '\0')
+	{
+		j = 0;
+		while (i + j < n && str[i + j] == to_find[j] && to_find[j] != '\0')
+		{
+			j++;
+		}
+		if (to_find[j] == '\0')
+			return ((char *)&str[i]);
+		i++;
+	}
+	return (0);
+}

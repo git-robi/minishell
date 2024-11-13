@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/10 10:31:37 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/19 20:02:52 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-#define MINI_H
+#include "libft.h"
 
-#include "lexer.h"
-#include "parser.h"
-#include "strarr_utils.h"
-#include "str_utils.h"
-#include "utils.h"
-#include "../libs/libft/libft.h"
-#include <stdio.h>
-
-typedef struct s_mini
+void	*ft_calloc(size_t num, size_t size)
 {
-	char		*line;
-	char		**env;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+	unsigned char			*array;
+	size_t					i;
 
-void    mini_loop(t_mini *data);
-
-#endif
+	i = 0;
+	array = malloc(num * size);
+	if (!array)
+		return (0);
+	while (i < (num * size))
+		array[i++] = 0;
+	return ((void *)array);
+}

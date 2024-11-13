@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/10 12:20:37 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/10 12:21:44 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-#define MINI_H
+#include "libft.h"
 
-#include "lexer.h"
-#include "parser.h"
-#include "strarr_utils.h"
-#include "str_utils.h"
-#include "utils.h"
-#include "../libs/libft/libft.h"
-#include <stdio.h>
-
-typedef struct s_mini
+char	*ft_strdup(const char *s)
 {
-	char		*line;
-	char		**env;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+	size_t	size;
+	char	*str;
+	int		i;
 
-void    mini_loop(t_mini *data);
-
-#endif
+	size = ft_strlen(s) + 1;
+	str = (char *)malloc(size);
+	if (str == 0)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

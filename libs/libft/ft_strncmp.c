@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/06/10 12:03:02 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/06/19 20:02:31 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-#define MINI_H
+#include "libft.h"
 
-#include "lexer.h"
-#include "parser.h"
-#include "strarr_utils.h"
-#include "str_utils.h"
-#include "utils.h"
-#include "../libs/libft/libft.h"
-#include <stdio.h>
-
-typedef struct s_mini
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	char		*line;
-	char		**env;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+	size_t				i;
+	const unsigned char	*s1;
+	const unsigned char	*s2;
 
-void    mini_loop(t_mini *data);
-
-#endif
+	if (n == 0)
+		return (0);
+	s1 = (const unsigned char *)str1;
+	s2 = (const unsigned char *)str2;
+	i = 0;
+	while (s1[i] && s2[i] && i < n && (s1[i] == s2[i]))
+	{
+		i++;
+	}
+	if (i == n)
+		return (0);
+	return (s1[i] - s2[i]);
+}

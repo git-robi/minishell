@@ -10,21 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/mini.h"
+#include <stdlib.h>
 
 int	store_right_brackets(char *input, t_lexer **token_list)
 {
 	t_lexer *new_node;
 
-	if (*(input + 1) == '<')
+	if (*(input + 1) == '>')
 	{
-		new_node = new_node_lexer("<<", APPEND, token_list);
+		new_node = new_node_lexer(">>", HERE_DOC);
 		if (new_node == NULL)
 			return (-1);
 		add_node_lexer(new_node, token_list);
 		return (1);
 	}
-	new_node = new_node_lexer("<", REDIR_IN, token_list);
+	new_node = new_node_lexer(">", REDIR_OUT);
 	if (new_node == NULL)
 		return (-1);
 	add_node_lexer(new_node, token_list);
@@ -37,13 +38,13 @@ int	store_left_brackets(char *input, t_lexer **token_list)
 	
 	if (*(input + 1) == '<')
 	{
-		new_node = new_node_lexer("<<", APPEND, token_list);
+		new_node = new_node_lexer("<<", APPEND);
 		if (new_node == NULL)
 			return (-1);
 		add_node_lexer(new_node, token_list);
 		return (1);
 	}
-	new_node = new_node_lexer("<", REDIR_IN, token_list);
+	new_node = new_node_lexer("<", REDIR_IN);
 	if (new_node == NULL)
 		return (-1);
 	add_node_lexer(new_node, token_list);
@@ -62,9 +63,9 @@ int	store_word(char *input, t_lexer **token_list)
 	{
 		if (input[end] == '<' || input[end] == '>' || input [end] == '|')
 			break ;
-		end++
+		end++;
 	}
-	new_node = new_node_lexer(ft_substr(input, 0, end), WORD, token_list);
+	new_node = new_node_lexer(ft_substr(input, 0, end), WORD);
 	if (new_node == NULL)
 		return (-1);
 	add_node_lexer(new_node, token_list);
@@ -76,17 +77,17 @@ int	store_token(char *input, t_mini *data)
 	t_lexer	*new_node;
 
 	if (*input == '<')
-		return (store_left_brackets(input, &data->token_list));
+		return (store_left_brackets(input, &data->lexer));
 	else if (*input == '>')
-		return (store_right_brackets(input, &data->token_list));
+		return (store_right_brackets(input, &data->lexer));
 	else if (*input == '|')
 	{
-		new_node = new_node_lexer("|", PIPE, &data->token_list);
+		new_node = new_node_lexer("|", PIPE);
 		if (new_node == NULL)
 			return (-1);
-		add_node_lexer(new_node, &data->token_list);
+		add_node_lexer(new_node, &data->lexer);
 	}
 	else
-		return (store_word(input, &data->token_list);
+		return (store_word(input, &data->lexer));
 	return (1);
 }

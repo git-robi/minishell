@@ -32,11 +32,11 @@ t_lexer	*error_check(t_mini *data)
 	node = node->next;
 	while (node)
 	{
-		if (node->type == != WORD)
+		if (node->type != WORD)
 		{
 			if (node->next == NULL)
 				return (node);
-			else if (node->prev.type != WORD || node->next.type != WORD)
+			else if (node->prev->type != WORD || node->next->type != WORD)
 				return (node);
 		}
 		node = node->next;
