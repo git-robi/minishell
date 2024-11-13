@@ -15,6 +15,17 @@
 #include <stdlib.h>
 #include "../includes/mini.h"
 
+void	print_lexer_list(t_lexer *lexer_list)
+{
+	t_lexer *tmp = lexer_list;
+
+	while (tmp)
+	{
+		printf("%s\n", tmp->token);
+		tmp = tmp->next;
+	}
+}
+
 void	mini_loop(t_mini *data)
 {
 	while (1)
@@ -26,9 +37,14 @@ void	mini_loop(t_mini *data)
 			exit (EXIT_SUCCESS);
 		}
 		add_history(data->line);
+		printf("1\n");
 		count_quotes(data->line, data);
+		printf("2\n");
 		read_token(data);
+		print_lexer_list(data->lexer);
+		printf("3\n");
 		parser(data);
+		printf("4\n");
 		free(data->line);
 	}
 }

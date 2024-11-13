@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/strarr_utils.h"
 #include <stdlib.h>
 #include "../includes/mini.h"
 
@@ -35,7 +34,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	init_data(&data, env);
 	//someone is adding a welcome message, maybe we should do the same (?)
-	mini_loop(&data);
-	
+	mini_loop(&data);	
 	return (EXIT_SUCCESS);
 }	
