@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:19 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 12:44:37 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:10:59 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_mini		data;
 	
-	if (argc != 1 || argv[1])
+	if (argc > 1 || argv[1] || !env) //what if we pass redirections
 	{
 		printf("No arguments accepted.\n");
 		return (EXIT_SUCCESS);

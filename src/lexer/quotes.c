@@ -1,14 +1,23 @@
 #include "../../includes/mini.h"
+#include <stdio.h>
 
 int	store_token_in_quotes(char *input, t_lexer **token_list)
 {
 	int	end;
 	t_lexer	*new_node;
 
-	end = 0;
-	while (input[end] != '\'' && input[end] != '\"')
+	end = 1;
+	if (input[0] == '\'')
+	{
+		while (input[end] != '\'')
+			end++;
+	}
+	else if (input[0] == '\"')
+	{
+		while (input[end] != '\"')
 		end++;
-	new_node = new_node_lexer(ft_substr(input, 0, end), WORD);
+	}
+	new_node = new_node_lexer(ft_substr(input, 1, end - 1), WORD);
 	if (new_node == NULL)
 		return (-1);
 	add_node_lexer(new_node, token_list);

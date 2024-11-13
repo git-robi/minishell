@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 13:51:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/10/28 14:54:05 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:27:51 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 
 void	free_node_lexer(t_lexer **node)
 {
-	if ((*node)->token)
-	{
-		free((*node)->token);
-		(*node)->token = NULL;
-	}
-	free(*node);
-	*node = NULL;
+//	if ((*node)->token)
+//	{
+//		free((*node)->token);
+//		(*node)->token = NULL;
+//	}
+//	if (*node)
+//	{
+//		free(*node);
+//		*node = NULL;
+//	}
+	(void)node;
+	return ;
 }
 
 void	delete_node_lexer(t_mini *data, t_lexer **node)

@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 13:42:05 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 13:03:48 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:03:46 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,14 @@ int	store_word(char *input, t_lexer **token_list)
 	t_lexer	*new_node;
 
 	end = 0;
+//	while (is_whitespace(input[end]))
+//		end++;
 	if (input[0] == '\'' || input[0] == '\"')
 		return (store_token_in_quotes(input,  token_list));
 	while (input[end])
 	{
-		if (input[end] == '<' || input[end] == '>' || input [end] == '|')
+		if (input[end] == '<' || input[end] == '>' || input [end] == '|'
+			|| input[end] == '\'' || input[end] == '\"' || is_whitespace(input[end]))
 			break ;
 		end++;
 	}

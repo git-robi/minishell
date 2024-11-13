@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 15:18:39 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 16:01:05 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:46:34 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	free_node_parser(t_parser **node)
 {
-	if ((*node)->commands != NULL)
-		free_strarr((*node)->commands);
-	if ((*node)->redirections != NULL)
-		free_lexer_list(&(*node)->redirections);
-	free(*node);
-	*node = NULL;
+	if (*node)
+	{
+		if ((*node)->commands != NULL)
+			free_strarr((*node)->commands);
+		if ((*node)->redirections != NULL)
+			free_lexer_list(&(*node)->redirections);
+		free(*node);
+		*node = NULL;
+	}
 }
 
 t_parser	*new_node_parser(void)

@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:59 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:52:49 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ typedef struct s_mini
 }	t_mini;
 
 void    mini_loop(t_mini *data);
+int is_whitespace(char c);
 
 #endif

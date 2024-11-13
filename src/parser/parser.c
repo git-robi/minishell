@@ -6,17 +6,18 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/11 08:45:42 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:47:50 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"	
 
-void	store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
+t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
 {
 	t_lexer	*new_node;
 	static int	i;
 	char	*redirection;
+	t_lexer	*new_position;
 
 	i = 0;
 	redirection = ft_strdup((*token)->next->token);
@@ -27,9 +28,11 @@ void	store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
 		free_data_and_exit(data, EXIT_FAILURE);
 	new_node->idx = i;
 	i++;
+	new_position = (*token)->next->next;
 	add_node_lexer(new_node, &(*parser_node)->redirections);
 	delete_node_lexer(data, &(*token)->next);
 	delete_node_lexer(data, token);
+	return (new_position);
 }
 
 void	handle_redirections(t_mini *data, t_parser *node)
@@ -42,11 +45,9 @@ void	handle_redirections(t_mini *data, t_parser *node)
 		if (tmp->type == PIPE)
 			break ;
 		if (tmp->type != WORD)
-		{
-			store_redirection(&tmp, &node, data);
+			tmp = store_redirection(&tmp, &node, data);
+		else
 			tmp = tmp->next;
-		}
-		tmp = tmp->next;
 	}
 }
 		  
@@ -100,7 +101,7 @@ t_lexer	*remove_pipe(t_mini *data)
 	tmp = (*data).lexer;
 	while (tmp && tmp->type != PIPE)
 		tmp = tmp->next;
-	if (tmp->type == PIPE)
+	if (tmp && tmp->type == PIPE)
 	{
 		new_position = tmp->next;
 		delete_node_lexer(data, &tmp);
@@ -124,4 +125,5 @@ void	parser(t_mini *data)
 		add_node_parser(node, &parser);
 		data->lexer = remove_pipe(data);
 	}
+	data->parser = parser;
 }

@@ -6,7 +6,7 @@
 #    By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:47:59 by rgiambon          #+#    #+#              #
-#    Updated: 2024/10/28 10:50:28 by rgiambon         ###   ########.fr        #
+#    Updated: 2024/11/13 10:41:57 by rgiambon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ HEADER = includes/strarr_utils.h includes/str_utils.h includes/mini.h includes/p
 LIBFT_DIR = libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-READLINE_DIR = libs/readline
+# READLINE_DIR = libs/readline
+READLINE_DIR = libs/readline_linux_1
 READLINE_LIBS = $(READLINE_DIR)/lib/libreadline.a $(READLINE_DIR)/lib/libhistory.a
 READLINE_INCLUDE = $(READLINE_DIR)/include
 

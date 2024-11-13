@@ -6,11 +6,12 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 15:15:46 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:20:57 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
+#include <stdio.h>
 
 int	is_whitespace(char c)
 {
@@ -27,7 +28,7 @@ void	read_token(t_mini *data)
 	i = 0;
 
 	str = ft_strtrim(data->line, " ");
-	free(data->line);
+//	free(data->line);
 	data->line = str;
 	while (data->line[i])
 	{
