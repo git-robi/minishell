@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini.h"	
+#include "../../includes/mini.h"
+
+void    print_lexer_list(t_lexer *lexer_list);	
 
 t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
 {
 	t_lexer	*new_node;
-	static int	i;
+//	static int	i;
 	char	*redirection;
 	t_lexer	*new_position;
 
-	i = 0;
+//	i = 0;
 	redirection = ft_strdup((*token)->next->token);
 	if (redirection == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
@@ -29,8 +31,13 @@ t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data
 	new_position = (*token)->next;
 	new_position = new_position->next;
 	add_node_lexer(new_node, &(*parser_node)->redirections);
-	delete_node_lexer(data, &(*token)->next);
+//	printf("token_next = %s\n", (*token)->next->token);
 	delete_node_lexer(data, token);
+//	printf("token_next = %s\n", (*token)->next->token);
+//	printf("token = %s\n", (*token)->token);
+	delete_node_lexer(data, &(*token)->next);
+//	printf("redirection [%d]: %s\n", i, new_node->token);
+//	printf("new_position: %s\n", new_position->token);
 	return (new_position);
 }
 
@@ -59,6 +66,7 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 
 	i = 0;
 	handle_redirections(data, *parser_node);
+	print_lexer_list(data->lexer);
 	cmds_num = count_commands(data);
 	tmp = data->lexer;
 	(*parser_node)->commands = malloc(sizeof(char *) * (cmds_num + 1));
@@ -72,7 +80,7 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 		i++;
 		tmp = tmp->next;
 	}
-		
+	(*parser_node)->commands[i] = NULL;
 }
 
 /*int	count_pipes(t_mini *data)

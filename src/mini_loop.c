@@ -54,7 +54,6 @@ void	print_parser_list(t_parser *parser_list)
 		{
 			printf("----------REDIRECTION LIST----------\n");
 			print_lexer_list(tmp->redirections);
-//			printf("redirection type: %d\n", tmp->redirections->type);
 		}
 		i++;
 		tmp = tmp->next;
@@ -75,11 +74,13 @@ void	mini_loop(t_mini *data)
 		add_history(data->line);
 		if (data->line[0] == '\0')
 			continue ;
+		if (ft_strncmp(data->line, "exit", ft_strlen(data->line)) == 0)
+			exit (0);
 		count_quotes(data->line, data);
 		read_token(data);
 //		print_lexer_list(data->lexer);
 		parser(data);
-//		print_parser_list(data->parser);
-		free_data_and_exit(data, -1);
+		print_parser_list(data->parser);
+//		free_data_and_exit(data, -1);
 	}
 }

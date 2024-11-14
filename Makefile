@@ -20,8 +20,8 @@ HEADER = includes/strarr_utils.h includes/str_utils.h includes/mini.h includes/p
 LIBFT_DIR = libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# READLINE_DIR = libs/readline
-READLINE_DIR = libs/readline_linux_1
+READLINE_DIR = libs/readline_macOS
+#READLINE_DIR = libs/readline_linux_1
 READLINE_LIBS = $(READLINE_DIR)/lib/libreadline.a $(READLINE_DIR)/lib/libhistory.a
 READLINE_INCLUDE = $(READLINE_DIR)/include
 
