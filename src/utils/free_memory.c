@@ -66,6 +66,8 @@ void	free_data_and_exit(t_mini *data, int exit_code)
 		free_lexer_list(&data->lexer);
 	if (data->parser != NULL)
 		free_parser_list(&data->parser);
+	if (data != NULL)
+		free(data);
 	if (exit_code >= 0)
 		exit (exit_code);
 }

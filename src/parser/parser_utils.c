@@ -33,7 +33,6 @@ t_lexer	*error_check(t_mini *data)
 	node = data->lexer;
 	if (node->type == PIPE || (node->type != WORD && !node->next))
 		return (node);
-	printf("node [%s] type [%d]\n", node->token, node->type);
 	node = node->next;
 	while (node)
 	{

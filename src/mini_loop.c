@@ -61,10 +61,30 @@ void	print_parser_list(t_parser *parser_list)
 	}
 }
 
+void	clear_data(t_mini *data)
+{
+	if (data->line != NULL)
+	{
+		free(data->line);
+		data->line = NULL;
+	}
+	if (data->lexer != NULL)
+	{
+		free_lexer_list(&data->lexer);
+		data->lexer = NULL;
+	}
+	if (data->parser != NULL)
+	{
+		free_parser_list(&data->parser);
+		data->parser = NULL;
+	}
+}
+
 void	mini_loop(t_mini *data)
 {
 	while (1)
 	{
+		clear_data(data);
 		data->line = readline("minishell$ " );
 		if (!data->line)
 		{
@@ -76,11 +96,12 @@ void	mini_loop(t_mini *data)
 			continue ;
 		if (ft_strncmp(data->line, "exit", ft_strlen(data->line)) == 0)
 			exit (0);
-		count_quotes(data->line, data);
+		if (count_quotes(data->line))
+			continue ;
 		read_token(data);
 //		print_lexer_list(data->lexer);
 		parser(data);
-		print_parser_list(data->parser);
-//		free_data_and_exit(data, -1);
+//		print_parser_list(data->parser);
+		clear_data(data);
 	}
 }

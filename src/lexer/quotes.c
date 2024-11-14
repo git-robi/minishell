@@ -24,7 +24,7 @@ int	store_token_in_quotes(char *input, t_lexer **token_list)
 	return (end + 1);
 }
 
-void	count_quotes(char *line, t_mini *data)
+int	count_quotes(char *line)
 {
 	int	in_single;
 	int	in_double;
@@ -68,6 +68,7 @@ void	count_quotes(char *line, t_mini *data)
 	if (total % 2 != 0)
 	{
 		ft_putstr_fd("quotes not properly closed\n", 2);
-		free_data_and_exit(data, EXIT_FAILURE);
-	}	
+		return (1);
+	}
+	return (0);
 }

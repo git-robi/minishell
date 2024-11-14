@@ -29,7 +29,6 @@ typedef struct s_lexer
 {
 	char	*token;
 	int		type;
-	int		idx;
 	t_lexer	*next;
 	t_lexer	*prev;
 }	t_lexer;
@@ -50,7 +49,7 @@ void    delete_node_lexer(t_mini *data, t_lexer **node);
 void    free_node_lexer(t_lexer **node);
 
 //quotes
-void    count_quotes(char *line, t_mini *data);
+int    count_quotes(char *line);
 int     store_token_in_quotes(char *input, t_lexer **token_list);
 
 #endif
