@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/13 13:47:50 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:41:05 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data
 	new_node = new_node_lexer(redirection, (*token)->type);
 	if (new_node == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
-	new_node->idx = i;
-	i++;
-	new_position = (*token)->next->next;
+	new_position = (*token)->next;
+	new_position = new_position->next;
 	add_node_lexer(new_node, &(*parser_node)->redirections);
 	delete_node_lexer(data, &(*token)->next);
 	delete_node_lexer(data, token);
@@ -62,7 +61,7 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 	handle_redirections(data, *parser_node);
 	cmds_num = count_commands(data);
 	tmp = data->lexer;
-	(*parser_node)->commands = malloc(sizeof(char *) * cmds_num + 1);
+	(*parser_node)->commands = malloc(sizeof(char *) * (cmds_num + 1));
 	if ((*parser_node)->commands == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
 	while (tmp && tmp->type != PIPE)
@@ -115,7 +114,8 @@ void	parser(t_mini *data)
 
 	node = NULL;
 	parser = NULL;
-	unexpected_token_error(data, error_check(data));
+	if (unexpected_token_error(error_check(data)))
+		return ;
 	while (data->lexer)
 	{
 		node = new_node_parser();

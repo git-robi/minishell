@@ -6,7 +6,7 @@
 #    By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 12:30:33 by rgiambon          #+#    #+#              #
-#    Updated: 2024/06/22 09:40:55 by rgiambon         ###   ########.fr        #
+#    Updated: 2024/11/14 10:35:43 by rgiambon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,3 +44,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+.SILENT: 

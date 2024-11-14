@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/13 14:14:36 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:45:18 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 void	print_lexer_list(t_lexer *lexer_list)
 {
 	t_lexer *tmp = lexer_list;
-
+	int	i = 1;
 	while (tmp)
 	{	
+		printf("redirection [%d] word: ", i);
 		printf("%s\n", tmp->token);
+		printf("type: [%d]\n", tmp->type);
 		tmp = tmp->next;
+		i++;
 	}
 }
 
@@ -31,7 +34,7 @@ void	print_array(char **array)
 	int i = 0;
 	while (array[i])
 	{
-		printf("command[%d] = %s\n", i, array[i]);
+		printf("command[%d] = %s\n", i + 1, array[i]);
 		i++;
 	}
 }
@@ -44,18 +47,18 @@ void	print_parser_list(t_parser *parser_list)
 	tmp = parser_list;
 	while (tmp)
 	{
-		printf("------------NODE %d------------\n", i);
+		printf("------------NODE %d------------\n", i + 1);
 		printf("-------COMMANDS---------\n");
 		print_array(tmp->commands);
 		if (tmp->redirections)
 		{
 			printf("----------REDIRECTION LIST----------\n");
-			printf("redirection word: ");
 			print_lexer_list(tmp->redirections);
-			printf("redirection type: %d\n", tmp->redirections->type);
+//			printf("redirection type: %d\n", tmp->redirections->type);
 		}
 		i++;
 		tmp = tmp->next;
+		printf("\n");
 	}
 }
 
@@ -70,11 +73,13 @@ void	mini_loop(t_mini *data)
 			exit (EXIT_SUCCESS);
 		}
 		add_history(data->line);
+		if (data->line[0] == '\0')
+			continue ;
 		count_quotes(data->line, data);
 		read_token(data);
 //		print_lexer_list(data->lexer);
 		parser(data);
-		print_parser_list(data->parser);
-		free(data->line);
+//		print_parser_list(data->parser);
+		free_data_and_exit(data, -1);
 	}
 }

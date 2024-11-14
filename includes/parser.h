@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:54:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/13 13:27:30 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:41:11 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void    free_node_parser(t_parser **node);
 //utils parser
 int             count_commands(t_mini *data);
 t_lexer             *error_check(t_mini *data);
-void    unexpected_token_error(t_mini *data, t_lexer *node);
+int    unexpected_token_error(t_lexer *node);
 
 #endif
