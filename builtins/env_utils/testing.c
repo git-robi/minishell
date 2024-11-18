@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_list.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 13:58:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/18 14:28:35 by codespace        ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/builtins.h"
 #include <string.h>
 
@@ -135,6 +123,8 @@ t_env *export_list(t_env *original)
     bubble_sort_env_list(&copy);
     return copy;
 }
+
+
 
 int main(int argc, char **argv, char **env)
 {
