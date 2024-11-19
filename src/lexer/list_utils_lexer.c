@@ -70,7 +70,6 @@ t_lexer	*new_node_lexer(char *str, int type)
 		return (NULL);
 	new_node->token = str;
 	new_node->type = type;
-	new_node->quotes = NOT_QUOTED;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
