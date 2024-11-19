@@ -28,7 +28,7 @@ void	read_token(t_mini *data)
 	i = 0;
 
 	str = ft_strtrim(data->line, " ");
-//	free(data->line);
+	free(data->line);
 	data->line = str;
 	while (data->line[i])
 	{

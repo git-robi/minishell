@@ -19,8 +19,12 @@
 #define	PIPE		2
 #define	REDIR_IN	3
 #define	REDIR_OUT	4
-#define	APPEND		5
-#define	HERE_DOC	6
+#define	APPEND	5
+#define	HERE_DOC		6
+
+#define	SINGLE_QUOTED	7
+#define	DOUBLE_QUOTED	8
+#define	NOT_QUOTED	9
 
 typedef struct s_lexer t_lexer;
 typedef struct s_mini t_mini;
@@ -29,6 +33,7 @@ typedef struct s_lexer
 {
 	char	*token;
 	int		type;
+	int	quotes;
 	t_lexer	*next;
 	t_lexer	*prev;
 }	t_lexer;

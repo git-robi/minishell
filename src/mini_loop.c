@@ -102,6 +102,7 @@ void	mini_loop(t_mini *data)
 //		print_lexer_list(data->lexer);
 		parser(data);
 //		print_parser_list(data->parser);
+//		printf("line: %s\n", data->line);
 		clear_data(data);
 	}
 }

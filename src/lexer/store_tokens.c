@@ -19,7 +19,7 @@ int	store_right_brackets(char *input, t_lexer **token_list)
 
 	if (*(input + 1) == '>')
 	{
-		new_node = new_node_lexer(">>", HERE_DOC);
+		new_node = new_node_lexer(">>", APPEND);
 		if (new_node == NULL)
 			return (-1);
 		add_node_lexer(new_node, token_list);
@@ -38,7 +38,7 @@ int	store_left_brackets(char *input, t_lexer **token_list)
 	
 	if (*(input + 1) == '<')
 	{
-		new_node = new_node_lexer("<<", APPEND);
+		new_node = new_node_lexer("<<", HERE_DOC);
 		if (new_node == NULL)
 			return (-1);
 		add_node_lexer(new_node, token_list);

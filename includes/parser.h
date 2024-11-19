@@ -19,7 +19,7 @@ typedef struct s_parser
 {
 	char	**commands;
 	//builtin function
-	char		*here_doc;
+	char		*heredoc_name;
 	t_lexer		*redirections;
 	t_parser	*next;
 	t_parser	*prev;
