@@ -35,7 +35,7 @@ t_parser	*new_node_parser(void)
 	new_node->commands = NULL;
 	new_node->redirections = NULL;
 	//add builtin function
-	//consider to add n of redirections
+	new_node->here_doc = NULL;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
