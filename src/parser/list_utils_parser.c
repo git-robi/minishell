@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 15:18:39 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/13 12:46:34 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:20:46 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_parser	*new_node_parser(void)
 	new_node->redirections = NULL;
 	//add builtin function
 	new_node->heredoc_name = NULL;
+	new_node->heredoc_delim = NULL;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);

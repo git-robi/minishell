@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:54:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/14 10:41:11 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:19:52 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_parser
 	char	**commands;
 	//builtin function
 	char		*heredoc_name;
+	char		*heredoc_delim;
 	t_lexer		*redirections;
 	t_parser	*next;
 	t_parser	*prev;

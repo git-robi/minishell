@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/13 10:52:49 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:39:01 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_mini
 	char		**env;
 	t_lexer		*lexer;
 	t_parser	*parser;
+	int			*pids;
 }	t_mini;
 
 void    mini_loop(t_mini *data);

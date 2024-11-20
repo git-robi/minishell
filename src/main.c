@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:19 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/13 13:10:59 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:39:39 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_data(t_mini *data, char **env)
 		exit(EXIT_FAILURE);
 	data->lexer = NULL;
 	data->parser = NULL;
+	data->pids = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
