@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
+/*   Updated: 2024/11/20 08:05:52 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/builtins.h"
+static t_env *find_env_variable(t_env *env, const char *variable)
+{
+    t_env *temp = env;
+
+    while (temp)
+    {
+        if (strcmp(temp->variable, variable) == 0)
+            return temp;  // La variable ya existe
+        temp = temp->next;
+    }
+    return NULL;  // No se encontró
+}
+static int doublepointerlenght(char **line)
+{
+    int i;
+    
+    i = 0;
+    while (line[i])
+        i++;
+    return (i);    
+}
+int ft_export(t_mini *data, char **line)
+{
+    int len;
+    int i;
+    t_env *export_cpy;
+    t_content content;
+    
+    i = 1;
+    content.variable = NULL;
+    content.content = NULL;
+
+    if (!line || !data)
+        return (1);
+
+    len = doublepointerlenght(line);
+    export_cpy = export_list(data->env);
+    if (!export_cpy)
+        return (1);
+
+    if (strcmp("export", line[0]) == 0)
+    {
+        if (len == 1)
+        {
+            while (export_cpy)
+            {
+                printf("declare -x %s%s\n", export_cpy->variable, export_cpy->content);
+                export_cpy = export_cpy->next;
+            }
+        }
+        else
+        {
+            while (i < len)
+            {
+                if (separate_varcont(line[i], &content) == 0)
+                {
+                    // Verificar si la variable ya existe antes de agregarla
+                    t_env *existing = find_env_variable(data->env, content.variable);
+                    if (!existing)
+                    {
+                        // Si no existe, agregarla
+                        if (content.has_equal == 1)
+                            fill_env_list(&data->env, content.variable, content.content);
+                        else
+                            fill_env_list(&data->env, content.variable, NULL);
+                    }
+
+                    free(content.variable);
+                    free(content.content); 
+                }
+                else
+                {
+                    free(content.variable);
+                    free(content.content);
+                    return 1;
+                }
+                i++;
+            }
+        }
+    }
+    return (0);
+}
+
+
+int main() {
+    t_mini mini;
+    t_env *env = NULL;
+
+    
+    fill_env_list(&env, "USER=", "john_doe");
+    fill_env_list(&env, "PATH=", "/usr/bin:/bin");
+    fill_env_list(&env, "HOME=", "/home/john");
+
+    mini.env = env;
+    
+    char *line[] = { "export", "hola", NULL };
+    ft_export(&mini, line);
+    char *line2[] = { "export", NULL };
+    ft_export(&mini, line2);
+    ft_export(&mini, line);
+    if (ft_env(env) == 1)
+        return(1);
+    t_env *temp;
+    while (env) {
+        temp = env;
+        env = env->next;
+        free(temp->variable);
+        free(temp->content);
+        free(temp);
+    }
+
+    return 0;
+}

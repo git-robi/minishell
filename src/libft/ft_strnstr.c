@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprenafe <aprenafe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:55:39 by aprenafe          #+#    #+#             */
-/*   Updated: 2024/02/15 16:56:28 by aprenafe         ###   ########.fr       */
+/*   Updated: 2024/11/19 23:13:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include <string.h>
-#include <xlocale.h>
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

@@ -1,17 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_list.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 13:58:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/18 14:28:35 by codespace        ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 #include <string.h>
+
+t_env *env_list(char **env);
+int separate_varcont(char *line, t_content *content);
+void fill_env_list(t_env **env_cpy, const char *variable, const char *content);
+static t_env	*ft_last_node(t_env *env_cpy);
+void free_env_list(t_env *env);
+void free_t_content(t_content *content);
+
+void free_t_content(t_content *content)
+{
+    if (content)
+    {
+        free(content->variable);
+        free(content->content);
+    }
+}
 
 static t_env	*ft_last_node(t_env *env_cpy)
 {
@@ -27,7 +32,57 @@ static t_env	*ft_last_node(t_env *env_cpy)
 	return (last);
 }
 
-static void fill_env_list(t_env **env_cpy, const char *variable)
+void free_env_list(t_env *env)
+{
+    t_env *tmp;
+
+    while (env)
+    {
+        tmp = env;
+        env = env->next;
+        free(tmp->variable);
+        free(tmp->content);
+        free(tmp);
+    }
+}
+
+int separate_varcont(char *line, t_content *content)
+{
+    char *equals_sign;
+
+    equals_sign = strchr(line, '=');
+    if (equals_sign) 
+    {
+        content->has_equal = 1;
+        content->variable = strndup(line, (equals_sign - line) + 2);
+        if (!content->variable)
+            return (1);
+        if (*(equals_sign + 1) == '\0') 
+            content->content = NULL;
+        else 
+        {
+            content->content = strdup(equals_sign + 1);
+            if (!content->content) 
+            {
+                free(content->variable);
+                return (1);
+            }
+        }
+    } 
+    else 
+    {
+        content->has_equal = 0;
+        content->variable = strdup(line);
+        if (!content->variable)
+            return (1);
+        content->content = NULL;
+    }
+    return (0);
+}
+
+
+
+void fill_env_list(t_env **env_cpy, const char *variable, const char *content)
 {
     t_env   *new_node;
     t_env   *last_node;
@@ -41,6 +96,14 @@ static void fill_env_list(t_env **env_cpy, const char *variable)
 		exit(1);
 	}
 	new_node->variable = strdup(variable);
+    if (content)
+    {
+        new_node->content = strdup(content);
+    }
+    else
+    { 
+       new_node->content = NULL;
+    }
 	new_node->next = NULL;
 	if (!(*env_cpy))
 		*env_cpy = new_node;
@@ -55,105 +118,54 @@ t_env *env_list(char **env)
 {
     int i;
     char *variable;
+    t_content content;
     t_env *env_cpy;
-	//check env??  
-	env_cpy = NULL;
+
+    content.variable = NULL;
+    content.content = NULL;
+    env_cpy = NULL;
+
     i = 0;
-    while (env && env[i]) 
+    while (env && env[i])
     {
         variable = env[i];
-        fill_env_list(&env_cpy, variable); 
+        if (separate_varcont(variable, &content))
+        {
+            free_env_list(env_cpy);
+            free_t_content(&content);
+            return (NULL);
+        }
+        fill_env_list(&env_cpy, content.variable, content.content);
+        free_t_content(&content);
         i++;
     }
     return (env_cpy);
 }
 
-void append_node(t_env **list, const char *variable)
+/*int main(int argc, char **argv, char **env)
 {
-    t_env *new_node;
-    t_env *last;
+    (void)argc;
+    (void)argv;
+    t_env *env_cpy;
+    t_env *export_cpy;
 
-    new_node = malloc(sizeof(t_env));
-    if (!new_node)
+    env_cpy = env_list(env);
+    if (!env_cpy)
+        return (1);
+    export_cpy = export_list(env_cpy);
+    if (!export_cpy)
+        return (1);
+    t_env *temp = export_cpy;
+    while (temp)
     {
-        write(2, "Error: Memory allocation failed\n", 33);
-        exit(1);
+         printf("%s%s\n", temp->variable, temp->content ? temp->content : "");
+         temp = temp->next;
     }
-    new_node->variable = strdup(variable);
-    new_node->next = NULL;
-
-    if (!*list)
-        *list = new_node;
-    else
-    {
-        last = *list;
-        while (last->next)
-            last = last->next;
-        last->next = new_node;
-    }
-}
-void bubble_sort_env_list(t_env **head)
-{
-    t_env *current;
-    t_env *last = NULL;
-    char *temp_variable;
-    int swapped = 1;
-
-    if (!head || !(*head))
-        return;
-    while (swapped)
-    {
-        swapped = 0; // Reinicia la bandera
-        current = *head;
-
-        while (current->next != last)
-        {
-            if (strcmp(current->variable, current->next->variable) > 0)
-            {
-                temp_variable = current->variable;
-                current->variable = current->next->variable;
-                current->next->variable = temp_variable;
-                swapped = 1;
-            }
-            current = current->next;
-        }
-        last = current;
-    }
-}
+    free_env_list(export_cpy);
+    return (0);
+}*/
 
 
-t_env *export_list(t_env *original)
-{
-    t_env *copy = NULL;
-    t_env *current = original;
 
-    while (current)
-    {
-        append_node(&copy, current->variable);
-        current = current->next;
-    }
-    bubble_sort_env_list(&copy);
-    return copy;
-}
 
-int main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	t_env *env_cpy;
-	t_env *export_cpy;
 
-	env_cpy = env_list(env);
-	export_cpy = export_list(env_cpy);
-	/*while(env_cpy)
-	{
-		printf("%s\n", env_cpy->variable);
-		env_cpy = env_cpy->next;
-	}*/
-	while(export_cpy)
-	{
-    	printf("declare -x %s\n", export_cpy->variable);
-    	export_cpy = export_cpy->next; // Debes recorrer export_cpy, no env_cpy
-	}
-	return(0);
-}

@@ -24,18 +24,18 @@ static int ft_error(char *path)
 {
     if (access(path, F_OK) == -1)
     {
-        write(2, "File doesn't exist\n", 19);
-        return(-1);
+        printf("cd: no such file or directory: %s", path);
+        return(1);
     }
      if (access(path, R_OK) == -1)
     {
-        write(2, "Permission to read denied\n", 26);
-        return(-1);
+        write(2, "Permission to read denied\n", 27);
+        return(1);
     }
      if (access(path, X_OK) == -1)
     {
-        write(2, "Permission to execute denied\n", 29);
-        return(-1);
+        write(2, "Permission to execute denied\n", 30);
+        return(1);
     }
     return (0);
 }
@@ -58,10 +58,12 @@ int cd(char *path, char **env)
     }
     return(0);
 }
-int main()
+/*int main()
 {
     char **command = {"cd", NULL};
     cd(command[1], env);
     pwd();
     return(0);
-}
+}*/
+
+//cambiar todo a t_mini
