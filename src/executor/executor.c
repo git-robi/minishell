@@ -12,6 +12,45 @@
 
 #include "../../includes/mini.h"
 
+void	handle_in_out(t_data *mini, t_parser *cmd, int pipes_ends[2], int in_fd)
+{
+	if (cmd->prev)
+	{
+		if (dup2(in_fd, STDIN_FILENO) < 0)
+			//error
+		close(in_fd);
+	}
+	close(pipes_ends[0]);
+	if (cmd->next)
+	{
+		if (dup2(pipes_ends[1], STDOUT_FILENO) < 0)
+			//error
+	}
+	close(pipes_ends[1]);
+	execute_command(data, cmd);
+
+}
+
+void	make_processes(t_mini *data, t_parser *cmd, int	pipes_ends[2])
+{
+	static int	pid_idx = 0;
+	static int	in_fd = STDIN_FILENO;
+
+	
+	data->pids[i] = fork();
+	if (data->pids[i] < 0)
+		//error forking
+	else if (data->pids == 0)
+		handle_in_out();
+	pid_idx++;
+	
+	if (pid_idx == count_nodes(data->parser))
+	{
+		pid_idx = 0;
+		in_fd = STDIN_FILENO;
+	}
+}
+
 int ft_strcmp(char *s1, char *s2)
 {
 	int i;
@@ -36,6 +75,7 @@ void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
 
 int	make_heredoc(t_parser **cmd, t_lexer **heredoc)
 {
+	//in this function will be necessary to handle the "Ctrl+C" signal
 	char	*line;
 	int	heredoc_fd;
 
@@ -51,7 +91,9 @@ int	make_heredoc(t_parser **cmd, t_lexer **heredoc)
 			free(line);
 			break ;
 		}
-		//write the line on the file 
+		//call expander
+		write(heredoc_fd, line, ft_strlen(line));
+		write(heredoc_fd, "\n", 1);
 		free(line);
 	}
 	close(heredoc_fd);
@@ -119,9 +161,9 @@ void	execute_multiple_commands(t_mini *data)
 		if (cmd->next)
 			pipe (pipes_ends);
 		check_heredoc(data, cmd);
+		make_process(data, cmd, 
 
-
-	//AND THEN????
+		//AND THEN????
 	
 		cmd = cmd->next;	
 	}
