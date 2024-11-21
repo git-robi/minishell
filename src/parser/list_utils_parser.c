@@ -12,6 +12,21 @@
 
 #include "../../includes/mini.h"
 
+int	count_nodes(t_parser *parser_list)
+{
+	int			nodes;
+	t_parser	*tmp;
+
+	nodes = 0;
+	tmp = parser_list;
+	while(tmp)
+	{
+		nodes++;
+		tmp = tmp->next;
+	}
+	return (nodes);
+}
+
 void	free_node_parser(t_parser **node)
 {
 	if (*node)
