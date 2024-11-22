@@ -61,7 +61,7 @@ int separate_varcont(char *line, t_content *content)
             content->content = NULL;
         else 
         {
-            content->content = strdup(equals_sign + 1);
+            content->content = strdup(equals_sign + 2);
             if (!content->content) 
             {
                 free(content->variable);

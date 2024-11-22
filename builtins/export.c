@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/20 08:05:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/22 13:20:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ int ft_export(t_mini *data, char **line)
         {
             while (export_cpy)
             {
-                printf("declare -x %s%s\n", export_cpy->variable, export_cpy->content);
+                if (strchr(export_cpy->variable, '=') && export_cpy->content == NULL)
+                    printf("declare -x %s%s\n", export_cpy->variable, "''");
+                else if (export_cpy->content == NULL)
+                    printf("declare -x %s\n", export_cpy->variable);
+                else
+                    printf("declare -x %s%s\n", export_cpy->variable, export_cpy->content);   
                 export_cpy = export_cpy->next;
             }
         }
@@ -67,7 +72,6 @@ int ft_export(t_mini *data, char **line)
             {
                 if (separate_varcont(line[i], &content) == 0)
                 {
-                    // Verificar si la variable ya existe antes de agregarla
                     t_env *existing = find_env_variable(data->env, content.variable);
                     if (!existing)
                     {
@@ -106,7 +110,7 @@ int main() {
 
     mini.env = env;
     
-    char *line[] = { "export", "hola", NULL };
+    char *line[] = { "export", "hola= bomboclat", "adios=haolo", "xd", NULL };
     ft_export(&mini, line);
     char *line2[] = { "export", NULL };
     ft_export(&mini, line2);
