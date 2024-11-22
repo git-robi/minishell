@@ -1,6 +1,6 @@
 #include "../../includes/mini.h"
 
-void	handle_in_out(t_data *mini, t_parser *cmd, int pipes_ends[2], int in_fd)
+void	redirect_in_out(t_data *mini, t_parser *cmd, int pipes_ends[2], int in_fd)
 {
 	if (cmd->prev)
 	{
@@ -29,7 +29,7 @@ void	make_process(t_mini *data, t_parser *cmd, int pipes_ends[2])
 	if (data->pids[i] < 0)
 		//error forking
 	else if (data->pids == 0)
-		handle_in_out();
+		redirect_in_out();
 	pid_idx++;
 	
 	if (pid_idx == count_nodes(data->parser))
@@ -39,7 +39,7 @@ void	make_process(t_mini *data, t_parser *cmd, int pipes_ends[2])
 	}
 }
 
-void	execute_multiple_commands(t_mini *data)
+void	multiple_commands(t_mini *data)
 {
 	int	pipes_ends[2];
 	t_parser	*cmd;
