@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/22 13:20:07 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/22 13:36:55 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,27 @@ static int doublepointerlenght(char **line)
         i++;
     return (i);    
 }
-int ft_export(t_mini *data, char **line)
+int ft_export(t_mini *data)
 {
     int len;
     int i;
     t_env *export_cpy;
     t_content content;
-    
+    char **arg;
+    arg = data->parser->commands;
     i = 1;
     content.variable = NULL;
     content.content = NULL;
 
-    if (!line || !data)
+    if (!arg || !data)
         return (1);
 
-    len = doublepointerlenght(line);
+    len = doublepointerlenght(arg);
     export_cpy = export_list(data->env);
     if (!export_cpy)
         return (1);
 
-    if (strcmp("export", line[0]) == 0)
+    if (strcmp("export", arg[0]) == 0)
     {
         if (len == 1)
         {
@@ -70,7 +71,7 @@ int ft_export(t_mini *data, char **line)
         {
             while (i < len)
             {
-                if (separate_varcont(line[i], &content) == 0)
+                if (separate_varcont(arg[i], &content) == 0)
                 {
                     t_env *existing = find_env_variable(data->env, content.variable);
                     if (!existing)
@@ -101,20 +102,24 @@ int ft_export(t_mini *data, char **line)
 
 int main() {
     t_mini mini;
-    t_env *env = NULL;
+    
+    t_parser parser;
+    char *line[] = { "export", "hola=bomboclat", "adios=haolo", "xd=", NULL };
+    parser.commands = line;
+    mini.parser = &parser;
 
     
+    t_env *env = NULL;
     fill_env_list(&env, "USER=", "john_doe");
     fill_env_list(&env, "PATH=", "/usr/bin:/bin");
     fill_env_list(&env, "HOME=", "/home/john");
-
     mini.env = env;
     
-    char *line[] = { "export", "hola= bomboclat", "adios=haolo", "xd", NULL };
-    ft_export(&mini, line);
+    ft_export(&mini);
+
     char *line2[] = { "export", NULL };
-    ft_export(&mini, line2);
-    ft_export(&mini, line);
+    parser.commands = line2;
+    ft_export(&mini);
     if (ft_env(env) == 1)
         return(1);
     t_env *temp;
