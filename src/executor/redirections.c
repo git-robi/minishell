@@ -12,35 +12,48 @@
 
 #include "../../includes/mini.h"
 
-void	handle_redir_in(t_lexer *redirection)
+int	check_fd(int fd, int type)
+{
+	
+	//what about using perror instead of putstr_fd????
+
+	if (fd < 0)
+	{
+		if (type == REDIR_IN || type == HERE_DOC)
+			ft_putstr_fd("infile: No such file or directory\n", STDERR_FILENO);
+		else
+			ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
+	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
+	{
+		ft_putstr_fd("pipe error\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
+	if (fd > 0)
+		close(fd);
+	return (EXIT_SUCCESS);
+}
+
+int	dispatch_redirections(t_lexer *redirection, t_parser *cmd)
 {
 	int	fd;
 
-	fd = open(
-}
-
-void	handle_redir_out(t_lexer *redirection)
-{
-}
-
-void	handle_append(t_lexer *redirection)
-{
-}
-
-void	dispatch_redirections(t_lexer *redirection)
-{
 	if (redirection->type == REDIR_IN)
-		handle_redir_in(redirection);
+		fd = open(redirection->token, O_RDONLY);
+	if (redirection->type == HERE_DOC)
+		fd = open(cmd->heredoc_name, O_RDONLY);
 	if (redirection->type == REDIR_OUT)
-		handle_redir_out(redirection);
+		fd = open(redirection->token, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (redirection->type == APPEND)
-		hndle_append(redirection);
+		fd = open(redirection->token ,O_CREAT | O_RDWR | O_APPEND, 0644);
+	return (check_fd(fd, redirection->type));
 }
 
 
 //in this function I have to include a error handling (check what is the behviour in casse of error)
 
-void	redirections_exe(t_parser *cmd)
+int	redirections(t_parser *cmd)
 {
 	t_lexer	*redirection;
 
@@ -49,7 +62,9 @@ void	redirections_exe(t_parser *cmd)
 		return ;
 	while (redirection)
 	{
-		dispatch_redirections(redirection);
+		if (dispatch_redirections(redirection, cmd))
+			return (EXIT_FAILURE);
 		redirection = redirection->next;
 	}
+	return (EXIT_SUCCESS);
 }

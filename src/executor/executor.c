@@ -12,14 +12,16 @@
 
 #include "../../includes/mini.h"
 
-int	execute_command()
+int	execute_command(t_mini *data, t_parser *cmd)
 {
 	int	exit_code;
 
 	exit_code = EXIT_SUCCESS;
-	//if redirections
-		//handle redirections
-	//if builtin 
+	if (cmd->redirections)
+		exit_code = redirections(cmd);
+	if (exit_code != EXIT_SUCCESS)
+		return (exit_code);
+	//if builtin
 		//call function to execute builtin
 		//return bultin function exit code
 	//if not builtin
@@ -30,12 +32,19 @@ int	execute_command()
 
 void	one_command(t_mini *data)
 {
+	int	pid;
+
 	//expand
 	//if builtin
 		//execute builtin 
-	//check heredoc
-	//create process
-	//execute command
+	check_heredoc(data, data->parser);
+	pid = fork();
+	if (pid < 0)
+		//error
+	if (pid == 0)
+		execute_command(data, data->parser);
+	//wait for child process to finish
+	//store child process exit value 
 }
 
 void	executor(t_mini *data)
