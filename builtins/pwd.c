@@ -1,7 +1,8 @@
 #include "../includes/builtins.h"
 
-int pwd()
+int pwd(t_mini *data)
 {
+    (void)data;
     char *cwd;
     cwd = getcwd(NULL, 0);
     if (!cwd)

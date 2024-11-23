@@ -40,8 +40,13 @@ static int ft_error(char *path)
     return (0);
 }
 
-int cd(char *path, char **env)
+int cd(t_mini *data)
 {
+    char **env; //passing to t_mini
+    char *path;//
+
+    env = data->env;
+    path = data->parser->commands;
     if(!path)
         path = pathishome(env);
     if (!path)

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/22 13:36:55 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/22 17:15:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int ft_export(t_mini *data)
 }
 
 
-int main() {
+int main() 
+{
     t_mini mini;
     
     t_parser parser;
