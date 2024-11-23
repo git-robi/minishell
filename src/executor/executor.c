@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/20 11:41:44 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/23 12:51:38 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	execute_command(t_mini *data, t_parser *cmd)
 {
 	int	exit_code;
+	char	*path;
 
 	exit_code = EXIT_SUCCESS;
 	if (cmd->redirections)
@@ -25,7 +26,9 @@ int	execute_command(t_mini *data, t_parser *cmd)
 		//call function to execute builtin
 		//return bultin function exit code
 	//if not builtin
-		//call function to execute
+	path = path_finder(cmd->commands[0], data->env);
+	if (path == NULL)
+		//exit code == 126
 		//return exit code
 	return (exit_code);
 }
