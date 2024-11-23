@@ -12,29 +12,39 @@
 
 #include "../../includes/mini.h"
 
-int	execute_command(t_mini *data, t_parser *cmd)
+void	error_path(char *cmd)
 {
-	int	exit_code;
-	char	*path;
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+}
 
-	exit_code = EXIT_SUCCESS;
-	if (cmd->redirections)
-		exit_code = redirections(cmd);
-	if (exit_code != EXIT_SUCCESS)
-		return (exit_code);
+void	execute_command(t_mini *data, t_parser *cmd)
+{
+	char	*path;
+//consider making **env as a copy of the list to have the variables always updated
+	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
+		exit (EXIT_FAILURE);
 	//if builtin
 		//call function to execute builtin
 		//return bultin function exit code
 	//if not builtin
 	path = path_finder(cmd->commands[0], data->env);
 	if (path == NULL)
-		//exit code == 126
-		//return exit code
-	return (exit_code);
+	{
+		error_path(cmd->commands[0]);
+		exit (127);
+	}
+	if (execve(path, cmd->commands, data->env) == -1)
+	{
+		//print erro message
+		exit (127);
+	}
+	exit (EXIT_SUCCESS);
 }
 
 void	one_command(t_mini *data)
 {
+	int	child_status;
 	int	pid;
 
 	//expand
@@ -46,8 +56,9 @@ void	one_command(t_mini *data)
 		//error
 	if (pid == 0)
 		execute_command(data, data->parser);
-	//wait for child process to finish
-	//store child process exit value 
+	waitpid(pid, &child_status, 0);
+	if (WIFEXITED(status))
+		//store the exit status(decide in which variable)
 }
 
 void	executor(t_mini *data)
