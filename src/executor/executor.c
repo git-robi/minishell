@@ -52,7 +52,7 @@ void	one_command(t_mini *data)
 	if (pid == 0)
 		execute_command(data, data->parser);
 	waitpid(pid, &child_status, 0);
-	if (WIFEXITED(status))
+//	if (WIFEXITED(child_status))
 		//store the exit status(decide in which variable)
 }
 

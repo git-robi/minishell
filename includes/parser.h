@@ -36,6 +36,7 @@ t_lexer    *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *d
 void    add_node_parser(t_parser *node, t_parser **parser_list);
 t_parser        *new_node_parser(void);
 void    free_node_parser(t_parser **node);
+int     count_nodes(t_parser *parser_list);
 
 //utils parser
 int             count_commands(t_mini *data);
