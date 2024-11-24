@@ -8,11 +8,11 @@ void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
 	(*cmd)->heredoc_delim = (*heredoc)->token;
 	if ((*heredoc)->token[0] == '\'' && (*heredoc)->token[end] == '\'')
 		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\'");
-	else if ((*heredoc)->token[0] == '\"' && (*heredoc)->token[end] == "\"")
+	else if ((*heredoc)->token[0] == '\"' && (*heredoc)->token[end] == '\"')
 		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\"");
 }
 
-int	make_heredoc(t_parser **cmd, t_lexer **heredoc)
+int	make_heredoc(t_parser **cmd)
 {
 	//in this function will be necessary to handle the "Ctrl+C" signal
 	char	*line;
@@ -25,7 +25,7 @@ int	make_heredoc(t_parser **cmd, t_lexer **heredoc)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strcmp(line, (*cmd)->herdoc_delim) == 0)
+		if (ft_strcmp(line, (*cmd)->heredoc_delim) == 0)
 		{
 			free(line);
 			break ;
@@ -54,32 +54,30 @@ char *new_heredoc_name(void)
 	free(heredoc_num);
 	return (heredoc_name);
 }
-
-int	handle_heredoc(t_parser **cmd, t_lexer **heredoc)
+//add logic if heredoc fails!!!
+void	handle_heredoc(t_parser **cmd, t_lexer **heredoc)
 {
-	int	return_value;
-
 	if ((*cmd)->heredoc_name)
 		free((*cmd)->heredoc_name);
 	(*cmd)->heredoc_name = new_heredoc_name();
 	handle_quotes_heredoc(cmd, heredoc);
-	make_heredoc(cmd, heredoc);
-	
+	make_heredoc(cmd);
 }
 
 void	check_heredoc(t_mini *data, t_parser *cmd)
 {
-	int	return_value;
-	t_parser	*redir_tmp;
+	t_lexer	*redir_tmp;
 
+	(void)data;
 	redir_tmp = cmd->redirections;
 	while (redir_tmp)
 	{
 		if (redir_tmp->type == HERE_DOC)
 		{
-			return_value = handle_heredoc(&cmd, &redir_tmp);
-			if (return_value != 0)
-				// WHAT HAPPENS IF HEREDOC FAILS????
+			handle_heredoc(&cmd, &redir_tmp);
+			 //here we need data to free everything in case of error (?)
+			// WHAT HAPPENS IF HEREDOC FAILS????
 		}
 		redir_tmp = redir_tmp->next;
+	}
 }

@@ -13,9 +13,8 @@
 #ifndef	STR_UTILS_H
 # define STR_UTILS_H
 
-# include <stdlib.h>
-
 char    *ft_strdup(const char *s);
 size_t  ft_strlen(const char *string);
+int ft_strcmp(char *s1, char *s2);
 
 #endif 

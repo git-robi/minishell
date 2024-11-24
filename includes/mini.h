@@ -20,7 +20,11 @@
 #include "utils.h"
 #include "executor.h"
 #include "../libs/libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
 
 typedef struct s_mini
 {

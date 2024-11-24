@@ -33,12 +33,3 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	dest[i] = '\0';
 	return (dest_len + ft_strlen(src));
 }
-
-int main ()
-{
-	char a[20] = "taha ";
-
-	printf("%zu\n", ft_strlcat(a, "tahere", 3));
-	printf("%s\n", a);
-	return 0;
-}

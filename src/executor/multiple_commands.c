@@ -11,7 +11,7 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 	close(pipes_ends[0]);
 	if (cmd->next)
 	{
-		if (dup2(pipes_ends[1], STDOUT_FILENO) < 0)
+		/*if(*/dup2(pipes_ends[1], STDOUT_FILENO); /*< 0)*/
 			//error
 	}
 	close(pipes_ends[1]);
@@ -28,24 +28,23 @@ void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
 		(*data)->in_fd = STDIN_FILENO;
 	}
 	(*data)->pids[pid_idx] = fork();
-	if ((*data)->pids[pid_idx] < 0)
+	//if ((*data)->pids[pid_idx] < 0)
 		//error forking
-	else if ((*data)->pids == 0)
-	{
-		redirect_in_out(data, cmd, pipes_ends);
-		execute_command();
-	}
+	/*else*/ if ((*data)->pids > 0)
+		return ;
+	redirect_in_out(data, cmd, pipes_ends);
+	execute_command(*data, cmd);
 }
 
-void	update_in_fd(t_mini **data, t_parser *cmd)
+void	update_in_fd(t_mini **data, t_parser *cmd, int pipes_ends[2])
 {
 	if (cmd->heredoc_name)
 	{
-		close(end[0]);
+		close(pipes_ends[0]);
 		(*data)->in_fd = open(cmd->heredoc_name, O_RDONLY);
 	}
 	else
-		(*data)->in_fd = end[0];
+		(*data)->in_fd = pipes_ends[0];
 }
 
 void	wait_for_processes(t_mini **data)
@@ -59,7 +58,7 @@ void	wait_for_processes(t_mini **data)
 		waitpid((*data)->pids[i], &exit_code, 0);
 		i++;
 	}
-	if (WIFEXITED(status))
+	//if (WIFEXITED(exit_code))
 		//update variable that keeps track of exit code for $?
 }
 
@@ -80,9 +79,9 @@ void	multiple_commands(t_mini *data)
 		close(pipes_ends[1]);
 		if (cmd->prev)
 			close(data->in_fd);
-		update_in_fd(&data, cmd);
+		update_in_fd(&data, cmd, pipes_ends);
 		cmd = cmd->next;	
 	}
-	close(pipes_ends[0]);
+//	close(pipes_ends[0]);
 	wait_for_processes(&data);
 }

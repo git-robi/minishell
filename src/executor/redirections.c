@@ -47,7 +47,7 @@ int	dispatch_redirections(t_lexer *redirection, t_parser *cmd)
 		fd = open(redirection->token, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (redirection->type == APPEND)
 		fd = open(redirection->token ,O_CREAT | O_RDWR | O_APPEND, 0644);
-	return (check_fd(fd, redirection->type));
+	return (check_fd(data->in_fd, redirection->type));
 }
 
 
@@ -59,7 +59,7 @@ int	redirections(t_parser *cmd)
 
 	redirection = cmd->redirections;
 	if (!redirection)
-		return ;
+		return (EXIT_SUCCESS);
 	while (redirection)
 	{
 		if (dispatch_redirections(redirection, cmd))

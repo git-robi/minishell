@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
 #include "../includes/mini.h"
 
 void	print_lexer_list(t_lexer *lexer_list)
@@ -94,7 +91,7 @@ void	mini_loop(t_mini *data)
 		add_history(data->line);
 		if (data->line[0] == '\0')
 			continue ;
-		if (ft_strncmp(data->line, "exit", ft_strlen(data->line)) == 0)
+		if (ft_strcmp(data->line, "exit") == 0)
 			exit (0);
 		if (count_quotes(data->line))
 			continue ;

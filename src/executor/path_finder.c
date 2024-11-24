@@ -9,6 +9,7 @@
 /*   Updated: 2024/11/23 12:51:41 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../../includes/mini.h"
 
 char	*path_checker(char **all_path, char *cmd)
 {
