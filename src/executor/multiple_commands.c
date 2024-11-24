@@ -48,6 +48,21 @@ void	update_in_fd(t_mini **data, t_parser *cmd)
 		(*data)->in_fd = end[0];
 }
 
+void	wait_for_processes(t_mini **data)
+{
+	int	exit_code;
+	int	i;
+
+	i = 0;
+	while (i < count_nodes((*data)->parser))
+	{
+		waitpid((*data)->pids[i], &exit_code, 0);
+		i++;
+	}
+	if (WIFEXITED(status))
+		//update variable that keeps track of exit code for $?
+}
+
 void	multiple_commands(t_mini *data)
 {
 	int	pipes_ends[2];
@@ -69,4 +84,5 @@ void	multiple_commands(t_mini *data)
 		cmd = cmd->next;	
 	}
 	close(pipes_ends[0]);
+	wait_for_processes(&data);
 }
