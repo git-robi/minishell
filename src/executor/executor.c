@@ -12,12 +12,6 @@
 
 #include "../../includes/mini.h"
 
-void	error_path(char *cmd)
-{
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-}
-
 void	execute_command(t_mini *data, t_parser *cmd)
 {
 	char	*path;
@@ -31,7 +25,8 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	path = path_finder(cmd->commands[0], data->env);
 	if (path == NULL)
 	{
-		error_path(cmd->commands[0]);
+		ft_putstr_fd(cmd->commands[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		exit (127);
 	}
 	if (execve(path, cmd->commands, data->env) == -1)

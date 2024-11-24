@@ -103,6 +103,7 @@ void	mini_loop(t_mini *data)
 		parser(data);
 //		print_parser_list(data->parser);
 //		printf("line: %s\n", data->line);
-		clear_data(data);
+		//call expander here (?)
+		executor(data);
 	}
 }

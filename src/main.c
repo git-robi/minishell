@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	init_data(&data, env);
 	//someone is adding a welcome message, maybe we should do the same (?)
-	mini_loop(&data);	
+	mini_loop(&data);
+	//free_data;	
 	return (EXIT_SUCCESS);
 }	

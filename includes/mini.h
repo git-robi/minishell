@@ -18,6 +18,7 @@
 #include "strarr_utils.h"
 #include "str_utils.h"
 #include "utils.h"
+#include "executor.h"
 #include "../libs/libft/libft.h"
 #include <stdio.h>
 
