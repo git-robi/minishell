@@ -16,7 +16,7 @@ void	execute_command(t_mini *data, t_parser *cmd)
 {
 	char	*path;
 //consider making **env as a copy of the list to have the variables always updated
-	if (cmd->redirections && redirections(data, cmd) != EXIT_SUCCESS)
+	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
 		exit (EXIT_FAILURE);
 	//if builtin
 		//call function to execute builtin

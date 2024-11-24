@@ -25,7 +25,7 @@ int	check_fd(int fd, int type)
 			ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
+	if (fd > 0 && dup2(fd, STDOUT_FILENO) < 0)
 	{
 		ft_putstr_fd("pipe error\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
@@ -47,7 +47,7 @@ int	dispatch_redirections(t_lexer *redirection, t_parser *cmd)
 		fd = open(redirection->token, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (redirection->type == APPEND)
 		fd = open(redirection->token ,O_CREAT | O_RDWR | O_APPEND, 0644);
-	return (check_fd(data->in_fd, redirection->type));
+	return (check_fd(fd, redirection->type));
 }
 
 

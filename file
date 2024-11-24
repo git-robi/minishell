@@ -1,0 +1,11 @@
+total 720
+drwxr-xr-x  10 nemo  staff     320 Nov 24 16:05 .
+drwxr-xr-x@ 15 nemo  staff     480 Nov 24 15:21 ..
+drwxr-xr-x  15 nemo  staff     480 Nov 24 15:54 .git
+-rw-r--r--   1 nemo  staff    2220 Nov 24 12:43 Makefile
+-rw-r--r--   1 nemo  staff       0 Nov 24 16:05 file
+drwxr-xr-x   9 nemo  staff     288 Nov 24 15:53 includes
+drwxr-xr-x   6 nemo  staff     192 Nov 14 12:15 libs
+-rwxr-xr-x   1 nemo  staff  362440 Nov 24 16:05 minishell
+drwxr-xr-x  11 nemo  staff     352 Nov 24 15:56 src
+drwxr-xr-x   3 nemo  staff      96 Nov 12 11:01 tests
