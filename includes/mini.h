@@ -28,6 +28,7 @@ typedef struct s_mini
 	t_lexer		*lexer;
 	t_parser	*parser;
 	int			*pids;
+	int		in_fd;
 }	t_mini;
 
 void    mini_loop(t_mini *data);

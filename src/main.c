@@ -22,6 +22,7 @@ void	init_data(t_mini *data, char **env)
 	data->lexer = NULL;
 	data->parser = NULL;
 	data->pids = NULL;
+	data->in_fd = STDIN_FILENO;
 }
 
 int	main(int argc, char **argv, char **env)
