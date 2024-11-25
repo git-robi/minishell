@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   multiple_commands.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/25 16:21:51 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/11/25 16:26:04 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini.h"
 
 void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
@@ -20,19 +32,19 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
 {
 	static int	pid_idx = 0;
-	int		status;
+//	int		status;
 
 	(*data)->pids[pid_idx] = fork();
 	//if ((*data)->pids[pid_idx] < 0)
 		//error forking
-	/*else*/ if ((*data)->pids == 0)
+	/*else*/ if ((*data)->pids[pid_idx] == 0)
 		{
 			redirect_in_out(data, cmd, pipes_ends);
 			execute_command(*data, cmd);
 		}
-	waitpid((*data)->pids[pid_idx], &status, 0);
+//	waitpid((*data)->pids[pid_idx], &status, 0);
 	pid_idx++;
-	if (pid_idx == count_nodes((*data)->parser))
+	if (pid_idx > count_nodes((*data)->parser))
 	{
 		pid_idx = 0;
 		(*data)->in_fd = STDIN_FILENO;

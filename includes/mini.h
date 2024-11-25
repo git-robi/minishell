@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/20 11:39:01 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:48:28 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 typedef struct s_mini
 {

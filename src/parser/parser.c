@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/14 11:41:05 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:03:46 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	parser(t_mini *data)
 
 	node = NULL;
 	parser = NULL;
-	if (unexpected_token_error(error_check(data)))
-		return ;
+//	if (unexpected_token_error(error_check(data)))
+//		return ;
 	while (data->lexer)
 	{
 		node = new_node_parser();

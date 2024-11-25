@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/14 11:45:18 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:03:37 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,9 @@ void	mini_loop(t_mini *data)
 		if (count_quotes(data->line))
 			continue ;
 		read_token(data);
-//		print_lexer_list(data->lexer);
+		if (unexpected_token_error(error_check(data)))
+			continue ;
 		parser(data);
-//		print_parser_list(data->parser);
-//		printf("line: %s\n", data->line);
 		//call expander here (?)
 		executor(data);
 	}

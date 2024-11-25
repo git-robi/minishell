@@ -1,0 +1,9 @@
+file
+heredoc_n.0
+includes
+libs
+ls
+Makefile
+minishell
+src
+tests

@@ -6,13 +6,13 @@
 #    By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:47:59 by rgiambon          #+#    #+#              #
-#    Updated: 2024/11/14 10:04:13 by rgiambon         ###   ########.fr        #
+#    Updated: 2024/11/25 15:54:58 by rgiambon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 SRCS = src/main.c src/mini_loop.c  src/lexer/lexer.c src/lexer/store_tokens.c src/lexer/list_utils_lexer.c src/lexer/quotes.c src/utils/strarr_utils.c  src/utils/str_utils.c src/utils/free_memory.c src/parser/parser.c src/parser/list_utils_parser.c src/parser/parser_utils.c src/executor/executor.c src/executor/heredoc.c src/executor/multiple_commands.c src/executor/path_finder.c src/executor/redirections.c 
 OBJS = $(SRCS:.c=.o)
 HEADER = includes/strarr_utils.h includes/str_utils.h includes/mini.h includes/parser.h includes/lexer.h includes/utils.c includes/executor.h
@@ -20,8 +20,8 @@ HEADER = includes/strarr_utils.h includes/str_utils.h includes/mini.h includes/p
 LIBFT_DIR = libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-READLINE_DIR = libs/readline_macOS
-#READLINE_DIR = libs/readline_linux_1
+#READLINE_DIR = libs/readline_macOS
+READLINE_DIR = libs/readline_linux_1
 READLINE_LIBS = $(READLINE_DIR)/lib/libreadline.a $(READLINE_DIR)/lib/libhistory.a
 READLINE_INCLUDE = $(READLINE_DIR)/include
 
