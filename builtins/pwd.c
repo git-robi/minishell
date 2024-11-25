@@ -14,9 +14,3 @@ int pwd(t_mini *data)
     free(cwd);
     return (0);
 }
-
-/*int main()
-{
-    pwd();
-    return(0);
-}*/

@@ -1,23 +1,26 @@
 #include "../includes/builtins.h"
-int is_there_flags(char **args)
+int is_there_flags(char **args) 
 {
-    int i;
-    int count;
-
-    count = 0;
-    i = 1;
-    
-    if (strcmp(args[i], "-n") == 0)
+    int count = 0;
+    int i = 1;
+    int j;
+    while (args[i]) 
     {
-        while (strcmp(args[i], "-n") == 0)
+        j = 2;
+        if (strncmp(args[i], "-n", 2) == 0) 
         {
-            i++;
-            count++;
+            while (args[i][j] == 'n')
+                j++;
         }
-            return (count);
+        if (args[i][j] == '\0')
+            count++;
+        else
+            break; 
+        i++;
     }
-    return (0);
+    return count;
 }
+
 int ft_echo(t_mini *data)
 {
     int i;
@@ -26,12 +29,10 @@ int ft_echo(t_mini *data)
     int no_space;
     int flag;
 
-    i = 1;
-    flag = 0;
-    no_space = 0;
+    
     flag = is_there_flags(args);
-    //printf("%d", flag);
-    args += flag;
+    i = 1 + flag;
+    no_space = 0;
     while (args[i])
     {
         if (no_space == 1)
@@ -49,7 +50,7 @@ int main ()
 {
     t_mini  data;
     t_parser args;
-    char *frase[] = { "echo", "-n", "-n", "hola ", "que tal", NULL };
+    char *frase[] = { "echo", "-nnnnnn", "hola", "-n", "xd", NULL };
     args.commands = frase;
     data.parser = &args;
     ft_echo(&data);
