@@ -75,6 +75,12 @@ void	clear_data(t_mini *data)
 		free_parser_list(&data->parser);
 		data->parser = NULL;
 	}
+	if (data->pids != NULL)
+	{
+		free(data->pids);
+		data->pids = NULL;
+	}
+	data->in_fd = STDIN_FILENO;
 }
 
 void	mini_loop(t_mini *data)

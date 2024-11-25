@@ -4,7 +4,7 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 {
 	if (cmd->prev)
 	{
-		if (dup2((*data)->in_fd, STDIN_FILENO) < 0)
+		/*if(*/dup2((*data)->in_fd, STDIN_FILENO);/*< 0)*/
 			//error
 		close((*data)->in_fd);
 	}
@@ -19,21 +19,24 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 
 void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
 {
-	static int	pid_idx = -1;
+	static int	pid_idx = 0;
+	int		status;
 
+	(*data)->pids[pid_idx] = fork();
+	//if ((*data)->pids[pid_idx] < 0)
+		//error forking
+	/*else*/ if ((*data)->pids == 0)
+		{
+			redirect_in_out(data, cmd, pipes_ends);
+			execute_command(*data, cmd);
+		}
+	waitpid((*data)->pids[pid_idx], &status, 0);
 	pid_idx++;
 	if (pid_idx == count_nodes((*data)->parser))
 	{
 		pid_idx = 0;
 		(*data)->in_fd = STDIN_FILENO;
 	}
-	(*data)->pids[pid_idx] = fork();
-	//if ((*data)->pids[pid_idx] < 0)
-		//error forking
-	/*else*/ if ((*data)->pids > 0)
-		return ;
-	redirect_in_out(data, cmd, pipes_ends);
-	execute_command(*data, cmd);
 }
 
 void	update_in_fd(t_mini **data, t_parser *cmd, int pipes_ends[2])

@@ -14,9 +14,13 @@
 
 int	check_fd(int fd, int type)
 {
-	
 	//what about using perror instead of putstr_fd????
+	int	std_in_out;
 
+	if (type == REDIR_IN || type == HERE_DOC)
+		std_in_out = STDIN_FILENO;
+	else
+		std_in_out = STDOUT_FILENO;
 	if (fd < 0)
 	{
 		if (type == REDIR_IN || type == HERE_DOC)
@@ -25,7 +29,7 @@ int	check_fd(int fd, int type)
 			ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (fd > 0 && dup2(fd, STDOUT_FILENO) < 0)
+	if (fd > 0 && dup2(fd, std_in_out) < 0)
 	{
 		ft_putstr_fd("pipe error\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
