@@ -19,6 +19,7 @@
 #include "str_utils.h"
 #include "utils.h"
 #include "executor.h"
+#include "builtins.h"
 #include "../libs/libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -26,6 +27,13 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+
+typedef struct s_env
+{
+	char	*variable;
+	char	*content;
+	struct	s_env *next;
+}	t_env;
 
 typedef struct s_mini
 {
@@ -35,9 +43,11 @@ typedef struct s_mini
 	t_parser	*parser;
 	int			*pids;
 	int		in_fd;
+	t_env		*env_list;
 }	t_mini;
 
 void    mini_loop(t_mini *data);
 int is_whitespace(char c);
+
 
 #endif

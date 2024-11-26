@@ -23,6 +23,7 @@ void	init_data(t_mini *data, char **env)
 	data->parser = NULL;
 	data->pids = NULL;
 	data->in_fd = STDIN_FILENO;
+	data->env_list = env_list(env);
 }
 
 int	main(int argc, char **argv, char **env)

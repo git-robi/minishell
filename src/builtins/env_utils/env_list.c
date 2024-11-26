@@ -1,5 +1,5 @@
 
-#include "../../includes/builtins.h"
+#include "../../../includes/mini.h"
 #include <string.h>
 
 t_env *env_list(char **env);

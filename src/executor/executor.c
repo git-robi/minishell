@@ -21,6 +21,11 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	//if builtin
 		//call function to execute builtin
 		//return bultin function exit code
+	if (ft_strcmp(cmd->commands[0], "echo") == 0)
+	{
+		ft_echo(data, cmd);
+		exit (0);
+	}
 	//if not builtin
 	path = path_finder(cmd->commands[0], data->env);
 	if (path == NULL)

@@ -1,4 +1,5 @@
-#include "../includes/builtins.h"
+#include "../../includes/mini.h"
+
 int is_there_flags(char **args) 
 {
     int count = 0;
@@ -21,15 +22,16 @@ int is_there_flags(char **args)
     return count;
 }
 
-int ft_echo(t_mini *data)
+int ft_echo(t_mini *data, t_parser *cmd)
 {
     int i;
     char **args;
-    args = data->parser->commands;
+    args = cmd->commands;
     int no_space;
     int flag;
 
-    
+
+	(void)data;    
     flag = is_there_flags(args);
     i = 1 + flag;
     no_space = 0;
@@ -46,7 +48,7 @@ int ft_echo(t_mini *data)
     return (0);
 }
 
-int main ()
+/*int main ()
 {
     t_mini  data;
     t_parser args;
@@ -55,4 +57,4 @@ int main ()
     data.parser = &args;
     ft_echo(&data);
     return (0);
-}
+}*/

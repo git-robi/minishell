@@ -1,4 +1,4 @@
-#include "../includes/builtins.h"
+#include "../../includes/mini.h"
 //acces
 
 static char *pathishome(char **env) {
@@ -30,7 +30,7 @@ static int ft_error(char *path) {
     return 0;
 }
 
-static char *double_pointer_to_single(char **array) {
+/*static char *double_pointer_to_single(char **array) {
     size_t total_length = 0;
     char *result;
     int i = 0;
@@ -50,10 +50,10 @@ static char *double_pointer_to_single(char **array) {
         i++;
     }
     return result;
-}
+}*/
 
 int cd(t_mini *data) {
-    char **env = data->original_env;
+//    char **env = data->original_env;
     char *path = NULL;
 
     if (data->parser->commands && data->parser->commands[1]) 
@@ -63,7 +63,7 @@ int cd(t_mini *data) {
 
     if (data->parser->commands && !data->parser->commands[1]) 
     {
-        path = pathishome(env);
+        path = pathishome(data->env);
     }
 
     if (!path) {
@@ -73,6 +73,7 @@ int cd(t_mini *data) {
 
     if (ft_error(path) == 1) 
         return -1;
+    printf("it is here\n");
     if (chdir(path) != 0) 
     {
         write(2, "chdir failed\n", 13);
@@ -81,7 +82,7 @@ int cd(t_mini *data) {
     return 0;
 }
 
-int main() {
+/*int main() {
     char *env[] = { "HOME=/home/codespace", NULL };
     char *commands[] = { "cd", "..", NULL };
 
@@ -96,4 +97,4 @@ int main() {
     }
     pwd(&data);
     return 0;
-}
+}*/

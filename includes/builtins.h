@@ -22,8 +22,10 @@
 #include "../src/libft/libft.h"
 #include "lexer.h"
 #include "parser.h"
+#include "mini.h"
 
 #define ERROR 1
+typedef struct s_env t_env;
 
 typedef struct s_content
 {
@@ -32,29 +34,18 @@ typedef struct s_content
 	int has_equal;
 } t_content;
 
-typedef struct s_env
-{
-	char	*variable;
-	char	*content;
-	struct	s_env *next;
-}	t_env;
 
-typedef struct s_mini
-{
-	char		*line;
-	t_env		*env;
-	t_env		*export;
-	t_lexer		*lexer;
-	t_parser	*parser;
-}	t_mini;
+int cd(t_mini *data);
+int ft_echo(t_mini *data, t_parser *cmd);
+int pwd(t_mini *data);
 
-int pwd();
-int cd(char *path, char **env);
+
+//int cd(char *path, char **env);
 int ft_env(t_env *envcpy);
 void free_t_content(t_content *content);
 void bubble_sort_env_list(t_env **head);
 t_env *export_list(t_env *original);
-static int doublepointerlenght(char **line);
+//static int doublepointerlenght(char **line);
 int ft_export(t_mini *data, char **line);
 void free_env_list(t_env *env);
 int separate_varcont(char *line, t_content *content);
