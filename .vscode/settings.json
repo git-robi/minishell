@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "builtins.h": "c",
-        "libft.h": "c",
-        "stdio.h": "c",
-        "string.h": "c",
-        "parser.h": "c"
-    }
-}
