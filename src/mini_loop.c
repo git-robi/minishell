@@ -16,11 +16,19 @@ void	print_lexer_list(t_lexer *lexer_list)
 {
 	t_lexer *tmp = lexer_list;
 	int	i = 1;
+	
+	if (lexer_list == NULL)
+		printf("lexer is empty");
 	while (tmp)
 	{	
 		printf("redirection [%d] word: ", i);
 		printf("%s\n", tmp->token);
 		printf("type: [%d]\n", tmp->type);
+		if (tmp->next)
+			printf("%s has next: %s\n", tmp->token, tmp->next->token);
+		if (tmp->prev)
+			printf("%s has prev: %s\n", tmp->token, tmp->prev->token);
+		printf("\n");
 		tmp = tmp->next;
 		i++;
 	}
@@ -105,6 +113,9 @@ void	mini_loop(t_mini *data)
 		if (unexpected_token_error(error_check(data)))
 			continue ;
 		parser(data);
+//		print_lexer_list(data->lexer);
+//		continue ;
+//		print_parser_list(data->parser);
 		//call expander here (?)
 		executor(data);
 	}

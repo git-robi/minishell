@@ -26,11 +26,8 @@ t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data
 	new_node = new_node_lexer(redirection, (*token)->type);
 	if (new_node == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
-	new_position = (*token)->next;
-	new_position = new_position->next;
 	add_node_lexer(new_node, &(*parser_node)->redirections);
-	delete_node_lexer(data, token);
-	delete_node_lexer(data, &(*token)->next);
+	new_position = delete_redirection_lexer(data, token);
 	return (new_position);
 }
 
@@ -103,10 +100,13 @@ t_lexer	*remove_pipe(t_mini *data)
 	if (tmp && tmp->type == PIPE)
 	{
 		new_position = tmp->next;
-		delete_node_lexer(data, &tmp);
+		new_position->prev = tmp->prev;
+		new_position->prev->next = new_position;
+		//free tmp
 	}
 	return (new_position);
 }
+
 void	parser(t_mini *data)
 {
 	t_parser	*node;

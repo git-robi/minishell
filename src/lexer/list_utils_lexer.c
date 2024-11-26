@@ -29,20 +29,20 @@ void	free_node_lexer(t_lexer **node)
 	return ;
 }
 
-void	delete_node_lexer(t_mini *data, t_lexer **node)
+t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node)
 {
+	t_lexer	*new_next;
+	
+	new_next = (*node)->next->next;
+	if ((*node)->prev)
+		(*node)->prev->next = new_next;
+	if (new_next)
+		new_next->prev = (*node)->prev;
 	if ((*node)->prev == NULL)
-		data->lexer = (*node)->next;
-	else if ((*node)->next == NULL)
-		(*node)->prev->next = NULL;
-	else if ((*node)->prev == NULL && (*node)->next == NULL)
-		data->lexer = NULL;
-	else
-	{
-		(*node)->prev->next = (*node)->next;
-		(*node)->next->prev = (*node)->prev;
-	}
-	free_node_lexer(node);
+		data->lexer = new_next;
+	return (new_next);
+	//free(node one);
+	//free(node two);
 }
 
 void	add_node_lexer(t_lexer *new_node, t_lexer **token_list)
@@ -50,6 +50,7 @@ void	add_node_lexer(t_lexer *new_node, t_lexer **token_list)
 	t_lexer	*temp_node;
 
 	temp_node = *token_list;
+	new_node->next = NULL;
 	if (*token_list == NULL)
 	{
 		*token_list = new_node;

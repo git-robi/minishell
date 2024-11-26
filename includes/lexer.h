@@ -47,7 +47,7 @@ t_lexer *new_node_lexer(char *str, int type);
 void    add_node_lexer(t_lexer *new_node, t_lexer **token_list);
 void    delete_node_lexer(t_mini *data, t_lexer **node);
 void    free_node_lexer(t_lexer **node);
-
+t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node);
 //quotes
 int    count_quotes(char *line);
 int     store_token_in_quotes(char *input, t_lexer **token_list);
