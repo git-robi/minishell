@@ -73,7 +73,6 @@ int cd(t_mini *data) {
 
     if (ft_error(path) == 1) 
         return -1;
-    printf("it is here\n");
     if (chdir(path) != 0) 
     {
         write(2, "chdir failed\n", 13);

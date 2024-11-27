@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/23 12:51:38 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:02:48 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	//if builtin
 		//call function to execute builtin
 		//return bultin function exit code
-	if (ft_strcmp(cmd->commands[0], "echo") == 0)
+	if (ft_strcmp(cmd->commands[0], "cd") == 0)
 	{
-		ft_echo(data, cmd);
+		cd(data);
 		exit (0);
 	}
 	//if not builtin

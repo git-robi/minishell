@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:21:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/25 16:26:04 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:15:35 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 		/*if(*/dup2(pipes_ends[1], STDOUT_FILENO); /*< 0)*/
 			//error
 	}
-	close(pipes_ends[1]);
+//	close(pipes_ends[1]);
 }
 
 void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
@@ -73,8 +73,8 @@ void	wait_for_processes(t_mini **data)
 		waitpid((*data)->pids[i], &exit_code, 0);
 		i++;
 	}
-	//if (WIFEXITED(exit_code))
-		//update variable that keeps track of exit code for $?
+	if (WIFEXITED(exit_code))
+		exit (0);
 }
 
 void	multiple_commands(t_mini *data)
