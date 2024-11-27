@@ -1,4 +1,4 @@
-#include "../../includes/mini.h"
+#include "../../../includes/mini.h"
 
 int is_there_flags(char **args) 
 {

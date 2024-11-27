@@ -1,6 +1,4 @@
-#include "../../includes/builtins.h"
-
-#include <stdio.h>
+#include "../../../includes/mini.h"
 
 int ft_env(t_env *envcpy)
 {

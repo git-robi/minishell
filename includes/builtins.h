@@ -34,19 +34,20 @@ typedef struct s_content
 	int has_equal;
 } t_content;
 
+int	ft_cd(t_mini *data);
+int	ft_echo(t_mini *data, t_parser *cmd);
+int	ft_pwd(void);
+int	ft_env(t_env *envcpy);
+int	ft_export(t_mini *data, t_parser *cmd);
 
-int cd(t_mini *data);
-int ft_echo(t_mini *data, t_parser *cmd);
-int pwd(t_mini *data);
-
-
-//int cd(char *path, char **env);
-int ft_env(t_env *envcpy);
 void free_t_content(t_content *content);
+
+//utils
 void bubble_sort_env_list(t_env **head);
 t_env *export_list(t_env *original);
+int     call_builtin_function(t_mini *data, t_parser *cmd);
+
 //static int doublepointerlenght(char **line);
-int ft_export(t_mini *data, char **line);
 void free_env_list(t_env *env);
 int separate_varcont(char *line, t_content *content);
 void fill_env_list(t_env **env_cpy, const char *variable, const char *content);

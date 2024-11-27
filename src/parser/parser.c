@@ -118,7 +118,7 @@ void	parser(t_mini *data)
 //		return ;
 	while (data->lexer)
 	{
-		node = new_node_parser();
+		node = new_node_parser(data->lexer->token);
 		if (node == NULL)
 			free_data_and_exit(data, EXIT_FAILURE);
 		store_commands(data, &node);

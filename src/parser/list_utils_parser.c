@@ -40,7 +40,7 @@ void	free_node_parser(t_parser **node)
 	}
 }
 
-t_parser	*new_node_parser(void)
+t_parser	*new_node_parser(char *cmd)
 {
 	t_parser	*new_node;
 
@@ -49,7 +49,7 @@ t_parser	*new_node_parser(void)
 		return (NULL);
 	new_node->commands = NULL;
 	new_node->redirections = NULL;
-	//add builtin function
+	new_node->builtin = check_builtin(cmd);
 	new_node->heredoc_name = NULL;
 	new_node->heredoc_delim = NULL;
 	new_node->prev = NULL;

@@ -46,10 +46,16 @@ void	one_command(t_mini *data)
 {
 	int	child_status;
 	int	pid;
+	t_parser	*cmd;
 
+	cmd = data->parser;
 	//expand
-	//if builtin
-		//execute builtin 
+	if (cmd->builtin)
+	{
+		call_builtin_function(data, cmd);
+		//store the return value somewhere and go back to loop
+		return ;
+	}
 	check_heredoc(data, data->parser);
 	pid = fork();
 //	if (pid < 0)

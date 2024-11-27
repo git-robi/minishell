@@ -11,6 +11,19 @@
 /* ************************************************************************** */
 #include "../../includes/mini.h"
 
+int	check_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo" == 0)
+		|| !ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "exit")
+		|| !ft_strcmp(cmd, "export") ||!ft_strcmp(cmd, "pwd")
+		|| !ft_strcmp(cmd, "unset"))
+	{
+		return (1);
+	}
+	return (0);
+}
+	
+
 int	unexpected_token_error(t_lexer *node)
 {
 	if (node != NULL)

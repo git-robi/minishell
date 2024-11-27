@@ -1,4 +1,4 @@
-#include "../../includes/mini.h"
+#include "../../../includes/mini.h"
 //acces
 
 static char *pathishome(char **env) {
@@ -52,7 +52,7 @@ static int ft_error(char *path) {
     return result;
 }*/
 
-int cd(t_mini *data) {
+int ft_cd(t_mini *data) {
 //    char **env = data->original_env;
     char *path = NULL;
 

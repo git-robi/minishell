@@ -1,8 +1,7 @@
-#include "../../includes/mini.h"
+#include "../../../includes/mini.h"
 
-int pwd(t_mini *data)
+int ft_pwd(void)
 {
-    (void)data;
     char *cwd;
     cwd = getcwd(NULL, 0);
     if (!cwd)

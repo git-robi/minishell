@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/builtins.h"
+#include "../../../includes/mini.h"
+
 static t_env *find_env_variable(t_env *env, const char *variable)
 {
     t_env *temp = env;
@@ -23,6 +24,7 @@ static t_env *find_env_variable(t_env *env, const char *variable)
     }
     return NULL;  // No se encontró
 }
+
 static int doublepointerlenght(char **line)
 {
     int i;
@@ -32,14 +34,14 @@ static int doublepointerlenght(char **line)
         i++;
     return (i);    
 }
-int ft_export(t_mini *data)
+int ft_export(t_mini *data, t_parser *cmd)
 {
     int len;
     int i;
     t_env *export_cpy;
     t_content content;
     char **arg;
-    arg = data->parser->commands;
+    arg = cmd->commands;
     i = 1;
     content.variable = NULL;
     content.content = NULL;
@@ -100,7 +102,7 @@ int ft_export(t_mini *data)
 }
 
 
-int main() 
+/*int main() 
 {
     t_mini mini;
     
@@ -133,4 +135,4 @@ int main()
     }
 
     return 0;
-}
+}*/
