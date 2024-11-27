@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:12:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/05 14:14:05 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:56:28 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@ t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node);
 //quotes
 int    count_quotes(char *line);
 int     store_token_in_quotes(char *input, t_lexer **token_list);
+int there_is_space(char *line, int start, int end);
+int is_quote(char c);
+void    delete_quotes(char **line, int start, int end);
+char    *remove_quotes(char *line);
 
 #endif

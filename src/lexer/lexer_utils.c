@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/27 15:56:07 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/11/27 15:50:19 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/11/27 15:53:37 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
-#include <stdio.h>
 
-void	read_token(t_mini *data)
-{	
-	int		i;
-	int		j;
-	char		*line;
-	i = 0;
-
-	line = ft_strtrim(data->line, " ");
-	free(data->line);
-	data->line = remove_quotes(line);
-	while (data->line[i])
+int	there_is_space(char *line, int start, int end)
+{
+	while (line[end] == ' ')
+		end--;
+	while (end > start)
 	{
-		while (is_whitespace(data->line[i]))
-			i++;
-		j = store_token(&data->line[i], data);
-		if (j < 0)
-			free_data_and_exit(data, EXIT_FAILURE);
-		i = i + j;
+		if (line[end] == ' ')
+			return (1);
+		end--;
 	}
+	return (0);
 }
+
+int	is_quote(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
+
+int	is_whitespace(char c)
+{
+	if (c == ' ' || (c > 8 && c < 14))
+		return (1);
+	return (0);
+}
+
