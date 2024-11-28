@@ -1,7 +1,5 @@
 #include "../../includes/builtins.h"
 
-#include <stdio.h>
-
 int ft_env(t_env *envcpy)
 {
     t_env *temp;
@@ -24,5 +22,3 @@ int ft_env(t_env *envcpy)
     }
     return (0);
 }
-
-

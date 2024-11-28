@@ -2,8 +2,9 @@
 
 void free_double_pointer(char **ptr)
 {
-    int i = 0;
+    int i;
 
+    i = 0;
     if (!ptr)
         return;
     while (ptr[i])
@@ -52,8 +53,6 @@ void free_parser(t_parser *parser)
 }
 void free_everything(t_mini *data)
 {
-    free(data->line);
-    data->line = NULL;
     free_double_pointer(data->original_env);
     free_env_list(data->env);
     free_env_list(data->export);

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/28 04:08:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/28 05:22:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,13 @@ int main()
     t_mini mini;
     
     t_parser parser;
-    char *line[] = { "export", "hola=bomboclat=", "adios=haolo", "xd=holsdgs", "dz", NULL };
-    parser.commands = line;
+    char *line[] = { "export", NULL };
+    parser.commands = NULL;
     mini.parser = &parser;
 
     
     t_env *env = NULL;
     fill_env_list(&env, "USER=", "john_doe");
-    fill_env_list(&env, "PATH=", "/usr/bin:/bin");
-    fill_env_list(&env, "HOME=", "/home/john");
     mini.env = env;
     
     ft_export(&mini);
@@ -125,18 +123,23 @@ int main()
     if (ft_env(env) == 1)
         return(1);
     
-    char *line3[] = { "unset", "xd", NULL };
+    char *line3[] = { "unset", "USER", NULL };
     parser.commands = line3;
     ft_unset(&mini);
 
     char *line4[] = { "export", NULL };
     parser.commands = line4;
     ft_export(&mini);
-    
-    char *line5[] = { "exit", NULL };
-    parser.commands = line5;
 
-    ft_exit(&mini);
+    t_env *temp;
+    while (env) 
+    {
+        temp = env;
+        env = env->next;
+        free(temp->variable);
+        free(temp->content);
+        free(temp);
+    }
 
     return 0;
 }

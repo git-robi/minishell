@@ -18,19 +18,23 @@ void free_t_content(t_content *content)
     }
 }
 
-static t_env	*ft_last_node(t_env *env_cpy)
+static t_env *ft_last_node(t_env *env_cpy)
 {
-	t_env	*last;
+    t_env *last;
+    
+    last = NULL;
 
-	if (!env_cpy)
-		return (NULL);
-	while (env_cpy)
-	{
-		last = env_cpy;
-		env_cpy  = env_cpy->next;
-	}
-	return (last);
+    if (!env_cpy)
+        return (NULL);
+    
+    while (env_cpy)
+    {
+        last = env_cpy; 
+        env_cpy = env_cpy->next;
+    }
+    return (last);
 }
+
 
 void free_env_list(t_env *env)
 {
