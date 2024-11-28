@@ -52,25 +52,22 @@ static char *double_pointer_to_single(char **array) {
     return result;
 }
 
-int cd(t_mini *data) {
+int cd(t_mini *data) 
+{
     char **env = data->original_env;
     char *path = NULL;
 
     if (data->parser->commands && data->parser->commands[1]) 
-    {
         path = data->parser->commands[1];
-    }
 
     if (data->parser->commands && !data->parser->commands[1]) 
-    {
         path = pathishome(env);
-    }
 
-    if (!path) {
+    if (!path) 
+    {
         write(2, "HOME is not configured\n", 24);
         return -1;
     }
-
     if (ft_error(path) == 1) 
         return -1;
     if (chdir(path) != 0) 
@@ -82,8 +79,8 @@ int cd(t_mini *data) {
 }
 
 int main() {
-    char *env[] = { "HOME=/home/codespace", NULL };
-    char *commands[] = { "cd", "..", NULL };
+    char *env[] = { "HOME=/home/codespace", "banana=xd",  "lmao=dx", NULL };
+    char *commands[] = { "cd", "../nadas", NULL };
 
     t_parser parser = { commands };
     t_mini data;

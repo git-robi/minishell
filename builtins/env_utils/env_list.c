@@ -54,14 +54,14 @@ int separate_varcont(char *line, t_content *content)
     if (equals_sign) 
     {
         content->has_equal = 1;
-        content->variable = strndup(line, (equals_sign - line) + 2);
+        content->variable = strndup(line, (equals_sign - line) + 1);
         if (!content->variable)
             return (1);
         if (*(equals_sign + 1) == '\0') 
             content->content = NULL;
         else 
         {
-            content->content = strdup(equals_sign + 2);
+            content->content = strdup(equals_sign + 1);
             if (!content->content) 
             {
                 free(content->variable);
@@ -105,12 +105,14 @@ void fill_env_list(t_env **env_cpy, const char *variable, const char *content)
        new_node->content = NULL;
     }
 	new_node->next = NULL;
+    new_node->prev = NULL;
 	if (!(*env_cpy))
 		*env_cpy = new_node;
 	else
 	{
 		last_node = ft_last_node(*env_cpy);
 		last_node->next = new_node;
+        new_node->prev = last_node;
 	}
 }
 

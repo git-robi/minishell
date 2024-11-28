@@ -6,11 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/22 17:15:29 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/28 04:08:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/builtins.h"
+#include "../../includes/builtins.h"
 static t_env *find_env_variable(t_env *env, const char *variable)
 {
     t_env *temp = env;
@@ -63,7 +63,7 @@ int ft_export(t_mini *data)
                 else if (export_cpy->content == NULL)
                     printf("declare -x %s\n", export_cpy->variable);
                 else
-                    printf("declare -x %s%s\n", export_cpy->variable, export_cpy->content);   
+                    printf("declare -x %s\"%s\"\n", export_cpy->variable, export_cpy->content);   
                 export_cpy = export_cpy->next;
             }
         }
@@ -105,7 +105,7 @@ int main()
     t_mini mini;
     
     t_parser parser;
-    char *line[] = { "export", "hola=bomboclat", "adios=haolo", "xd=", NULL };
+    char *line[] = { "export", "hola=bomboclat=", "adios=haolo", "xd=holsdgs", "dz", NULL };
     parser.commands = line;
     mini.parser = &parser;
 
@@ -121,16 +121,22 @@ int main()
     char *line2[] = { "export", NULL };
     parser.commands = line2;
     ft_export(&mini);
+    
     if (ft_env(env) == 1)
         return(1);
-    t_env *temp;
-    while (env) {
-        temp = env;
-        env = env->next;
-        free(temp->variable);
-        free(temp->content);
-        free(temp);
-    }
+    
+    char *line3[] = { "unset", "xd", NULL };
+    parser.commands = line3;
+    ft_unset(&mini);
+
+    char *line4[] = { "export", NULL };
+    parser.commands = line4;
+    ft_export(&mini);
+    
+    char *line5[] = { "exit", NULL };
+    parser.commands = line5;
+
+    ft_exit(&mini);
 
     return 0;
 }
