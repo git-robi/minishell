@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "../../../includes/mini.h"
 
 void bubble_sort_env_list(t_env **head) 
 {
@@ -18,7 +18,7 @@ void bubble_sort_env_list(t_env **head)
     t_env *last = NULL;
     char *temp_variable;
     char *temp_content;
-    int temp_export;
+//    int temp_export;
     int swapped = 1;
 
     if (!head || !*head)

@@ -18,7 +18,7 @@ typedef struct s_parser t_parser;
 typedef struct s_parser
 {
 	char	**commands;
-	int	(*builtin_ptr)(t_mini *, t_parser *);
+	int	builtin;
 	char		*heredoc_name;
 	char		*heredoc_delim;
 	t_lexer		*redirections;

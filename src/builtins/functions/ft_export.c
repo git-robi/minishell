@@ -50,7 +50,7 @@ int ft_export(t_mini *data, t_parser *cmd)
         return (1);
 
     len = doublepointerlenght(arg);
-    export_cpy = export_list(data->env);
+    export_cpy = export_list(data->env_list);
     if (!export_cpy)
         return (1);
 
@@ -75,14 +75,14 @@ int ft_export(t_mini *data, t_parser *cmd)
             {
                 if (separate_varcont(arg[i], &content) == 0)
                 {
-                    t_env *existing = find_env_variable(data->env, content.variable);
+                    t_env *existing = find_env_variable(data->env_list, content.variable);
                     if (!existing)
                     {
                         // Si no existe, agregarla
                         if (content.has_equal == 1)
-                            fill_env_list(&data->env, content.variable, content.content);
+                            fill_env_list(&data->env_list, content.variable, content.content);
                         else
-                            fill_env_list(&data->env, content.variable, NULL);
+                            fill_env_list(&data->env_list, content.variable, NULL);
                     }
 
                     free(content.variable);

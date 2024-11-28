@@ -43,9 +43,12 @@ typedef struct s_mini
 	t_parser	*parser;
 	int			*pids;
 	int		in_fd;
+	int		exit_code;
 	t_env		*env_list;
 }	t_mini;
 
+int     count_env_nodes(t_env *env_list);
+char **env_list_to_strarr(t_mini *data);
 void    mini_loop(t_mini *data);
 int is_whitespace(char c);
 

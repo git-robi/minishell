@@ -6,7 +6,7 @@ t_env *env_list(char **env);
 int separate_varcont(char *line, t_content *content);
 void fill_env_list(t_env **env_cpy, const char *variable, const char *content);
 static t_env	*ft_last_node(t_env *env_cpy);
-void free_env_list(t_env *env);
+void free_env_list(t_env **env);
 void free_t_content(t_content *content);
 
 void free_t_content(t_content *content)
@@ -32,14 +32,14 @@ static t_env	*ft_last_node(t_env *env_cpy)
 	return (last);
 }
 
-void free_env_list(t_env *env)
+void free_env_list(t_env **env)
 {
     t_env *tmp;
 
-    while (env)
+    while (*env)
     {
-        tmp = env;
-        env = env->next;
+        tmp = *env;
+        *env = (*env)->next;
         free(tmp->variable);
         free(tmp->content);
         free(tmp);
@@ -131,7 +131,7 @@ t_env *env_list(char **env)
         variable = env[i];
         if (separate_varcont(variable, &content))
         {
-            free_env_list(env_cpy);
+            free_env_list(&env_cpy);
             free_t_content(&content);
             return (NULL);
         }

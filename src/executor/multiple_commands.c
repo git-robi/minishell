@@ -32,12 +32,11 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
 {
 	static int	pid_idx = 0;
-//	int		status;
 
 	(*data)->pids[pid_idx] = fork();
-	//if ((*data)->pids[pid_idx] < 0)
-		//error forking
-	/*else*/ if ((*data)->pids[pid_idx] == 0)
+	if ((*data)->pids[pid_idx] < 0)
+		free_data_and_exit(*data, 1);
+	else if ((*data)->pids[pid_idx] == 0)
 		{
 			redirect_in_out(data, cmd, pipes_ends);
 			execute_command(*data, cmd);
@@ -74,7 +73,7 @@ void	wait_for_processes(t_mini **data)
 		i++;
 	}
 	if (WIFEXITED(exit_code))
-		exit (0);
+		(*data)->exit_code = WEXITSTATUS(exit_code);
 }
 
 void	multiple_commands(t_mini *data)
