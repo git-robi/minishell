@@ -8,7 +8,7 @@ int is_there_flags(char **args)
     while (args[i]) 
     {
         j = 2;
-        if (strncmp(args[i], "-n", 2) == 0) 
+        if (ft_strncmp(args[i], "-n", 2) == 0) 
         {
             while (args[i][j] == 'n')
                 j++;

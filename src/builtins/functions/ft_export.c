@@ -54,13 +54,13 @@ int ft_export(t_mini *data, t_parser *cmd)
     if (!export_cpy)
         return (1);
 
-    if (strcmp("export", arg[0]) == 0)
+    if (ft_strcmp("export", arg[0]) == 0)
     {
         if (len == 1)
         {
             while (export_cpy)
             {
-                if (strchr(export_cpy->variable, '=') && export_cpy->content == NULL)
+                if (ft_strchr(export_cpy->variable, '=') && export_cpy->content == NULL)
                     printf("declare -x %s%s\n", export_cpy->variable, "''");
                 else if (export_cpy->content == NULL)
                     printf("declare -x %s\n", export_cpy->variable);
