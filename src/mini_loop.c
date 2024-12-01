@@ -39,7 +39,7 @@ void	print_array(char **array)
 	int i = 0;
 	while (array[i])
 	{
-		printf("command[%d] = %s\n", i + 1, array[i]);
+		printf("command[%d] = -%s-\n", i + 1, array[i]);
 		i++;
 	}
 }
@@ -114,9 +114,8 @@ void	mini_loop(t_mini *data)
 			continue ;
 		parser(data);
 //		print_lexer_list(data->lexer);
-//		continue ;
 //		print_parser_list(data->parser);
-		//call expander here (?)
+		//expander;
 		executor(data);
 	}
 }

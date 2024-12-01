@@ -23,6 +23,7 @@ void	read_token(t_mini *data)
 	line = ft_strtrim(data->line, " ");
 	free(data->line);
 	data->line = remove_quotes(line);
+	data->line = ft_strtrim(data->line, " ");
 	while (data->line[i])
 	{
 		while (is_whitespace(data->line[i]))
