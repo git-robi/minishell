@@ -54,9 +54,9 @@ char	*expand_substring(t_mini *data, char *string, int start, int end)
 	//	else
 			//check for behaviour when wrong variable
 		tmp = tmp->next;
-		free(tmp_var);
+//		free(tmp_var);
 	}
-	free(substring);
+//	free(substring);
 	return (NULL);
 }
 
@@ -65,6 +65,7 @@ void	expand_string(t_mini *data, char *string)
 	int	i;
 	int	j;
 	char	*tmp;
+	char	*tmp_str;
 
 	i = 0;
 	while (string[i] != '\0')
@@ -75,14 +76,14 @@ void	expand_string(t_mini *data, char *string)
 			while (string[j] != '\0' && !is_whitespace(string[j]))
 				j++;
 			tmp = string;
-			string = expand_substring(data, tmp, i + 1, j - 1);
+			tmp_str = expand_substring(data, tmp, i + 1, j - 1);
 //			free(tmp);
 			i = j;
-	//		continue ;
-			i--;
+			continue ;
 		}
 		i++;
 	}
+	string = tmp_str;
 		
 }
 
