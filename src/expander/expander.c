@@ -11,10 +11,10 @@ char	*expand_var(char *string, int start, int end, char *expansion)
 	
 	if (start == 1 && string[end + 1] == '\0')
 	{
-		string = expansion;
+		string = ft_strdup(expansion);
 	}
 //	printf("string: %s\n", *string);
-	if (start > 1)
+	else
 	{
 		before_var = ft_substr(string, 0, start - 1);
 		if (string[end + 1] == '\0')
@@ -69,6 +69,7 @@ void	expand_string(t_mini *data, char **string)
 
 	i = 0;
 	tmp = *string;
+	tmp_str = *string;
 	while (tmp[i] != '\0')
 	{
 		if (tmp[i] == '$')
