@@ -60,7 +60,7 @@ char	*expand_substring(t_mini *data, char *string, int start, int end)
 	return (NULL);
 }
 
-void	expand_string(t_mini *data, char *string)
+void	expand_string(t_mini *data, char **string)
 {
 	int	i;
 	int	j;
@@ -68,14 +68,14 @@ void	expand_string(t_mini *data, char *string)
 	char	*tmp_str;
 
 	i = 0;
-	while (string[i] != '\0')
+	tmp = *string;
+	while (tmp[i] != '\0')
 	{
-		if (string[i] == '$')
+		if (tmp[i] == '$')
 		{
 			j = i;
-			while (string[j] != '\0' && !is_whitespace(string[j]))
+			while (tmp[j] != '\0' && !is_whitespace(tmp[j]))
 				j++;
-			tmp = string;
 			tmp_str = expand_substring(data, tmp, i + 1, j - 1);
 //			free(tmp);
 			i = j;
@@ -83,7 +83,7 @@ void	expand_string(t_mini *data, char *string)
 		}
 		i++;
 	}
-	string = tmp_str;
+	*string = tmp_str;
 		
 }
 
@@ -106,7 +106,7 @@ void	handle_node_expander(t_mini *data, t_parser *node)
 		else
 		{
 //			node->commands[i] = ft_strtrim(node->commands[i], "\"");
-			expand_string(data, node->commands[i]);
+			expand_string(data, &node->commands[i]);
 		}
 		i++;
 	}
