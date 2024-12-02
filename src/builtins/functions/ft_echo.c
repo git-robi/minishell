@@ -39,7 +39,7 @@ int ft_echo(t_mini *data, t_parser *cmd)
     {
         if (no_space == 1)
             printf(" ");
-        printf("%s", args[i]);
+        printf("%s ", args[i]);
         i++;
     }
     if (flag)

@@ -116,7 +116,7 @@ void	mini_loop(t_mini *data)
 //		print_lexer_list(data->lexer);
 //		print_parser_list(data->parser);
 		expander(data);
-		print_parser_list(data->parser);
+//		print_parser_list(data->parser);
 		executor(data);
 	}
 }
