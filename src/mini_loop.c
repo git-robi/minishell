@@ -110,7 +110,7 @@ void	mini_loop(t_mini *data)
 		if (count_quotes(data->line))
 			continue ;
 		read_token(data);
-		print_lexer_list(data->lexer);
+//		print_lexer_list(data->lexer);
 		if (unexpected_token_error(error_check(data)))
 			continue ;
 		parser(data);

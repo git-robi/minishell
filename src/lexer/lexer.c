@@ -20,11 +20,31 @@ int	is_double_quoted(char *str)
 	return (0);
 }
 
+void	clean_line(char **line)
+{
+	char	*tmp;
+	int	i;
+
+	i = 0;
+	while ((*line)[i])
+	{
+		if ((*line)[i] == ' ')
+		{
+			(*line)[i] = (*line)[ft_strlen(*line) - 1];
+			(*line)[ft_strlen(*line) - 1] = ' ';
+			break;
+		}
+		i++;
+	}
+	tmp = ft_strtrim(*line, " ");
+	free(*line);
+	*line = tmp;
+}
+
 void	delete_inside_quotes(char **line, int start, int end, char quote) 
 {
 	int	i;
 	int	j;
-	char	*tmp;
 
 	i = start;
 	while (i <= end)
@@ -48,9 +68,7 @@ void	delete_inside_quotes(char **line, int start, int end, char quote)
 			j--;
 		}
 	}
-	tmp = ft_strtrim(*line, " ");
-	free(*line);
-	*line = tmp;
+	clean_line(line);
 }
 
 void	remove_inside_quotes(t_mini *data)
