@@ -11,6 +11,7 @@ char	*expand_var(char *string, int start, int end, char *expansion, int *i)
 	
 	if (start == 1 && string[end + 1] == '\0')
 	{
+		free(string);
 		string = ft_strdup(expansion);
 		*i = (int)ft_strlen(expansion) - 1;
 	}
@@ -35,7 +36,6 @@ char	*expand_var(char *string, int start, int end, char *expansion, int *i)
 		}
 	}
 	return (string);
-//	printf("string in expand_var: %s\n", string); 
 	free(before_var);
 }
 
@@ -47,7 +47,6 @@ char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
 
 	tmp = data->env_list;
 	substring = ft_substr(string, start, end - start + 1);
-//	printf("substring: %s-\n", substring);
 	while (tmp)
 	{
 		tmp_var = ft_substr(tmp->variable, 0, ft_strlen(tmp->variable) - 2);
@@ -62,6 +61,45 @@ char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
 	return (NULL);
 }
 
+char	*handle_question_mark(char *string, int start, int exit_code, int *i)
+{
+	char	*tmp;
+	char	*before_var;
+	char	*after_var;
+	char	*exit_string;
+
+	exit_string = ft_itoa(exit_code);
+	if (start == 1 && string[2] == '\0')
+	{
+		free(string);
+		string = exit_string;
+		*i = (int)ft_strlen(string) - 1;
+	}
+	else
+	{
+		before_var = ft_substr(string, 0, start - 1);
+		if (string[start + 1] == '\0')
+		{
+			free(string);
+			string = ft_strjoin(before_var, exit_string);
+			*i = (int)ft_strlen(string) - 1;
+		}
+		else
+		{
+			after_var = ft_substr(string, start + 1, ft_strlen(string) - 1);
+			free(string);
+			tmp = ft_strjoin(before_var, exit_string);
+			*i = (int)ft_strlen(tmp) - 1;
+			string = ft_strjoin(tmp, after_var);
+			free(after_var);
+			free(tmp);
+		}
+		free(before_var);
+		free(exit_string);
+	}
+	return (string);
+}
+
 void	expand_string(t_mini *data, char **string)
 {
 	int	i;
@@ -72,31 +110,29 @@ void	expand_string(t_mini *data, char **string)
 	i = -1;
 	tmp_str = ft_strdup(*string);
 	tmp = ft_strdup(*string);
-//	printf("entered expand_string\n");
 	while (tmp[++i] != '\0')
 	{
 		if (tmp[i] == '$')
 		{
 			
-//			if (tmp[i + 1] == '?')
-//			{
-		//		tmphandle_question_mark(string, i + 1);
-			//	continue ;
-//			}
+			if (tmp[i + 1] == '?')
+			{
+				tmp_str = handle_question_mark(tmp, i + 1, data->exit_code, &i);
+			//	free(tmp);
+				tmp = ft_strdup(tmp_str);
+				continue ;
+			}
 			j = i + 1;
 			while (tmp[j] != '$' && tmp[j] != '\0' && !is_whitespace(tmp[j]))
 				j++;
-//			printf("substring = %s\n", ft_substr(tmp, i, j - i));
-			free(tmp_str);
+//			free(tmp_str);
 			tmp_str = expand_substring(data, tmp, i + 1, j - 1, &i);
-			free(tmp);
+//			free(tmp);
 		}
 		tmp = ft_strdup(tmp_str);
 	}
-	free(tmp);
+//	free(tmp);
 	*string = tmp_str;
-	
-		
 }
 
 int	is_single_quoted(char *str)

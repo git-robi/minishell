@@ -13,6 +13,61 @@
 #include "../../includes/mini.h"
 #include <stdio.h>
 
+int	is_double_quoted(char *str)
+{
+	if (str[0] == '\"' && str[ft_strlen(str) - 1] == '\"')
+		return (1);
+	return (0);
+}
+
+void	delete_inside_quotes(char **line, int start, int end, char quote) 
+{
+	int	i;
+	int	j;
+	char	*tmp;
+
+	i = start;
+	while (i <= end)
+	{
+		if ((*line)[i] == quote)
+			(*line)[i] = ' ';
+		i++;
+	}
+	while ((*line)[start] == ' ')
+		start++;
+	while (there_is_space(*line, start, end))
+	{
+		j = end;	
+		while (j > start)
+		{
+			if ((*line)[j - 1] == ' ')
+			{	
+				(*line)[j - 1] = (*line)[j];
+				(*line)[j] = ' ';
+			}
+			j--;
+		}
+	}
+	tmp = ft_strtrim(*line, " ");
+	free(*line);
+	*line = tmp;
+}
+
+void	remove_inside_quotes(t_mini *data)
+{	
+	t_lexer	*tmp;
+
+	tmp = data->lexer;
+	while (tmp)
+	{
+		if(is_single_quoted(tmp->token))
+			delete_inside_quotes(&tmp->token, 1, ft_strlen(tmp->token) - 2, '\'');
+		else if (is_double_quoted(tmp->token))
+			delete_inside_quotes(&tmp->token, 1, ft_strlen(tmp->token) - 2, '\"');
+		tmp = tmp->next;
+	}
+}
+
 void	read_token(t_mini *data)
 {	
 	int		i;
@@ -33,4 +88,5 @@ void	read_token(t_mini *data)
 			free_data_and_exit(data, EXIT_FAILURE);
 		i = i + j;
 	}
+	remove_inside_quotes(data);
 }

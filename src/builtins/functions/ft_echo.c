@@ -1,60 +1,46 @@
 #include "../../../includes/mini.h"
 
-int is_there_flags(char **args) 
+int is_there_flag(char **args) 
 {
-    int count = 0;
-    int i = 1;
-    int j;
-    while (args[i]) 
-    {
-        j = 2;
-        if (ft_strncmp(args[i], "-n", 2) == 0) 
-        {
-            while (args[i][j] == 'n')
-                j++;
-        }
-        if (args[i][j] == '\0')
-            count++;
-        else
-            break; 
-        i++;
-    }
-    return count;
+	int	j;
+
+	if (args[1])
+	{
+		if (!ft_strncmp(args[1], "-n", 2))
+		{
+			j = 2;
+			while (args[1][j] == 'n')
+				j++;
+			if (args[1][j] == '\0')
+				return (1);
+		}
+	}
+	return (0);
 }
 
 int ft_echo(t_mini *data, t_parser *cmd)
-{
-    int i;
-    char **args;
-    args = cmd->commands;
-    int no_space;
-    int flag;
+{	
+	int i;
+	char **args;
 
-
-	(void)data;    
-    flag = is_there_flags(args);
-    i = 1 + flag;
-    no_space = 0;
-    while (args[i])
-    {
-        if (no_space == 1)
-            printf(" ");
-        printf("%s ", args[i]);
-        i++;
-    }
-    if (flag)
-        return(0);
-    printf("\n");
-    return (0);
+	(void)data;
+	args = cmd->commands;
+	i = 1;
+	if (args[i] == NULL)
+	{
+		printf("\n");
+		return (0);
+	}
+	if (is_there_flag(args))
+		i++;
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		i++;
+		if (args[i])
+			printf(" ");
+	}
+	if (!is_there_flag(args))
+		printf("\n");
+	return (0);
 }
-
-/*int main ()
-{
-    t_mini  data;
-    t_parser args;
-    char *frase[] = { "echo", "-nnnnnn", "hola", "-n", "xd", NULL };
-    args.commands = frase;
-    data.parser = &args;
-    ft_echo(&data);
-    return (0);
-}*/

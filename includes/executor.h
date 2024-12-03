@@ -8,9 +8,9 @@ void	execute_command(t_mini *data, t_parser *cmd);
 
 //heredoc
 void	check_heredoc(t_mini *data, t_parser *cmd);
-void	handle_heredoc(t_parser **cmd, t_lexer **heredoc);
+void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc);
 char *new_heredoc_name(void);
-int	make_heredoc(t_parser **cmd);
+int	make_heredoc(t_mini *data, t_parser **cmd, char *delimiter);
 void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc);
 
 //multiple commands

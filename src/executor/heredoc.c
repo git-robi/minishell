@@ -12,7 +12,7 @@ void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
 		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\"");
 }
 
-int	make_heredoc(t_parser **cmd)
+int	make_heredoc(t_mini *data, t_parser **cmd, char *delimiter)
 {
 	//in this function will be necessary to handle the "Ctrl+C" signal
 	char	*line;
@@ -30,7 +30,8 @@ int	make_heredoc(t_parser **cmd)
 			free(line);
 			break ;
 		}
-		//call expander
+		if (!is_single_quoted(delimiter))
+			expand_string(data, &line);
 		write(heredoc_fd, line, ft_strlen(line));
 		write(heredoc_fd, "\n", 1);
 		free(line);
@@ -54,14 +55,15 @@ char *new_heredoc_name(void)
 	free(heredoc_num);
 	return (heredoc_name);
 }
+
 //add logic if heredoc fails!!!
-void	handle_heredoc(t_parser **cmd, t_lexer **heredoc)
+void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 {
 	if ((*cmd)->heredoc_name)
 		free((*cmd)->heredoc_name);
 	(*cmd)->heredoc_name = new_heredoc_name();
 	handle_quotes_heredoc(cmd, heredoc);
-	make_heredoc(cmd);
+	make_heredoc(data, cmd, (*heredoc)->token);
 }
 
 void	check_heredoc(t_mini *data, t_parser *cmd)
@@ -74,7 +76,7 @@ void	check_heredoc(t_mini *data, t_parser *cmd)
 	{
 		if (redir_tmp->type == HERE_DOC)
 		{
-			handle_heredoc(&cmd, &redir_tmp);
+			handle_heredoc(data, &cmd, &redir_tmp);
 			 //here we need data to free everything in case of error (?)
 			// WHAT HAPPENS IF HEREDOC FAILS????
 		}

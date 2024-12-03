@@ -20,6 +20,7 @@
 #include "utils.h"
 #include "executor.h"
 #include "builtins.h"
+#include "expander.h"
 #include "../libs/libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
