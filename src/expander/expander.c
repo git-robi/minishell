@@ -49,11 +49,9 @@ char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
 	substring = ft_substr(string, start, end - start + 1);
 	while (tmp)
 	{
-		tmp_var = ft_substr(tmp->variable, 0, ft_strlen(tmp->variable) - 2);
+		tmp_var = ft_substr(tmp->variable, 0, ft_strlen(tmp->variable) - 1);
 		if (!ft_strcmp(tmp_var, substring))
 			return (expand_var(string, start, end, tmp->content, i));
-	//	else
-			//check for behaviour when wrong variable
 		tmp = tmp->next;
 		free(tmp_var);
 	}

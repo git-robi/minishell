@@ -54,14 +54,14 @@ int separate_varcont(char *line, t_content *content)
     if (equals_sign) 
     {
         content->has_equal = 1;
-        content->variable = strndup(line, (equals_sign - line) + 2);
+        content->variable = strndup(line, (equals_sign - line) + 1);
         if (!content->variable)
             return (1);
         if (*(equals_sign + 1) == '\0') 
             content->content = NULL;
         else 
         {
-            content->content = strdup(equals_sign + 2);
+            content->content = strdup(equals_sign + 1);
             if (!content->content) 
             {
                 free(content->variable);
@@ -141,31 +141,3 @@ t_env *env_list(char **env)
     }
     return (env_cpy);
 }
-
-/*int main(int argc, char **argv, char **env)
-{
-    (void)argc;
-    (void)argv;
-    t_env *env_cpy;
-    t_env *export_cpy;
-
-    env_cpy = env_list(env);
-    if (!env_cpy)
-        return (1);
-    export_cpy = export_list(env_cpy);
-    if (!export_cpy)
-        return (1);
-    t_env *temp = export_cpy;
-    while (temp)
-    {
-         printf("%s%s\n", temp->variable, temp->content ? temp->content : "");
-         temp = temp->next;
-    }
-    free_env_list(export_cpy);
-    return (0);
-}*/
-
-
-
-
-
