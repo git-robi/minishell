@@ -63,6 +63,9 @@ void	executor(t_mini *data)
 {
 	int		commands;
 
+//	signal(SIGQUIT, handle_sigquit); option
+// 	signal(SIGQUIT, SIG_IGN); ---- Ignore SIGQUIT (Ctrl+\)
+//	data->in_cmd = 1;
 	commands = count_nodes(data->parser);
 	if (commands > 1)
 	{
@@ -73,4 +76,5 @@ void	executor(t_mini *data)
 	}
 	else
 		one_command(data);
+//	data->in_cmd = 0;
 }

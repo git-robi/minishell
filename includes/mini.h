@@ -21,6 +21,7 @@
 #include "executor.h"
 #include "builtins.h"
 #include "expander.h"
+#include "signals.h"
 #include "../libs/libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -28,6 +29,10 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <signal.h>
+
+
+extern int exit_status;
 
 typedef struct s_env
 {

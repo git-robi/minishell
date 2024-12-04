@@ -99,7 +99,7 @@ void	mini_loop(t_mini *data)
 		data->line = readline("minishell$ " );
 		if (!data->line)
 		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
+			ft_putstr_fd("exit", STDOUT_FILENO);
 			exit (EXIT_SUCCESS);
 		}
 		add_history(data->line);
