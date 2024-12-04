@@ -52,10 +52,20 @@ char **env_list_to_strarr(t_mini *data)
 size_t	strarr_len(char **strarr)
 {
 	size_t	len;
+	int	i;
 
+	i = 0;
 	len = 0;
-	while (strarr[len])
+	while (strarr[i])
+	{
+		if (strarr[i][0] == '\0')
+		{
+			i++;
+			continue ;
+		}
+		i++;
 		len++;
+	}
 	return (len);
 }
 
@@ -63,21 +73,29 @@ char	**strarr_cpy(char **strarr)
 {
 	char	**cpy;
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	cpy = (char **)ft_calloc(strarr_len(strarr) + 1, sizeof(char *));
 	if (cpy == NULL)
 		exit (EXIT_FAILURE);
 	while (strarr[i])
 	{
-		cpy[i] = ft_strdup(strarr[i]);
-		if (cpy[i] == NULL)
+		if (strarr[i][0] == '\0')
+		{
+			i++;
+			continue ;
+		}
+		cpy[j] = ft_strdup(strarr[i]);
+		if (cpy[j] == NULL)
 		{
 			free_strarr(cpy);
 			return (NULL);
 		}
 		i++;
+		j++;
 	}
-	cpy[i] = NULL;
+	cpy[j] = NULL;
 	return (cpy);
 }
