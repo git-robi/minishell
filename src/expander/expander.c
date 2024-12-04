@@ -54,7 +54,6 @@ char	*unmatched_var(char *string, int start, int end, int *i)
 	else
 	{
 		before_var = ft_substr(string, 0, start - 1);
-		printf("before_var: %s-\n", before_var);
 		if (string[end + 1] == '\0')
 		{
 			string = before_var;
@@ -63,12 +62,10 @@ char	*unmatched_var(char *string, int start, int end, int *i)
 		else
 		{
 			after_var = ft_substr(string, end + 1, ft_strlen(string) - 1);
-			printf("after_var: %s\n", after_var);
 			string = ft_strjoin(before_var, after_var);
 			*i = (int)ft_strlen(before_var) - 1;
 		}
 	}
-//	printf("i = %c\n", string[*i]);
 	return (string);
 }
 
@@ -84,7 +81,7 @@ char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
 	while (tmp)
 	{
 		tmp_var = ft_substr(tmp->variable, 0, ft_strlen(tmp->variable) - 1);
-		if (!ft_strcmp(tmp_var, substring))
+		if (!ft_strcmp(tmp_var, substring) && tmp->content)
 			return (expand_var(string, start, end, tmp->content, i));
 		tmp = tmp->next;
 //		free(tmp_var);
