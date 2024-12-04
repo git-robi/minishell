@@ -22,39 +22,23 @@ int ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-size_t	ft_strlen(const char *string)
+void	clean_line(char **line)
 {
-	size_t	len;
+	char	*tmp;
+	int	i;
 
-	len = 0;
-	while (string[len] != '\0')
-	{
-		len++;
-	}
-	return (len);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	write(fd, s, ft_strlen(s));
-}
-
-char	*ft_strdup(const char *s)
-{
-	size_t	size;
-	char	*str;
-	int		i;
-
-	size = ft_strlen(s) + 1;
-	str = (char *)malloc(size);
-	if (str == NULL)
-		return (NULL);
 	i = 0;
-	while (s[i])
+	while ((*line)[i])
 	{
-		str[i] = s[i];
+		if ((*line)[i] == ' ')
+		{
+			(*line)[i] = (*line)[ft_strlen(*line) - 1];
+			(*line)[ft_strlen(*line) - 1] = ' ';
+			break;
+		}
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	tmp = ft_strtrim(*line, " ");
+	free(*line);
+	*line = tmp;
 }

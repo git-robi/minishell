@@ -1,5 +1,4 @@
 #include "../../../includes/mini.h"
-//acces
 
 static char *pathishome(char **env) {
     int i = 0;

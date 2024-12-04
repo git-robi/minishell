@@ -55,5 +55,8 @@ int there_is_space(char *line, int start, int end);
 int is_quote(char c);
 void    delete_quotes(char **line, int start, int end);
 char    *remove_quotes(char *line);
-
+void	remove_inside_quotes(t_mini *data);
+int     is_double_quoted(char *str);
+void    clean_line(char **line);
+int	is_single_quoted(char *str);
 #endif
