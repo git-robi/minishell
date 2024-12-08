@@ -9,8 +9,7 @@ char	*expand_var(char *string, int start, int end, char *expansion, int *i)
 
 	tmp = NULL;
 	after_var = NULL;
-
-		
+	
 	if (start == 1 && string[end + 1] == '\0')
 	{
 //		free(string);

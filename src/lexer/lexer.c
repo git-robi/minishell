@@ -22,8 +22,8 @@ void	read_token(t_mini *data)
 
 	line = ft_strtrim(data->line, " ");
 	free(data->line);
-	data->line = remove_quotes(line);
-	data->line = ft_strtrim(data->line, " ");
+//	data->line = remove_quotes(line);
+	data->line = line;
 	while (data->line[i])
 	{
 		while (is_whitespace(data->line[i]))
@@ -33,5 +33,5 @@ void	read_token(t_mini *data)
 			free_data_and_exit(data, EXIT_FAILURE);
 		i = i + j;
 	}
-	remove_inside_quotes(data);
+//	remove_inside_quotes(data);
 }

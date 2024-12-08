@@ -6,12 +6,20 @@ void	expand_string(t_mini *data, char **string)
 	int	j;
 	char	*tmp;
 	char	*tmp_str;
+	int	single_quote;
+	int	double_quote;
 
+	single_quote = 0;
+	double_quote = 0;
 	i = -1;
 	tmp_str = ft_strdup(*string);
 	tmp = ft_strdup(*string);
 	while (tmp[++i] != '\0')
 	{
+		if (tmp[i] == '\'' && (double_quote == 0 || double_quote % 2 == 0))
+			single_quote++;
+		if (tmp[i] == '\"' && (single_quote == 0 || single_quote % 2 == 0))
+			double_quote++;
 		if (tmp[i] == '$')
 		{
 			while (tmp[i] == '$')
@@ -26,11 +34,12 @@ void	expand_string(t_mini *data, char **string)
 				continue ;
 			}
 			j = i;
-			while (tmp[j] != '$' && tmp[j] != '\0' && !is_whitespace(tmp[j]))
+			while (tmp[j] != '$' && tmp[j] != '\0' && !is_whitespace(tmp[j]) && !is_quote(tmp[j]))
 				j++;
 //			free(tmp_str);
-			tmp_str = expand_substring(data, tmp, i, j - 1, &i);
-//			free(tmp);
+			if (single_quote == 0 || single_quote % 2 == 0)
+				tmp_str = expand_substring(data, tmp, i, j - 1, &i);
+			free(tmp);
 		}
 		tmp = ft_strdup(tmp_str);
 	}
@@ -45,13 +54,9 @@ void	handle_node_expander(t_mini *data, t_parser *node)
 	i = 0;
 	while (node->commands && node->commands[i])
 	{
-		if (is_single_quoted(node->commands[i]))
-			node->commands[i] = ft_strtrim(node->commands[i], "\'");
-		else
-		{
-			node->commands[i] = ft_strtrim(node->commands[i], "\"");
-			expand_string(data, &node->commands[i]);
-		}
+//		if (is_single_quoted(node->commands[i]))
+//			node->commands[i] = ft_strtrim(node->commands[i], "\'");
+		expand_string(data, &node->commands[i]);
 		i++;
 	}
 }

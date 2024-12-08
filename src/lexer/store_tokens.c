@@ -55,16 +55,22 @@ int	store_word(char *input, t_lexer **token_list)
 {
 	int	end;
 	t_lexer	*new_node;
-
+	int	s_quote;
+	int	d_quote;
+	s_quote = 0;
+	d_quote = 0;
 	end = 0;
 //	while (is_whitespace(input[end]))
 //		end++;
-	if (input[0] == '\'' || input[0] == '\"')
-		return (store_token_in_quotes(input,  token_list));
+//	if (input[0] == '\'' || input[0] == '\"')
+//		return (store_token_in_quotes(input,  token_list));
 	while (input[end])
 	{
-		if (input[end] == '<' || input[end] == '>' || input [end] == '|'
-			|| input[end] == '\'' || input[end] == '\"' || is_whitespace(input[end]))
+		if (input[end] == '\'')
+			s_quote++;
+		if (input[end] == '\"')
+			d_quote++; 
+		if ((input[end] == '<' || input[end] == '>' || input [end] == '|' || is_whitespace(input[end])) && ((s_quote % 2 == 0 && d_quote % 2 == 0) || (s_quote % 2 == 0 && d_quote == 0) || (s_quote == 0 && d_quote % 2 == 0 )))
 			break ;
 		end++;
 	}
