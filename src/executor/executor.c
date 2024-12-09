@@ -25,6 +25,7 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	path = path_finder(cmd->commands[0], env);
 	if (path == NULL)
 	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd->commands[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		exit (127);
@@ -42,7 +43,6 @@ void	one_command(t_mini *data)
 	t_parser	*cmd;
 
 	cmd = data->parser;
-	//expand
 	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
 	{
 		data->exit_code = call_builtin_function(data, cmd);	

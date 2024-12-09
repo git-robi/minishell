@@ -26,11 +26,11 @@ char	*path_checker(char **all_path, char *cmd)
 	if (is_absolute_or_relative_path(cmd))
 	{
         	if (access(cmd, X_OK) == 0) 
-            		return strdup(cmd); // Return a duplicate of cmd if it's valid
-        	return NULL; // Invalid absolute/relative path
+            		return strdup(cmd);
+        	return NULL;
     	}
-	i = 0;
-	while (all_path[i] != NULL)
+	i = -1;
+	while (all_path[++i] != NULL)
 	{
 		path_to_check = all_path[i];
 		path = malloc(ft_strlen(path_to_check) + ft_strlen(cmd) + 2);
@@ -41,7 +41,6 @@ char	*path_checker(char **all_path, char *cmd)
 		ft_strcat(path, cmd);
 		if (access(path, X_OK) == 0)
 			return (path);
-		i++;
 		free(path);
 	}
 	return (NULL);

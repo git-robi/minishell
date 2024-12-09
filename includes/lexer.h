@@ -51,7 +51,6 @@ t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node);
 //quotes
 int    count_quotes(char *line);
 int     store_token_in_quotes(char *input, t_lexer **token_list);
-int there_is_space(char *line, int start, int end);
 int is_quote(char c);
 void    delete_quotes(char **line, int start, int end);
 char    *remove_quotes(char *line);

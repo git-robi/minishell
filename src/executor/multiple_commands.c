@@ -84,8 +84,6 @@ void	multiple_commands(t_mini *data)
 	cmd = data->parser;
 	while (cmd)
 	{
-		//call the expander;
-
 		if (cmd->next)
 			pipe(pipes_ends);
 		check_heredoc(data, cmd);

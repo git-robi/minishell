@@ -69,11 +69,11 @@ void    clean_quotes(t_mini *data)
 	t_parser	*tmp;
 	int	marker_count;
 
-	i = 0;
 	marker_count = 0;
 	tmp = data->parser;
 	while (tmp)
 	{
+		i = 0;
 		while (tmp->commands && tmp->commands[i])
 		{
 			replace_quotes(tmp->commands[i], &marker_count, 0);

@@ -12,19 +12,6 @@
 
 #include "../../includes/mini.h"
 
-int	there_is_space(char *line, int start, int end)
-{
-	while (line[end] == ' ')
-		end--;
-	while (end > start)
-	{
-		if (line[end] == ' ')
-			return (1);
-		end--;
-	}
-	return (0);
-}
-
 int	is_quote(char c)
 {
 	if (c == '\'' || c == '\"')

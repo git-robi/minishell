@@ -15,16 +15,17 @@
 
 void	free_node_lexer(t_lexer **node)
 {
-//	if ((*node)->token)
-//	{
-//		free((*node)->token);
-//		(*node)->token = NULL;
-//	}
-//	if (*node)
-//	{
-//		free(*node);
-//		*node = NULL;
-//	}
+/*	if ((*node)->token)
+	{
+		free((*node)->token);
+		(*node)->token = NULL;
+	}
+	if (*node)
+	{
+		free(*node);
+		*node = NULL;
+	}
+*/
 	(void)node;
 	return ;
 }
