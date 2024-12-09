@@ -1,7 +1,7 @@
 
 #include "../../includes/mini.h"
 
-char	*expand_var(char *string, int start, int end, char *expansion, int *i)
+char	*expand_and_reassemble(char *string, int start, int end, char *expansion, int *i)
 {
 	char	*before_var;
 	char	*after_var;
@@ -9,35 +9,32 @@ char	*expand_var(char *string, int start, int end, char *expansion, int *i)
 
 	tmp = NULL;
 	after_var = NULL;
-	
+	before_var = ft_substr(string, 0, start - 1);
+	if (string[end + 1] == '\0')
+	{
+		string = ft_strjoin(before_var, expansion);
+		*i = (int)ft_strlen(string) - 1;
+	}
+	else
+	{
+		after_var = ft_substr(string, end + 1, ft_strlen(string) - 1);
+		tmp = ft_strjoin(before_var, expansion);
+		*i = (int)ft_strlen(tmp) - 1;
+		string = ft_strjoin(tmp, after_var);
+	}
+	return (string);
+}
+
+char	*expand_var(char *string, int start, int end, char *expansion, int *i)
+{
 	if (start == 1 && string[end + 1] == '\0')
 	{
-//		free(string);
 		string = ft_strdup(expansion);
 		*i = (int)ft_strlen(expansion) - 1;
 	}
 	else
-	{
-		before_var = ft_substr(string, 0, start - 1);
-		if (string[end + 1] == '\0')
-		{
-//			free(string);
-			string = ft_strjoin(before_var, expansion);
-			*i = (int)ft_strlen(string) - 1;
-		}
-		else
-		{
-			after_var = ft_substr(string, end + 1, ft_strlen(string) - 1);
-//			free(string);
-			tmp = ft_strjoin(before_var, expansion);
-			*i = (int)ft_strlen(tmp) - 1;
-			string = ft_strjoin(tmp, after_var);
-//			free(after_var);
-//			free(tmp);
-		}
-	}
+		string = expand_and_reassemble(string, start, end, expansion, i);
 	return (string);
-//	free(before_var);
 }
 
 char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
