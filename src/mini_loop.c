@@ -12,7 +12,7 @@
 
 #include "../includes/mini.h"
 
-void	print_lexer_list(t_lexer *lexer_list)
+/*void	print_lexer_list(t_lexer *lexer_list)
 {
 	t_lexer *tmp = lexer_list;
 	int	i = 1;
@@ -64,7 +64,7 @@ void	print_parser_list(t_parser *parser_list)
 		tmp = tmp->next;
 		printf("\n");
 	}
-}
+}*/
 
 void	clear_data(t_mini *data)
 {
@@ -134,7 +134,6 @@ void	mini_loop(t_mini *data)
 			continue ;
 		parser(data);
 		expander(data);
-		clean_quotes(data);
 		executor(data);
 	}
 }

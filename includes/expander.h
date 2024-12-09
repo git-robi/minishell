@@ -15,6 +15,6 @@ char	*unmatched_var(char *string, int start, int end, int *i);
 
 void    clean_quotes(t_mini *data);
 char    *remove_marker(char *str, int marker_count);
-void	replace_quotes(char *str, int *marker_count);
+void	replace_quotes(char *str, int *marker_count, int i);
 
 #endif

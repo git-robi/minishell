@@ -47,32 +47,22 @@ void	expand_string(t_mini *data, char **string)
 	*string = tmp_str;
 }
 
-void	handle_node_expander(t_mini *data, t_parser *node)
-{
-	int	i;
-
-	i = 0;
-	while (node->commands && node->commands[i])
-	{
-//		if (is_single_quoted(node->commands[i]))
-//			node->commands[i] = ft_strtrim(node->commands[i], "\'");
-		expand_string(data, &node->commands[i]);
-		i++;
-	}
-}
-
 void	expander(t_mini *data)
 {
 	t_parser	*tmp;
 	char		**cmd_tmp;
+	int	i;
 
 	tmp = data->parser;
 	while (tmp)
 	{
-		handle_node_expander(data, tmp);
+		i = -1;
+		while (tmp->commands[++i])
+			expand_string(data, &tmp->commands[i]);
 		cmd_tmp = strarr_cpy(tmp->commands);
 		free_strarr(tmp->commands);
 		tmp->commands = cmd_tmp;		
 		tmp = tmp->next;
 	}
+	clean_quotes(data);
 }

@@ -15,51 +15,27 @@ int	is_single_quoted(char *str)
 	return (0);
 }
 
-int	count_quotes(char *line)
+int	count_quotes(char *line) 
 {
-	int	in_single;
-	int	in_double;
-	int	total;
-	int	i;
+	int in_single = 0;
+	int in_double = 0;
+	int i = 0;
 
-	i = 0;
 	in_single = 0;
 	in_double = 0;
-	total = 0;
+	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '"')
-		{
-			if (!in_double && !in_single)
-			{
-				total++;
-				in_double = 1;
-			}
-			else if (in_double && !in_single)
-			{
-				total++;
-				in_double = 0;
-			}
-		}
-		if (line[i] == '\'')
-		{
-			if (!in_double && !in_single)
-			{
-				total++;
-				in_single = 1;
-			}
-			else if (in_single && !in_double)
-			{
-				total++;
-				in_single = 0;
-			}
-		}
+		if (line[i] == '"' && !in_single)
+			in_double = !in_double;
+		else if (line[i] == '\'' && !in_double)
+			in_single = !in_single;
 		i++;
 	}
-	if (total % 2 != 0)
+	if (in_single || in_double)
 	{
 		ft_putstr_fd("quotes not properly closed\n", 2);
-		return (1);
+		return 1;
 	}
-	return (0);
+	return 0;
 }

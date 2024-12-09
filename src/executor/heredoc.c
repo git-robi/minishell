@@ -66,7 +66,7 @@ void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 		free((*cmd)->heredoc_name);
 	(*cmd)->heredoc_name = new_heredoc_name();
 	(*cmd)->heredoc_delim = ft_strdup((*heredoc)->token);
-	replace_quotes((*cmd)->heredoc_delim, &marker_count);
+	replace_quotes((*cmd)->heredoc_delim, &marker_count, 0);
 	(*cmd)->heredoc_delim = remove_marker((*cmd)->heredoc_delim, marker_count);
 //	handle_quotes_heredoc(cmd, heredoc);
 	make_heredoc(data, cmd, (*heredoc)->token);
