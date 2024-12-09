@@ -1,42 +1,38 @@
 
 #include "../../includes/mini.h"
 
-char	*handle_question_mark(char *string, int start, int exit_code, int *i)
+char	*expand_and_replace_question_mark(char *string, int start, char *exit_code, int *i)
 {
-	char	*tmp;
 	char	*before_var;
 	char	*after_var;
-	char	*exit_string;
+	char	*tmp;
 
-	exit_string = ft_itoa(exit_code);
-	if (start == 1 && string[2] == '\0')
+	before_var = ft_substr(string, 0, start - 1);
+	if (string[start + 1] == '\0')
 	{
-//		free(string);
-		string = exit_string;
+		string = ft_strjoin(before_var, exit_code);
 		*i = (int)ft_strlen(string) - 1;
 	}
 	else
 	{
-		before_var = ft_substr(string, 0, start - 1);
-		if (string[start + 1] == '\0')
-		{
-//			free(string);
-			string = ft_strjoin(before_var, exit_string);
-			*i = (int)ft_strlen(string) - 1;
-		}
-		else
-		{
-			after_var = ft_substr(string, start + 1, ft_strlen(string) - 1);
-//			free(string);
-			tmp = ft_strjoin(before_var, exit_string);
-			*i = (int)ft_strlen(tmp) - 1;
-			string = ft_strjoin(tmp, after_var);
-//			free(after_var);
-//			free(tmp);
-		}
-//		free(before_var);
-//		free(exit_string);
+		after_var = ft_substr(string, start + 1, ft_strlen(string) - 1);
+		tmp = ft_strjoin(before_var, exit_code);
+		*i = (int)ft_strlen(tmp) - 1;
+		string = ft_strjoin(tmp, after_var);
 	}
+	free(exit_code);
+	return (string);
+}
+char	*handle_question_mark(char *string, int start, int exit_code, int *i)
+{
+	if (start == 1 && string[2] == '\0')
+	{
+//		free(string);
+		string = ft_itoa(exit_code);
+		*i = (int)ft_strlen(string) - 1;
+	}
+	else
+		string = expand_and_replace_question_mark(string, start, ft_itoa(exit_code), i);
 	return (string);
 }
 

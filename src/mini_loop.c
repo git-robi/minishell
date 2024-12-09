@@ -119,11 +119,11 @@ void	mini_loop(t_mini *data)
 	{
 		clear_data(data);
 		data->line = readline("minishell$ " );
-		if (!data->line)
-		{
-			ft_putstr_fd("exit", STDOUT_FILENO);
-			exit (EXIT_SUCCESS);
-		}
+//		if (!data->line)
+//		{
+//			ft_putstr_fd("exit", STDOUT_FILENO);
+//			exit (EXIT_SUCCESS);
+//		}
 		add_history(data->line);
 		if (continue_case(data->line))
 			continue ;

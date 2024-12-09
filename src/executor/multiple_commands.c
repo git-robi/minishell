@@ -37,13 +37,13 @@ void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
 	if ((*data)->pids[pid_idx] < 0)
 		free_data_and_exit(*data, 1);
 	else if ((*data)->pids[pid_idx] == 0)
-		{
-			redirect_in_out(data, cmd, pipes_ends);
-			execute_command(*data, cmd);
-		}
+	{
+		redirect_in_out(data, cmd, pipes_ends);
+		execute_command(*data, cmd);
+	}
 //	waitpid((*data)->pids[pid_idx], &status, 0);
 	pid_idx++;
-	if (pid_idx > count_nodes((*data)->parser))
+	if (pid_idx > (count_nodes((*data)->parser)))
 	{
 		pid_idx = 0;
 		(*data)->in_fd = STDIN_FILENO;
