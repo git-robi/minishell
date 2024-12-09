@@ -12,8 +12,6 @@
 
 #include "../../includes/mini.h"
 
-void    print_lexer_list(t_lexer *lexer_list);	
-
 t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
 {
 	t_lexer	*new_node;
@@ -72,22 +70,6 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 	(*parser_node)->commands[i] = NULL;
 }
 
-/*int	count_pipes(t_mini *data)
-{
-	int	pipes_num;
-	t_lexer	*tmp;
-
-	pipes_num = 0;
-	tmp = data->lexer;
-	while (tmp)
-	{
-		if (tmp->type == PIPE)
-			pipes_num++;
-		tmp = tmp->next;
-	}
-	return (pipes_num);
-}*/
-
 t_lexer	*remove_pipe(t_mini *data)
 {
 	t_lexer	*tmp;
@@ -114,8 +96,6 @@ void	parser(t_mini *data)
 
 	node = NULL;
 	parser = NULL;
-//	if (unexpected_token_error(error_check(data)))
-//		return ;
 	while (data->lexer)
 	{
 		node = new_node_parser(data->lexer->token);

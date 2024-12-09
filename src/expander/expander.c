@@ -1,6 +1,6 @@
 #include "../../includes/mini.h"
 
-void	expand_string(t_mini *data, char **string)
+/*void	expand_string(t_mini *data, char **string)
 {
 	int	i;
 	int	j;
@@ -45,6 +45,68 @@ void	expand_string(t_mini *data, char **string)
 	}
 //	free(tmp);
 	*string = tmp_str;
+}*/
+
+char	*env_expand(t_mini *data, char **tmp, int *i, char **string)
+{
+	int	j;
+
+	if ((*tmp)[*i] == '\0' || is_whitespace((*tmp)[*i]))
+		return (*tmp);
+	if ((*tmp)[*i] == '?')
+		*string = handle_question_mark(*tmp, *i, data->exit_code, i);
+	else
+	{
+		j = *i;
+		while ((*tmp)[j] && (*tmp)[j] != '$' && !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]))
+			j++;
+		*string = expand_substring(data, *tmp, *i, j - 1, i);
+	}
+	free(*tmp);
+	*tmp = ft_strdup(*string);
+	return (*tmp);
+}
+
+void expand_string(t_mini *data, char **string)
+{
+	int	i;
+	int	single_quote;
+	int	double_quote;
+	char	*tmp;
+
+	i = 0;
+	single_quote = 0;
+	double_quote = 0;
+	tmp = ft_strdup(*string);
+	while (tmp[i] != '\0')
+	{
+		if (tmp[i] == '\'' && double_quote == 0)
+			single_quote = !single_quote;
+		else if (tmp[i] == '\"' && single_quote == 0)
+			double_quote = !double_quote;
+		else if (tmp[i] == '$' && single_quote == 0)
+		{
+			i++;
+			tmp = env_expand(data, &tmp, &i, string); 
+		/*	i++;
+			if (tmp[i] == '\0' || is_whitespace(tmp[i]))
+				continue;
+			if (tmp[i] == '?')
+				*string = handle_question_mark(tmp, i, data->exit_code, &i);
+			else
+			{
+                		j = i;
+                		while (tmp[j] && tmp[j] != '$' && !is_whitespace(tmp[j]) && !is_quote(tmp[j]))
+                    			j++;
+                		*string = expand_substring(data, tmp, i, j - 1, &i);
+			}
+			free(tmp);
+			tmp = ft_strdup(*string);*/
+            		continue;
+		}
+		i++;
+	}
+	free(tmp);
 }
 
 void	expander(t_mini *data)
