@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-void	delete_inside_quotes(char **line, int start, int end, char quote) 
+/*void	delete_inside_quotes(char **line, int start, int end, char quote) 
 {
 	int	i;
 	int	j;
@@ -95,7 +95,7 @@ char	*remove_quotes(char *line)
 	}
 	return (line);
 }
-
+*/
 int	store_token_in_quotes(char *input, t_lexer **token_list)
 {
 	int	end;

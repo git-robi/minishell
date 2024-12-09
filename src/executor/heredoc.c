@@ -1,6 +1,6 @@
 #include "../../includes/mini.h"
 
-void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
+/*void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
 {
 	int	end;
 
@@ -10,9 +10,9 @@ void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
 		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\'");
 	else if ((*heredoc)->token[0] == '\"' && (*heredoc)->token[end] == '\"')
 		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\"");
-}
+}*/
 
-int	make_heredoc(t_mini *data, t_parser **cmd, char *delimiter)
+int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 {
 	//in this function will be necessary to handle the "Ctrl+C" signal
 	char	*line;
@@ -30,7 +30,7 @@ int	make_heredoc(t_mini *data, t_parser **cmd, char *delimiter)
 			free(line);
 			break ;
 		}
-		if (!is_single_quoted(delimiter))
+		if (!is_single_quoted(heredoc_token))
 			expand_string(data, &line);
 		write(heredoc_fd, line, ft_strlen(line));
 		write(heredoc_fd, "\n", 1);
@@ -59,10 +59,16 @@ char *new_heredoc_name(void)
 //add logic if heredoc fails!!!
 void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 {
+	int	marker_count;
+	
+	marker_count = 0;
 	if ((*cmd)->heredoc_name)
 		free((*cmd)->heredoc_name);
 	(*cmd)->heredoc_name = new_heredoc_name();
-	handle_quotes_heredoc(cmd, heredoc);
+	(*cmd)->heredoc_delim = ft_strdup((*heredoc)->token);
+	replace_quotes((*cmd)->heredoc_delim, &marker_count);
+	(*cmd)->heredoc_delim = remove_marker((*cmd)->heredoc_delim, marker_count);
+//	handle_quotes_heredoc(cmd, heredoc);
 	make_heredoc(data, cmd, (*heredoc)->token);
 }
 

@@ -91,6 +91,28 @@ void	clear_data(t_mini *data)
 	data->in_fd = STDIN_FILENO;
 }
 
+int	continue_case(char *line)
+{
+	int	i;
+	
+	i = 0;
+	if (line[0] == '\0')
+		return (1) ;
+	if (line[0] == '\t')
+		return (1);
+	if (count_quotes(line))
+		return (1);
+	while (line[i])
+	{
+		if (!is_whitespace(line[i]))
+			return (0);
+		i++;
+		if (line[i] == '\0')
+			return (1);
+	}
+	return (0);
+}
+
 void	mini_loop(t_mini *data)
 {
 	while (1)
@@ -103,25 +125,16 @@ void	mini_loop(t_mini *data)
 			exit (EXIT_SUCCESS);
 		}
 		add_history(data->line);
-		if (data->line[0] == '\0')
+		if (continue_case(data->line))
 			continue ;
 		if (ft_strcmp(data->line, "exit") == 0)
 			exit (0);
-		if (count_quotes(data->line))
-			continue ;
 		read_token(data);
-//		print_lexer_list(data->lexer);
 		if (unexpected_token_error(error_check(data)))
 			continue ;
 		parser(data);
-//		print_lexer_list(data->lexer);
-//		print_parser_list(data->parser);
 		expander(data);
-		printf("BEFORE CLEANING\n");
-		print_parser_list(data->parser);
 		clean_quotes(data);
-		printf("AFTER CLEANING\n");
-		print_parser_list(data->parser);
 		executor(data);
 	}
 }

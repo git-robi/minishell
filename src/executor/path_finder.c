@@ -11,12 +11,24 @@
 /* ************************************************************************** */
 #include "../../includes/mini.h"
 
+
+static int is_absolute_or_relative_path(char *cmd) 
+{
+    return (cmd[0] == '/' || cmd[0] == '.');
+}
+
 char	*path_checker(char **all_path, char *cmd)
 {
 	char	*path;
 	int		i;
 	char	*path_to_check;
 
+	if (is_absolute_or_relative_path(cmd))
+	{
+        	if (access(cmd, X_OK) == 0) 
+            		return strdup(cmd); // Return a duplicate of cmd if it's valid
+        	return NULL; // Invalid absolute/relative path
+    	}
 	i = 0;
 	while (all_path[i] != NULL)
 	{
@@ -24,9 +36,9 @@ char	*path_checker(char **all_path, char *cmd)
 		path = malloc(ft_strlen(path_to_check) + ft_strlen(cmd) + 2);
 		if (path == NULL)
 			return (NULL);
-		ft_strlcpy(path, path_to_check, 100000);
-		ft_strlcat(path, "/", 10000);
-		ft_strlcat(path, cmd, 100000);
+		ft_strcpy(path, path_to_check);
+		ft_strcat(path, "/");
+		ft_strcat(path, cmd);
 		if (access(path, X_OK) == 0)
 			return (path);
 		i++;
