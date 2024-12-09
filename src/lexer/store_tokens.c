@@ -79,33 +79,6 @@ int	store_word(char *input, t_lexer **token_list)
 	return end;
 }
 
-/*int	store_word(char *input, t_lexer **token_list)
-{
-	int	end;
-	t_lexer	*new_node;
-	int	s_quote;
-	int	d_quote;
-	s_quote = 0;
-	d_quote = 0;
-	end = 0;
-
-	while (input[end])
-	{
-		if (input[end] == '\'')
-			s_quote++;
-		if (input[end] == '\"')
-			d_quote++; 
-		if ((input[end] == '<' || input[end] == '>' || input [end] == '|' || is_whitespace(input[end])) && ((s_quote % 2 == 0 && d_quote % 2 == 0) || (s_quote % 2 == 0 && d_quote == 0) || (s_quote == 0 && d_quote % 2 == 0 )))
-			break ;
-		end++;
-	}
-	new_node = new_node_lexer(ft_substr(input, 0, end), WORD);
-	if (new_node == NULL)
-		return (-1);
-	add_node_lexer(new_node, token_list);
-	return (end);
-}*/
-
 int	store_token(char *input, t_mini *data)
 {
 	t_lexer	*new_node;

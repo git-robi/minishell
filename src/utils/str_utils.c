@@ -12,6 +12,13 @@
 
 #include "../../includes/mini.h"
 
+int	is_whitespace(char c)
+{
+	if (c == ' ' || (c > 8 && c < 14))
+		return (1);
+	return (0);
+}
+
 char	*ft_strcat(char *dest, char *src)
 {
 	int	i;
@@ -55,24 +62,3 @@ int ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
-
-/*void	clean_line(char **line)
-{
-	char	*tmp;
-	int	i;
-
-	i = 0;
-	while ((*line)[i])
-	{
-		if ((*line)[i] == ' ')
-		{
-			(*line)[i] = (*line)[ft_strlen(*line) - 1];
-			(*line)[ft_strlen(*line) - 1] = ' ';
-			break;
-		}
-		i++;
-	}
-	tmp = ft_strtrim(*line, " ");
-	free(*line);
-	*line = tmp;
-}*/
