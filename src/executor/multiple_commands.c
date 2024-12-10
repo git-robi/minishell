@@ -29,10 +29,8 @@ void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
 //	close(pipes_ends[1]);
 }
 
-void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
+void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2], int pid_idx)
 {
-	static int	pid_idx = 0;
-
 	(*data)->pids[pid_idx] = fork();
 	if ((*data)->pids[pid_idx] < 0)
 		free_data_and_exit(*data, 1);
@@ -40,13 +38,6 @@ void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2])
 	{
 		redirect_in_out(data, cmd, pipes_ends);
 		execute_command(*data, cmd);
-	}
-//	waitpid((*data)->pids[pid_idx], &status, 0);
-	pid_idx++;
-	if (pid_idx > (count_nodes((*data)->parser)))
-	{
-		pid_idx = 0;
-		(*data)->in_fd = STDIN_FILENO;
 	}
 }
 
@@ -80,19 +71,22 @@ void	multiple_commands(t_mini *data)
 {
 	int	pipes_ends[2];
 	t_parser	*cmd;
+	int	pid_idx;
 
+	pid_idx = 0;
 	cmd = data->parser;
 	while (cmd)
 	{
 		if (cmd->next)
 			pipe(pipes_ends);
 		check_heredoc(data, cmd);
-		make_process(&data, cmd, pipes_ends);
+		make_process(&data, cmd, pipes_ends, pid_idx);
 		close(pipes_ends[1]);
 		if (cmd->prev)
 			close(data->in_fd);
 		update_in_fd(&data, cmd, pipes_ends);
-		cmd = cmd->next;	
+		cmd = cmd->next;
+		pid_idx++;
 	}
 //	close(pipes_ends[0]);
 	wait_for_processes(&data);

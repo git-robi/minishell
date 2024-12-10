@@ -17,7 +17,7 @@ void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc);
 void	multiple_commands(t_mini *data);
 void	wait_for_processes(t_mini **data);
 void	update_in_fd(t_mini **data, t_parser *cmd, int pipes_ends[2]);
-void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2]);
+void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2], int pid_idx);
 void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2]);
 
 //redirections
