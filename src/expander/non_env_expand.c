@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   non_env_expand.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/10 13:48:35 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/10 13:48:38 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/mini.h"
 
@@ -23,6 +34,7 @@ char	*expand_and_replace_question_mark(char *string, int start, char *exit_code,
 	free(exit_code);
 	return (string);
 }
+
 char	*handle_question_mark(char *string, int start, int exit_code, int *i)
 {
 	if (start == 1 && string[2] == '\0')
@@ -64,4 +76,3 @@ char	*unmatched_var(char *string, int start, int end, int *i)
 	}
 	return (string);
 }
-

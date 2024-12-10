@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:27 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/14 10:46:19 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:30:59 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/mini.h"
@@ -22,13 +22,13 @@ int	check_builtin(char *cmd)
 	}
 	return (0);
 }
-	
 
 int	unexpected_token_error(t_lexer *node)
 {
 	if (node != NULL)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token '", STDERR_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("syntax error near unexpected token '", STDERR_FILENO);
 		if (node->type > 2)
 			ft_putstr_fd("newline", STDERR_FILENO);
 		else
@@ -63,7 +63,7 @@ t_lexer	*error_check(t_mini *data)
 
 int	count_commands(t_mini *data)
 {
-	int	cmds_num;
+	int		cmds_num;
 	t_lexer	*tmp;
 
 	cmds_num = 0;

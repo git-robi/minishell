@@ -6,13 +6,13 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 12:45:28 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:33:44 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
 
-t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data)
+t_lexer	*store_redirection(t_lexer **token, t_parser **pars_node, t_mini *data)
 {
 	t_lexer	*new_node;
 	char	*redirection;
@@ -24,7 +24,7 @@ t_lexer *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data
 	new_node = new_node_lexer(redirection, (*token)->type);
 	if (new_node == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
-	add_node_lexer(new_node, &(*parser_node)->redirections);
+	add_node_lexer(new_node, &(*pars_node)->redirections);
 	new_position = delete_redirection_lexer(data, token);
 	return (new_position);
 }
@@ -44,12 +44,11 @@ void	handle_redirections(t_mini *data, t_parser *node)
 			tmp = tmp->next;
 	}
 }
-		  
 
 void	store_commands(t_mini *data, t_parser **parser_node)
 {
-	int	cmds_num;
-	int	i;
+	int		cmds_num;
+	int		i;
 	t_lexer	*tmp;
 
 	i = 0;

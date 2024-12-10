@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/10 13:42:18 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/10 13:42:21 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini.h"
 
 #define MARKER '\x01'
@@ -27,14 +39,14 @@ void	replace_quotes(char *str, int *marker_count, int i)
 		if (first_double == -1 && str[i] == '\"' && first_single == -1)
 			first_double = i;
 		else if (first_double != -1 && str[i] == '\"')
-			second_double = i;	
+			second_double = i;
 		else if (first_single == -1 && str[i] == '\'' && first_double == -1)
 			first_single = i;
 		else if (first_single != -1 && str[i] == '\'')
 			second_single = i;
 		if (first_single != -1 && second_single != -1)
 			replace_and_reset(str, marker_count, &first_single, &second_single);
-		else if (first_double != -1 && second_double != -1)		
+		else if (first_double != -1 && second_double != -1)
 			replace_and_reset(str, marker_count, &first_double, &second_double);
 		i++;
 	}
@@ -43,8 +55,8 @@ void	replace_quotes(char *str, int *marker_count, int i)
 char	*remove_marker(char *str, int marker_count)
 {
 	char	*new_string;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = -1;
@@ -53,21 +65,20 @@ char	*remove_marker(char *str, int marker_count)
 	while (str[++i])
 	{
 		if (str[i] == MARKER)
-			continue ;	
+			continue ;
 		new_string[j] = str[i];
 		j++;
 	}
 	free(str);
 	new_string[j] = '\0';
 	return (new_string);
-
 }
 
-void    clean_quotes(t_mini *data)
+void	clean_quotes(t_mini *data)
 {
-	int	i;
+	int			i;
 	t_parser	*tmp;
-	int	marker_count;
+	int			marker_count;
 
 	tmp = data->parser;
 	while (tmp)

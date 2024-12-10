@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/10 13:47:32 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/10 13:47:42 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini.h"
 
 /*void	expand_string(t_mini *data, char **string)
@@ -68,11 +80,11 @@ char	*env_expand(t_mini *data, char **tmp, int *i, char **string)
 	return (*tmp);
 }
 
-void expand_string(t_mini *data, char **string)
+void	expand_string(t_mini *data, char **string)
 {
-	int	i;
-	int	single_quote;
-	int	double_quote;
+	int		i;
+	int		single_quote;
+	int		double_quote;
 	char	*tmp;
 
 	i = 0;
@@ -88,7 +100,7 @@ void expand_string(t_mini *data, char **string)
 		else if (tmp[i] == '$' && single_quote == 0)
 		{
 			i++;
-			tmp = env_expand(data, &tmp, &i, string); 
+			tmp = env_expand(data, &tmp, &i, string);
 		/*	i++;
 			if (tmp[i] == '\0' || is_whitespace(tmp[i]))
 				continue;
@@ -103,7 +115,7 @@ void expand_string(t_mini *data, char **string)
 			}
 			free(tmp);
 			tmp = ft_strdup(*string);*/
-            		continue;
+			continue ;
 		}
 		i++;
 	}
@@ -114,7 +126,7 @@ void	expander(t_mini *data)
 {
 	t_parser	*tmp;
 	char		**cmd_tmp;
-	int	i;
+	int			i;
 
 	tmp = data->parser;
 	while (tmp)
@@ -124,7 +136,7 @@ void	expander(t_mini *data)
 			expand_string(data, &tmp->commands[i]);
 		cmd_tmp = strarr_cpy(tmp->commands);
 		free_strarr(tmp->commands);
-		tmp->commands = cmd_tmp;		
+		tmp->commands = cmd_tmp;
 		tmp = tmp->next;
 	}
 	clean_quotes(data);

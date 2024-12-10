@@ -6,20 +6,19 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:08 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/27 15:56:07 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:10:02 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
-#include <stdio.h>
 
 void	read_token(t_mini *data)
-{	
+{
 	int		i;
 	int		j;
-	char		*line;
-	i = 0;
+	char	*line;
 
+	i = 0;
 	line = ft_strtrim(data->line, " ");
 	free(data->line);
 	data->line = line;

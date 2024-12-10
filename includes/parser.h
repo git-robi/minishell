@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:54:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/20 10:19:52 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:34:07 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		parser(t_mini *data);
 void	store_commands(t_mini *data, t_parser **node);
 t_lexer *remove_pipe(t_mini *data);
 void    handle_redirections(t_mini *data, t_parser *node);
-t_lexer    *store_redirection(t_lexer **token, t_parser **parser_node, t_mini *data);
+t_lexer    *store_redirection(t_lexer **token, t_parser **pars_node, t_mini *data);
 
 //list utils parser
 void    add_node_parser(t_parser *node, t_parser **parser_list);

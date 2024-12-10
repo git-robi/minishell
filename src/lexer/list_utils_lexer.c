@@ -6,11 +6,10 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 13:51:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:06:28 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:25:40 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../../includes/mini.h"
 
 void	free_node_lexer(t_lexer **node)
@@ -27,10 +26,10 @@ void	free_node_lexer(t_lexer **node)
 	}
 }
 
-t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node)
+t_lexer	*delete_redirection_lexer(t_mini *data, t_lexer **node)
 {
 	t_lexer	*new_next;
-	
+
 	new_next = (*node)->next->next;
 	if ((*node)->prev)
 		(*node)->prev->next = new_next;
@@ -61,7 +60,7 @@ void	add_node_lexer(t_lexer *new_node, t_lexer **token_list)
 t_lexer	*new_node_lexer(char *str, int type)
 {
 	t_lexer		*new_node;
-	
+
 	new_node = (t_lexer *)malloc(sizeof(t_lexer) * 1);
 	if (new_node == NULL)
 		return (NULL);

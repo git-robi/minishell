@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/27 16:02:48 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:37:24 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	execute_command(t_mini *data, t_parser *cmd)
 
 void	one_command(t_mini *data)
 {
-	int	child_status;
-	int	pid;
+	int			child_status;
+	int			pid;
 	t_parser	*cmd;
 
 	cmd = data->parser;
 	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
 	{
-		data->exit_code = call_builtin_function(data, cmd);	
+		data->exit_code = call_builtin_function(data, cmd);
 		return ;
 	}
 	check_heredoc(data, data->parser);

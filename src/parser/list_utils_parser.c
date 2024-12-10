@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 15:18:39 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/20 10:20:46 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:31:13 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_nodes(t_parser *parser_list)
 
 	nodes = 0;
 	tmp = parser_list;
-	while(tmp)
+	while (tmp)
 	{
 		nodes++;
 		tmp = tmp->next;
