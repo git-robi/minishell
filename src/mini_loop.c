@@ -6,13 +6,13 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/27 13:56:33 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:36:27 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-/*void	print_lexer_list(t_lexer *lexer_list)
+void	print_lexer_list(t_lexer *lexer_list)
 {
 	t_lexer *tmp = lexer_list;
 	int	i = 1;
@@ -64,7 +64,7 @@ void	print_parser_list(t_parser *parser_list)
 		tmp = tmp->next;
 		printf("\n");
 	}
-}*/
+}
 
 void	clear_data(t_mini *data)
 {
@@ -133,6 +133,7 @@ void	mini_loop(t_mini *data)
 		if (unexpected_token_error(error_check(data)))
 			continue ;
 		parser(data);
+		print_parser_list(data->parser);
 		expander(data);
 		executor(data);
 	}

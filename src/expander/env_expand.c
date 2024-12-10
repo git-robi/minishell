@@ -49,10 +49,14 @@ char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
 	{
 		tmp_var = ft_substr(tmp->variable, 0, ft_strlen(tmp->variable) - 1);
 		if (!ft_strcmp(tmp_var, substring) && tmp->content)
+		{
+			free(tmp_var);
+			free (substring);
 			return (expand_var(string, start, end, tmp->content, i));
+		}
 		tmp = tmp->next;
-//		free(tmp_var);
+		free(tmp_var);
 	}
-//	free(substring);
+	free(substring);
 	return (unmatched_var(string, start, end, i));
 }

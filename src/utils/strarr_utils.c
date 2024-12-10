@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:45 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 13:15:19 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:50:26 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char **env_list_to_strarr(t_mini *data)
 
 	i = 0;
 	tmp = data->env_list;
-	env_strarr = malloc(sizeof(char *) * count_env_nodes(data->env_list) + 1);
+	env_strarr = malloc(sizeof(char *) * (count_env_nodes(data->env_list) + 1));
 	if (env_strarr == NULL)
 		free_data_and_exit(data, 1);
 	while (tmp)

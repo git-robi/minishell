@@ -53,6 +53,7 @@ char	*env_expand(t_mini *data, char **tmp, int *i, char **string)
 
 	if ((*tmp)[*i] == '\0' || is_whitespace((*tmp)[*i]))
 		return (*tmp);
+	free (*string);
 	if ((*tmp)[*i] == '?')
 		*string = handle_question_mark(*tmp, *i, data->exit_code, i);
 	else
@@ -62,7 +63,7 @@ char	*env_expand(t_mini *data, char **tmp, int *i, char **string)
 			j++;
 		*string = expand_substring(data, *tmp, *i, j - 1, i);
 	}
-	free(*tmp);
+//	free(*tmp);
 	*tmp = ft_strdup(*string);
 	return (*tmp);
 }
