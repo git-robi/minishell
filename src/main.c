@@ -10,8 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../includes/mini.h"
+
+void	set_pwd(t_mini *data, char **env)
+{
+	int	i;
+	
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], "PWD=", 4))
+			data->pwd = ft_substr(env[i], 4, ft_strlen(env[i]) - 4);
+		if (!ft_strncmp(env[i], "OLDPWD=", 7))
+			data->old_pwd = ft_substr(env[i],7, ft_strlen(env[i]) - 7);
+		i++;
+	}
+}
 
 void	init_data(t_mini *data, char **env)
 {
@@ -25,6 +39,7 @@ void	init_data(t_mini *data, char **env)
 	data->in_fd = STDIN_FILENO;
 	data->exit_code = 0;
 	data->env_list = env_list(env);
+	set_pwd(data, env);
 //	init_signals();
 }
 

@@ -50,9 +50,12 @@ typedef struct s_mini
 	int			*pids;
 	int		in_fd;
 	int		exit_code;
+	char		*pwd;
+	char		*old_pwd;
 	t_env		*env_list;
 }	t_mini;
 
+void    set_pwd(t_mini *data, char **env);
 int     count_env_nodes(t_env *env_list);
 char **env_list_to_strarr(t_mini *data);
 void    mini_loop(t_mini *data);
