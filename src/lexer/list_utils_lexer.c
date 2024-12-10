@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 13:51:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 11:09:37 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:06:28 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	free_node_lexer(t_lexer **node)
 {
-	if ((*node)->token)
+	if ((*node) && (*node)->token)
 	{
 		free((*node)->token);
 		(*node)->token = NULL;
@@ -25,8 +25,6 @@ void	free_node_lexer(t_lexer **node)
 		free(*node);
 		*node = NULL;
 	}
-//	(void)node;
-//	return ;
 }
 
 t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node)
@@ -40,9 +38,7 @@ t_lexer *delete_redirection_lexer(t_mini *data, t_lexer **node)
 		new_next->prev = (*node)->prev;
 	if ((*node)->prev == NULL)
 		data->lexer = new_next;
-	free_node_lexer(node);
 	return (new_next);
-	//free(node two);
 }
 
 void	add_node_lexer(t_lexer *new_node, t_lexer **token_list)
