@@ -1,6 +1,6 @@
 #include "../../../includes/mini.h"
 
-int is_there_flag(char **args) 
+int	is_there_flag(char **args)
 {
 	int	j;
 
@@ -18,10 +18,10 @@ int is_there_flag(char **args)
 	return (0);
 }
 
-int ft_echo(t_mini *data, t_parser *cmd)
-{	
-	int i;
-	char **args;
+int	ft_echo(t_mini *data, t_parser *cmd)
+{
+	int	i;
+	char	**args;
 
 	(void)data;
 	args = cmd->commands;

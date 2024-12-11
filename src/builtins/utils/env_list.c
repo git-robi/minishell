@@ -1,21 +1,12 @@
-
 #include "../../../includes/mini.h"
-#include <string.h>
 
-t_env *env_list(char **env);
-int separate_varcont(char *line, t_content *content);
-void fill_env_list(t_env **env_cpy, const char *variable, const char *content);
-static t_env	*ft_last_node(t_env *env_cpy);
-void free_env_list(t_env **env);
-void free_t_content(t_content *content);
-
-void free_t_content(t_content *content)
+void	free_t_content(t_content *content)
 {
-    if (content)
-    {
-        free(content->variable);
-        free(content->content);
-    }
+	if (content)
+	{
+		free(content->variable);
+		free(content->content);
+	}
 }
 
 static t_env	*ft_last_node(t_env *env_cpy)
@@ -27,67 +18,65 @@ static t_env	*ft_last_node(t_env *env_cpy)
 	while (env_cpy)
 	{
 		last = env_cpy;
-		env_cpy  = env_cpy->next;
+		env_cpy = env_cpy->next;
 	}
 	return (last);
 }
 
-void free_env_list(t_env **env)
+void	free_env_list(t_env **env)
 {
-    t_env *tmp;
+	t_env	*tmp;
 
-    while (*env)
-    {
-        tmp = *env;
-        *env = (*env)->next;
-        free(tmp->variable);
-        free(tmp->content);
-        free(tmp);
-    }
+	while (*env)
+	{
+		tmp = *env;
+		*env = (*env)->next;
+		free(tmp->variable);
+		free(tmp->content);
+		free(tmp);
+	}
 }
 
-int separate_varcont(char *line, t_content *content)
+int	separate_varcont(char *line, t_content *content)
 {
-    char *equals_sign;
+	char	*equals_sign;
 
-    equals_sign = strchr(line, '=');
-    if (equals_sign) 
-    {
-        content->has_equal = 1;
-        content->variable = strndup(line, (equals_sign - line) + 1);
-        if (!content->variable)
-            return (1);
-        if (*(equals_sign + 1) == '\0') 
-            content->content = NULL;
-        else 
-        {
-            content->content = strdup(equals_sign + 1);
-            if (!content->content) 
-            {
-                free(content->variable);
-                return (1);
-            }
-        }
-    } 
-    else 
-    {
-        content->has_equal = 0;
-        content->variable = strdup(line);
-        if (!content->variable)
-            return (1);
-        content->content = NULL;
-    }
-    return (0);
+	equals_sign = ft_strchr(line, '=');
+	if (equals_sign)
+	{
+		content->has_equal = 1;
+		content->variable = ft_substr(line, 0, (equals_sign - line) + 1);
+		if (!content->variable)
+			return (1);
+		if (*(equals_sign + 1) == '\0')
+			content->content = NULL;
+		else
+		{
+			content->content = ft_strdup(equals_sign + 1);
+			if (!content->content)
+			{
+				free(content->variable);
+				return (1);
+			}
+		}
+	}
+	else
+	{
+		content->has_equal = 0;
+		content->variable = ft_strdup(line);
+		if (!content->variable)
+			return (1);
+		content->content = NULL;
+	}
+	return (0);
 }
 
-
-
-void fill_env_list(t_env **env_cpy, const char *variable, const char *content)
+void	fill_env_list(t_env **env_cpy, const char *variable, const char *content)
 {
-    t_env   *new_node;
-    t_env   *last_node;
+	t_env	*new_node;
+	t_env	*last_node;
 
-    if (!env_cpy)
+	if (!env_cpy)
 		return ;
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
@@ -95,15 +84,11 @@ void fill_env_list(t_env **env_cpy, const char *variable, const char *content)
 		write(2, "error", 6);
 		exit(1);
 	}
-	new_node->variable = strdup(variable);
-    if (content)
-    {
-        new_node->content = strdup(content);
-    }
-    else
-    { 
-       new_node->content = NULL;
-    }
+	new_node->variable = ft_strdup(variable);
+	if (content)
+		new_node->content = ft_strdup(content);
+	else
+		new_node->content = NULL;
 	new_node->next = NULL;
 	if (!(*env_cpy))
 		*env_cpy = new_node;
@@ -114,30 +99,29 @@ void fill_env_list(t_env **env_cpy, const char *variable, const char *content)
 	}
 }
 
-t_env *env_list(char **env)
+t_env	*env_list(char **env)
 {
-    int i;
-    char *variable;
-    t_content content;
-    t_env *env_cpy;
+	int		i;
+	char		*variable;
+	t_content	content;
+	t_env		*env_cpy;
 
-    content.variable = NULL;
-    content.content = NULL;
-    env_cpy = NULL;
-
-    i = 0;
-    while (env && env[i])
-    {
-        variable = env[i];
-        if (separate_varcont(variable, &content))
-        {
-            free_env_list(&env_cpy);
-            free_t_content(&content);
-            return (NULL);
-        }
-        fill_env_list(&env_cpy, content.variable, content.content);
-        free_t_content(&content);
-        i++;
-    }
-    return (env_cpy);
+	content.variable = NULL;
+	content.content = NULL;
+	env_cpy = NULL;
+	i = 0;
+	while (env && env[i])
+	{
+		variable = env[i];
+		if (separate_varcont(variable, &content))
+		{
+			free_env_list(&env_cpy);
+			free_t_content(&content);
+			return (NULL);
+		}
+		fill_env_list(&env_cpy, content.variable, content.content);
+		free_t_content(&content);
+		i++;
+	}
+	return (env_cpy);
 }
