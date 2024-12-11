@@ -59,21 +59,23 @@
 	*string = tmp_str;
 }*/
 
-char	*env_expand(t_mini *data, char **tmp, int *i, char **string)
+char	*env_expand(t_mini *data, char **tmp, char **string)
 {
 	int	j;
+	int	i;
 
-	if ((*tmp)[*i] == '\0' || is_whitespace((*tmp)[*i]))
+	i = data->exp_idx;
+	if ((*tmp)[i] == '\0' || is_whitespace((*tmp)[i]))
 		return (*tmp);
 	free (*string);
-	if ((*tmp)[*i] == '?')
-		*string = handle_question_mark(*tmp, *i, data->exit_code, i);
+	if ((*tmp)[i] == '?')
+		*string = handle_question_mark(data, *tmp, i, data->exit_code);
 	else
 	{
-		j = *i;
+		j = i;
 		while ((*tmp)[j] && (*tmp)[j] != '$' && !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]))
 			j++;
-		*string = expand_substring(data, *tmp, *i, j - 1, i);
+		*string = expand_substring(data, *tmp, i, j - 1);
 	}
 //	free(*tmp);
 	*tmp = ft_strdup(*string);
@@ -82,44 +84,31 @@ char	*env_expand(t_mini *data, char **tmp, int *i, char **string)
 
 void	expand_string(t_mini *data, char **string)
 {
-	int		i;
+//	int		i;
 	int		single_quote;
 	int		double_quote;
 	char	*tmp;
 
-	i = 0;
+	data->exp_idx = 0;
+//	i = 0;
 	single_quote = 0;
 	double_quote = 0;
 	tmp = ft_strdup(*string);
-	while (tmp[i] != '\0')
+	while (tmp[data->exp_idx])
 	{
-		if (tmp[i] == '\'' && double_quote == 0)
+		if (tmp[data->exp_idx] == '\'' && double_quote == 0)
 			single_quote = !single_quote;
-		else if (tmp[i] == '\"' && single_quote == 0)
+		else if (tmp[data->exp_idx] == '\"' && single_quote == 0)
 			double_quote = !double_quote;
-		else if (tmp[i] == '$' && single_quote == 0)
+		else if (tmp[data->exp_idx] == '$' && single_quote == 0)
 		{
-			i++;
-			tmp = env_expand(data, &tmp, &i, string);
-		/*	i++;
-			if (tmp[i] == '\0' || is_whitespace(tmp[i]))
-				continue;
-			if (tmp[i] == '?')
-				*string = handle_question_mark(tmp, i, data->exit_code, &i);
-			else
-			{
-                		j = i;
-                		while (tmp[j] && tmp[j] != '$' && !is_whitespace(tmp[j]) && !is_quote(tmp[j]))
-                    			j++;
-                		*string = expand_substring(data, tmp, i, j - 1, &i);
-			}
-			free(tmp);
-			tmp = ft_strdup(*string);*/
+			data->exp_idx++;
+			tmp = env_expand(data, &tmp, string);
 			continue ;
 		}
-		i++;
+		data->exp_idx++;
 	}
-	free(tmp);
+//	free(tmp);
 }
 
 void	expander(t_mini *data)
@@ -131,9 +120,12 @@ void	expander(t_mini *data)
 	tmp = data->parser;
 	while (tmp)
 	{
-		i = -1;
-		while (tmp->commands[++i])
+		i = 0;
+		while (tmp->commands[i])
+		{
 			expand_string(data, &tmp->commands[i]);
+			i++;
+		}
 		cmd_tmp = strarr_cpy(tmp->commands);
 		free_strarr(tmp->commands);
 		tmp->commands = cmd_tmp;

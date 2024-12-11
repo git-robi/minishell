@@ -52,6 +52,7 @@ typedef struct s_mini
 	int		exit_code;
 	char		*pwd;
 	char		*old_pwd;
+	int		exp_idx;
 	t_env		*env_list;
 }	t_mini;
 

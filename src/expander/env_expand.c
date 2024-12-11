@@ -12,7 +12,7 @@
 
 #include "../../includes/mini.h"
 
-char	*expand_and_reassemble(char *string, int start, int end, char *expansion, int *i)
+char	*expand_and_reassemble(t_mini *data, char *string, t_xy xy, char *expansion)
 {
 	char	*before_var;
 	char	*after_var;
@@ -20,40 +20,43 @@ char	*expand_and_reassemble(char *string, int start, int end, char *expansion, i
 
 	tmp = NULL;
 	after_var = NULL;
-	before_var = ft_substr(string, 0, start - 1);
-	if (string[end + 1] == '\0')
+	before_var = ft_substr(string, 0, xy.start - 1);
+	if (string[xy.end + 1] == '\0')
 	{
 		string = ft_strjoin(before_var, expansion);
-		*i = (int)ft_strlen(string) - 1;
+		data->exp_idx = (int)ft_strlen(string) - 1;
 	}
 	else
 	{
-		after_var = ft_substr(string, end + 1, ft_strlen(string) - 1);
+		after_var = ft_substr(string, xy.end + 1, ft_strlen(string) - xy.end - 1);
 		tmp = ft_strjoin(before_var, expansion);
-		*i = (int)ft_strlen(tmp) - 1;
+		data->exp_idx = (int)ft_strlen(tmp) - 1;
 		string = ft_strjoin(tmp, after_var);
 	}
 	return (string);
 }
 
-char	*expand_var(char *string, int start, int end, char *expansion, int *i)
+char	*expand_var(t_mini *data, char *string, t_xy xy, char *expansion)
 {
-	if (start == 1 && string[end + 1] == '\0')
+	if (xy.start == 1 && string[xy.end + 1] == '\0')
 	{
+		data->exp_idx = (int)ft_strlen(expansion) - 1;
 		string = ft_strdup(expansion);
-		*i = (int)ft_strlen(expansion) - 1;
 	}
 	else
-		string = expand_and_reassemble(string, start, end, expansion, i);
+		string = expand_and_reassemble(data, string, xy, expansion);
 	return (string);
 }
 
-char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
+char	*expand_substring(t_mini *data, char *string, int start, int end)
 {
 	t_env	*tmp;
 	char	*substring;
 	char	*tmp_var;
+	t_xy	xy;
 
+	xy.start = start;
+	xy.end = end;
 	tmp = data->env_list;
 	substring = ft_substr(string, start, end - start + 1);
 	while (tmp)
@@ -63,11 +66,11 @@ char	*expand_substring(t_mini *data, char *string, int start, int end, int *i)
 		{
 			free(tmp_var);
 			free (substring);
-			return (expand_var(string, start, end, tmp->content, i));
+			return (expand_var(data, string, xy, tmp->content));
 		}
 		tmp = tmp->next;
 		free(tmp_var);
 	}
 	free(substring);
-	return (unmatched_var(string, start, end, i));
+	return (unmatched_var(data, string, start, end));
 }

@@ -1,14 +1,21 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+typedef struct s_xy
+{
+	int	start;
+	int	end;
+}	t_xy;
+
 void    expander(t_mini *data);
 void    expand_string(t_mini *data, char **string);
-char    *handle_question_mark(char *string, int start, int exit_code, int *i);
-char    *expand_substring(t_mini *data, char *string, int start, int end, int *i);
-char    *expand_var(char *string, int start, int end, char *expansion, int *i);
-char	*unmatched_var(char *string, int start, int end, int *i);
-char    *expand_and_reassemble(char *string, int start, int end, char *expansion, int *i);
-
+char    *handle_question_mark(t_mini *data, char *string, int start, int exit_code);
+char    *expand_and_replace_qm(t_mini *data, char *string, int start, char *exit_code);
+char    *expand_substring(t_mini *data, char *string, int start, int end);
+char    *expand_var(t_mini *data, char *string, t_xy xy, char *expansion);
+char	*unmatched_var(t_mini *data, char *string, int start, int end);
+char    *expand_and_reassemble(t_mini *data, char *string, t_xy xy, char *expansion);
+char    *env_expand(t_mini *data, char **tmp, char **string);
 
 //new quotes
 
