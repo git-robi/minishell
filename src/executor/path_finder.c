@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 #include "../../includes/mini.h"
 
-
-static int is_absolute_or_relative_path(char *cmd) 
+static int	is_absolute_or_relative_path(char *cmd)
 {
-    return (cmd[0] == '/' || cmd[0] == '.');
+	return (cmd[0] == '/' || cmd[0] == '.');
 }
 
 char	*path_checker(char **all_path, char *cmd)
@@ -25,10 +24,10 @@ char	*path_checker(char **all_path, char *cmd)
 
 	if (is_absolute_or_relative_path(cmd))
 	{
-        	if (access(cmd, X_OK) == 0) 
-            		return strdup(cmd);
-        	return NULL;
-    	}
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		return (NULL);
+	}
 	i = -1;
 	while (all_path[++i] != NULL)
 	{

@@ -12,9 +12,9 @@
 
 #include "../../includes/mini.h"
 
+//in this function will be necessary to handle the "Ctrl+C" signal
 int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 {
-	//in this function will be necessary to handle the "Ctrl+C" signal
 	char	*line;
 	int	heredoc_fd;
 
@@ -41,11 +41,11 @@ int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 	return (0);
 }
 
-char *new_heredoc_name(void)
+char	*new_heredoc_name(void)
 {
 	static int	hd_num = -1;
-	char	*heredoc_name;
-	char	*heredoc_num;
+	char		*heredoc_name;
+	char		*heredoc_num;
 
 	hd_num++;
 	heredoc_num = ft_itoa(hd_num);
@@ -60,7 +60,7 @@ char *new_heredoc_name(void)
 void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 {
 	int	marker_count;
-	
+
 	marker_count = 0;
 	if ((*cmd)->heredoc_name)
 		free((*cmd)->heredoc_name);

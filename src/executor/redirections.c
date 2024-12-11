@@ -14,7 +14,6 @@
 
 int	check_fd(int fd, int type)
 {
-	//what about using perror instead of putstr_fd????
 	int	std_in_out;
 
 	if (type == REDIR_IN || type == HERE_DOC)
@@ -50,12 +49,9 @@ int	dispatch_redirections(t_lexer *redirection, t_parser *cmd)
 	if (redirection->type == REDIR_OUT)
 		fd = open(redirection->token, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (redirection->type == APPEND)
-		fd = open(redirection->token ,O_CREAT | O_RDWR | O_APPEND, 0644);
+		fd = open(redirection->token, O_CREAT | O_RDWR | O_APPEND, 0644);
 	return (check_fd(fd, redirection->type));
 }
-
-
-//in this function I have to include a error handling (check what is the behviour in casse of error)
 
 int	redirections(t_parser *cmd)
 {

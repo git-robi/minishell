@@ -12,29 +12,28 @@
 
 #include "../../includes/mini.h"
 
-void	redirect_in_out(t_mini  **data, t_parser *cmd, int pipes_ends[2])
+void	redirect_in_out(t_mini **data, t_parser *cmd, int pipes_ends[2])
 {
 	if (cmd->prev)
 	{
-		/*if(*/dup2((*data)->in_fd, STDIN_FILENO);/*< 0)*/
-			//error
+		if (dup2((*data)->in_fd, STDIN_FILENO) < 0)
+			free_data_and_exit(*data, 1);
 		close((*data)->in_fd);
 	}
 	close(pipes_ends[0]);
 	if (cmd->next)
 	{
-		/*if(*/dup2(pipes_ends[1], STDOUT_FILENO); /*< 0)*/
-			//error
+		if (dup2(pipes_ends[1], STDOUT_FILENO) < 0)
+			free_data_and_exit(*data, 1);
 	}
-//	close(pipes_ends[1]);
 }
 
-void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2], int pid_idx)
+void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2], int idx)
 {
-	(*data)->pids[pid_idx] = fork();
-	if ((*data)->pids[pid_idx] < 0)
+	(*data)->pids[idx] = fork();
+	if ((*data)->pids[idx] < 0)
 		free_data_and_exit(*data, 1);
-	else if ((*data)->pids[pid_idx] == 0)
+	else if ((*data)->pids[idx] == 0)
 	{
 		redirect_in_out(data, cmd, pipes_ends);
 		execute_command(*data, cmd);
@@ -69,9 +68,9 @@ void	wait_for_processes(t_mini **data)
 
 void	multiple_commands(t_mini *data)
 {
-	int	pipes_ends[2];
+	int		pipes_ends[2];
 	t_parser	*cmd;
-	int	pid_idx;
+	int		pid_idx;
 
 	pid_idx = 0;
 	cmd = data->parser;
@@ -88,6 +87,5 @@ void	multiple_commands(t_mini *data)
 		cmd = cmd->next;
 		pid_idx++;
 	}
-//	close(pipes_ends[0]);
 	wait_for_processes(&data);
 }
