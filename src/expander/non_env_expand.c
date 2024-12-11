@@ -30,7 +30,10 @@ char	*expand_and_replace_qm(t_mini *data, char *string, int start, char *exit_co
 		tmp = ft_strjoin(before_var, exit_code);
 		data->exp_idx = (int)ft_strlen(tmp) - 1;
 		string = ft_strjoin(tmp, after_var);
+		free(after_var);
+		free(tmp);
 	}
+	free(before_var);
 	free(exit_code);
 	return (string);
 }
@@ -39,7 +42,7 @@ char	*handle_question_mark(t_mini *data, char *string, int start, int exit_code)
 {
 	if (start == 1 && string[2] == '\0')
 	{
-//		free(string);
+		//free(string);
 		string = ft_itoa(exit_code);
 		data->exp_idx = (int)ft_strlen(string) - 1;
 	}
@@ -56,7 +59,7 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 	if (start == 1 && string[end + 1] == '\0')
 	{
 		data->exp_idx = 0;
-		free(string);
+//		free(string);
 		string = ft_strdup("\0");
 	}
 	else
@@ -67,6 +70,7 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 			before_var = ft_substr(string, 0, start - 1);
 		if (string[end + 1] == '\0')
 		{
+			free(string);
 			string = before_var;
 			data->exp_idx = (int)ft_strlen(string) - 1;
 		}
@@ -76,6 +80,8 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 			string = ft_strjoin(before_var, after_var);
 			data->exp_idx = (int)ft_strlen(before_var);
 		}
+		free(before_var);
+		free(after_var);
 	}
 	return (string);
 }

@@ -73,12 +73,12 @@ void	clear_data(t_mini *data)
 		free(data->line);
 		data->line = NULL;
 	}
-	if (data->lexer != NULL)
+	if (data->lexer)
 	{
 		free_lexer_list(&data->lexer);
 		data->lexer = NULL;
 	}
-	if (data->parser != NULL)
+	if (data->parser)
 	{
 		free_parser_list(&data->parser);
 		data->parser = NULL;
@@ -135,6 +135,7 @@ void	mini_loop(t_mini *data)
 		parser(data);
 //		print_one_by_one(data->parser);
 //		print_parser_list(data->parser);
+//		print_lexer_list(data->lexer);
 		expander(data);
 		executor(data);
 	}

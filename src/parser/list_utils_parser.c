@@ -29,12 +29,28 @@ int	count_nodes(t_parser *parser_list)
 
 void	free_node_parser(t_parser **node)
 {
+	t_lexer	*tmp;
+	t_lexer	*next;
+
 	if (*node)
 	{
 		if ((*node)->commands != NULL)
 			free_strarr((*node)->commands);
+		if ((*node)->heredoc_delim != NULL)
+			free((*node)->heredoc_delim);
+		if ((*node)->heredoc_name != NULL)
+			free((*node)->heredoc_name);
 		if ((*node)->redirections != NULL)
-			free_lexer_list(&(*node)->redirections);
+		{
+			tmp = (*node)->redirections;
+			while (tmp)
+			{
+				next = tmp->next;
+				free(tmp->token);
+				free(tmp);
+				tmp = next;
+			}
+		}			
 		free(*node);
 		*node = NULL;
 	}

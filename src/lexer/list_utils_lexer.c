@@ -37,6 +37,9 @@ t_lexer	*delete_redirection_lexer(t_mini *data, t_lexer **node)
 		new_next->prev = (*node)->prev;
 	if ((*node)->prev == NULL)
 		data->lexer = new_next;
+	free((*node)->next->token);
+	free((*node)->next);
+	free(*node);
 	return (new_next);
 }
 

@@ -60,6 +60,8 @@ char	*remove_marker(char *str, int marker_count)
 
 	j = 0;
 	i = -1;
+	if (marker_count == 0)
+		return (str);
 	new_string = malloc(sizeof(char) * (ft_strlen(str) - marker_count) + 1);
 	// protect malloc
 	while (str[++i])

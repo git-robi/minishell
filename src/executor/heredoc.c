@@ -12,18 +12,6 @@
 
 #include "../../includes/mini.h"
 
-/*void	handle_quotes_heredoc(t_parser **cmd, t_lexer **heredoc)
-{
-	int	end;
-
-	end = ft_strlen((*heredoc)->token) - 1;
-	(*cmd)->heredoc_delim = (*heredoc)->token;
-	if ((*heredoc)->token[0] == '\'' && (*heredoc)->token[end] == '\'')
-		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\'");
-	else if ((*heredoc)->token[0] == '\"' && (*heredoc)->token[end] == '\"')
-		(*cmd)->heredoc_delim = ft_strtrim((*heredoc)->token, "\"");
-}*/
-
 int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 {
 	//in this function will be necessary to handle the "Ctrl+C" signal
@@ -80,7 +68,6 @@ void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 	(*cmd)->heredoc_delim = ft_strdup((*heredoc)->token);
 	replace_quotes((*cmd)->heredoc_delim, &marker_count, 0);
 	(*cmd)->heredoc_delim = remove_marker((*cmd)->heredoc_delim, marker_count);
-//	handle_quotes_heredoc(cmd, heredoc);
 	make_heredoc(data, cmd, (*heredoc)->token);
 }
 

@@ -32,7 +32,10 @@ char	*expand_and_reassemble(t_mini *data, char *string, t_xy xy, char *expansion
 		tmp = ft_strjoin(before_var, expansion);
 		data->exp_idx = (int)ft_strlen(tmp) - 1;
 		string = ft_strjoin(tmp, after_var);
+		free(after_var);
+		free(tmp);
 	}
+	free(before_var);
 	return (string);
 }
 

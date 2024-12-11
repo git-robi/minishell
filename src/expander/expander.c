@@ -77,20 +77,18 @@ char	*env_expand(t_mini *data, char **tmp, char **string)
 			j++;
 		*string = expand_substring(data, *tmp, i, j - 1);
 	}
-//	free(*tmp);
+	free(*tmp);
 	*tmp = ft_strdup(*string);
 	return (*tmp);
 }
 
 void	expand_string(t_mini *data, char **string)
 {
-//	int		i;
 	int		single_quote;
 	int		double_quote;
 	char	*tmp;
 
 	data->exp_idx = 0;
-//	i = 0;
 	single_quote = 0;
 	double_quote = 0;
 	tmp = ft_strdup(*string);
@@ -108,7 +106,7 @@ void	expand_string(t_mini *data, char **string)
 		}
 		data->exp_idx++;
 	}
-//	free(tmp);
+	free(tmp);
 }
 
 void	expander(t_mini *data)
