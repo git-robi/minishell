@@ -81,6 +81,7 @@ void	clean_quotes(t_mini *data)
 	int			i;
 	t_parser	*tmp;
 	int			marker_count;
+	t_lexer		*redir;
 
 	tmp = data->parser;
 	while (tmp)
@@ -93,6 +94,15 @@ void	clean_quotes(t_mini *data)
 			if (marker_count > 0)
 				tmp->commands[i] = remove_marker(tmp->commands[i], marker_count);
 			i++;
+		}
+		redir = tmp->redirections;
+		while (redir)
+		{
+			marker_count = 0;
+			replace_quotes(redir->token, &marker_count, 0);
+			if (marker_count > 0)
+				redir->token = remove_marker(redir->token, marker_count);
+			redir = redir->next;
 		}
 		tmp = tmp->next;
 	}

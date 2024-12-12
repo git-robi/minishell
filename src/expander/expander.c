@@ -114,6 +114,7 @@ void	expander(t_mini *data)
 	t_parser	*tmp;
 	char		**cmd_tmp;
 	int			i;
+	t_lexer		*redir;
 
 	tmp = data->parser;
 	while (tmp)
@@ -123,6 +124,12 @@ void	expander(t_mini *data)
 		{
 			expand_string(data, &tmp->commands[i]);
 			i++;
+		}
+		redir = tmp->redirections;
+		while (redir)
+		{
+			expand_string(data, &redir->token);
+			redir = redir->next;
 		}
 		cmd_tmp = strarr_cpy(tmp->commands);
 		free_strarr(tmp->commands);

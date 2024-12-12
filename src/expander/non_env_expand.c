@@ -42,7 +42,6 @@ char	*handle_question_mark(t_mini *data, char *string, int start, int exit_code)
 {
 	if (start == 1 && string[2] == '\0')
 	{
-		//free(string);
 		string = ft_itoa(exit_code);
 		data->exp_idx = (int)ft_strlen(string) - 1;
 	}
@@ -59,7 +58,6 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 	if (start == 1 && string[end + 1] == '\0')
 	{
 		data->exp_idx = 0;
-//		free(string);
 		string = ft_strdup("\0");
 	}
 	else
@@ -79,9 +77,9 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 			after_var = ft_substr(string, end + 1, ft_strlen(string) - end - 1);
 			string = ft_strjoin(before_var, after_var);
 			data->exp_idx = (int)ft_strlen(before_var);
+			free(after_var);
 		}
 		free(before_var);
-		free(after_var);
 	}
 	return (string);
 }
