@@ -68,9 +68,8 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 			before_var = ft_substr(string, 0, start - 1);
 		if (string[end + 1] == '\0')
 		{
-			free(string);
 			string = before_var;
-			data->exp_idx = (int)ft_strlen(string) - 1;
+			data->exp_idx = (int)ft_strlen(string);
 		}
 		else
 		{
@@ -78,8 +77,8 @@ char	*unmatched_var(t_mini *data, char *string, int start, int end)
 			string = ft_strjoin(before_var, after_var);
 			data->exp_idx = (int)ft_strlen(before_var);
 			free(after_var);
+			free(before_var);
 		}
-		free(before_var);
 	}
 	return (string);
 }

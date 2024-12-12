@@ -128,7 +128,8 @@ void	expander(t_mini *data)
 		redir = tmp->redirections;
 		while (redir)
 		{
-			expand_string(data, &redir->token);
+			if (redir->type != HERE_DOC)
+				expand_string(data, &redir->token);
 			redir = redir->next;
 		}
 		cmd_tmp = strarr_cpy(tmp->commands);
