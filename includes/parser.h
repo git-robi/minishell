@@ -8,8 +8,9 @@ typedef struct s_parser t_parser;
 typedef struct s_parser
 {
 	char	**commands;
-	//builtin function
-//	int		redir_num; not sure about this
+	int	(*builtin_ptr)(t_mini *, t_parser *);
+	char		*heredoc_name;
+	char		*heredoc_delim;
 	t_lexer		*redirections;
 	t_parser	*next;
 	t_parser	*prev;

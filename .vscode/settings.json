@@ -4,6 +4,8 @@
         "libft.h": "c",
         "stdio.h": "c",
         "string.h": "c",
-        "parser.h": "c"
+        "parser.h": "c",
+        "unistd.h": "c",
+        "stdlib.h": "c"
     }
 }
