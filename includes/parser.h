@@ -43,5 +43,5 @@ int             count_commands(t_mini *data);
 t_lexer             *error_check(t_mini *data);
 int    unexpected_token_error(t_lexer *node);
 int     check_builtin(char *cmd);
-
+t_lexer *get_lexer_head(t_lexer *node);
 #endif
