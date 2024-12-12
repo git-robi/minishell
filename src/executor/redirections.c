@@ -22,6 +22,7 @@ int	check_fd(int fd, int type)
 		std_in_out = STDOUT_FILENO;
 	if (fd < 0)
 	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		if (type == REDIR_IN || type == HERE_DOC)
 			ft_putstr_fd("infile: No such file or directory\n", STDERR_FILENO);
 		else
