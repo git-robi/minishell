@@ -50,7 +50,7 @@ void	free_node_parser(t_parser **node)
 				free(tmp);
 				tmp = next;
 			}
-		}			
+		}
 		free(*node);
 		*node = NULL;
 	}

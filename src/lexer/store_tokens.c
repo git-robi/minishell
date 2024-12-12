@@ -68,7 +68,7 @@ int	store_word(char *input, t_lexer **token_list)
 		else if (input[end] == '\"')
 			d_quote = !d_quote;
 		else if ((input[end] == '<' || input[end] == '>' || input[end] == '|'
-			|| is_whitespace(input[end])) && s_quote == 0 && d_quote == 0)
+				|| is_whitespace(input[end])) && s_quote == 0 && d_quote == 0)
 			break ;
 		end++;
 	}

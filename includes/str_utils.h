@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	STR_UTILS_H
+#ifndef STR_UTILS_H
 # define STR_UTILS_H
 
-int ft_strcmp(char *s1, char *s2);
-char    *ft_strcat(char *dest, char *src);
-char    *ft_strcpy(char *dest, char *src);
+int	ft_strcmp(char *s1, char *s2);
+char	*ft_strcat(char *dest, char *src);
+char	*ft_strcpy(char *dest, char *src);
 
 #endif 

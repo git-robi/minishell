@@ -14,7 +14,7 @@
 
 void	free_node_lexer(t_lexer **node)
 {
-	if ((*node) && (*node)->token && (*node)->type == WORD) 
+	if ((*node) && (*node)->token && (*node)->type == WORD)
 	{
 		free((*node)->token);
 		(*node)->token = NULL;
@@ -77,4 +77,13 @@ t_lexer	*new_node_lexer(char *str, int type)
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
+}
+
+t_lexer	*get_lexer_head(t_lexer *node)
+{
+	if (!node)
+		return (NULL);
+	while (node->prev)
+		node = node->prev;
+	return (node);
 }

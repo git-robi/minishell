@@ -18,7 +18,7 @@ int	directory_path(char *cmd)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": is a directory\n", STDERR_FILENO);
-	return(126);
+	return (126);
 }
 
 int	is_a_directory(char *cmd)
@@ -58,7 +58,6 @@ void	execute_command(t_mini *data, t_parser *cmd)
 		exit (127);
 	}
 	execve(path, cmd->commands, env);
-	//protect execve?????
 	free_strarr(env);
 	exit (EXIT_SUCCESS);
 }

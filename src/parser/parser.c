@@ -93,15 +93,6 @@ t_lexer	*remove_pipe(t_mini *data)
 	return (new_position);
 }
 
-t_lexer	*get_lexer_head(t_lexer *node)
-{
-	if (!node)
-		return (NULL);
-	while (node->prev)
-		node = node->prev;
-	return (node);
-}
-		
 void	parser(t_mini *data)
 {
 	t_parser	*node;
