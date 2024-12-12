@@ -85,6 +85,11 @@ t_lexer	*remove_pipe(t_mini *data)
 		new_position->prev->next = new_position;
 		free(tmp);
 	}
+	if (new_position == NULL)
+	{
+		data->lexer = get_lexer_head(data->lexer);
+		free_lexer_list(&data->lexer);
+	}
 	return (new_position);
 }
 
@@ -101,9 +106,7 @@ void	parser(t_mini *data)
 {
 	t_parser	*node;
 	t_parser	*parser;
-//	t_lexer		*lexer_head;
 
-//	lexer_head = data->lexer;
 	node = NULL;
 	parser = NULL;
 	while (data->lexer)
@@ -115,6 +118,5 @@ void	parser(t_mini *data)
 		add_node_parser(node, &parser);
 		data->lexer = remove_pipe(data);
 	}
-	data->lexer = get_lexer_head(data->lexer);
 	data->parser = parser;
 }

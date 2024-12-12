@@ -21,6 +21,20 @@ int	directory_path(char *cmd)
 	return(126);
 }
 
+int	is_a_directory(char *cmd)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd);
+	if ((cmd[0] == '/' || cmd[0] == '.') && dir != NULL)
+	{
+		closedir(dir);
+		return (1);
+	}
+	closedir(dir);
+	return (0);
+}
+
 void	execute_command(t_mini *data, t_parser *cmd)
 {
 	char	*path;
@@ -28,7 +42,7 @@ void	execute_command(t_mini *data, t_parser *cmd)
 
 	if (!cmd->commands[0])
 		exit (EXIT_SUCCESS);
-	if ((cmd->commands[0][0] == '/' || cmd->commands[0][0] == '.') && opendir(cmd->commands[0]) != NULL)
+	if (is_a_directory(cmd->commands[0]))
 		exit (directory_path(cmd->commands[0]));
 	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
 		exit (EXIT_FAILURE);
