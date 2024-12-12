@@ -17,6 +17,8 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	char	*path;
 	char	**env;
 
+	if (!cmd->commands[0])
+		exit (EXIT_SUCCESS);
 	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
 		exit (EXIT_FAILURE);
 	if (cmd->builtin)

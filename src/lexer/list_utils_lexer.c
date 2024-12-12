@@ -14,7 +14,7 @@
 
 void	free_node_lexer(t_lexer **node)
 {
-	if ((*node) && (*node)->token)
+	if ((*node) && (*node)->token && (*node)->type == WORD) 
 	{
 		free((*node)->token);
 		(*node)->token = NULL;
