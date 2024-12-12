@@ -39,6 +39,7 @@ typedef struct s_env
 	char	*variable;
 	char	*content;
 	struct	s_env *next;
+	struct  s_env *prev;
 }	t_env;
 
 typedef struct s_mini

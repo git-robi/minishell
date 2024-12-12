@@ -24,7 +24,7 @@ int	call_builtin_function(t_mini *data, t_parser *cmd)
 		return (ft_export(data, cmd));
 	if (!ft_strcmp(cmd->commands[0], "pwd"))
 		return (ft_pwd());
-//	if (!ft_strcmp(cmd->commands[0], "unset"))
-//		return (ft_unset());
+	if (!ft_strcmp(cmd->commands[0], "unset"))
+		return (ft_unset(data));
 	return (0);
 }

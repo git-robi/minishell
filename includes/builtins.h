@@ -40,7 +40,7 @@ int	ft_echo(t_mini *data, t_parser *cmd);
 int	ft_pwd(void);
 int	ft_env(t_mini *data);
 int	ft_export(t_mini *data, t_parser *cmd);
-
+ int ft_unset(t_mini *data);
 //utils 
 void bubble_sort_env_list(t_env **head);
 t_env *export_list(t_env *original);

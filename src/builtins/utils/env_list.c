@@ -96,6 +96,7 @@ void	fill_env_list(t_env **env_cpy, const char *variable, const char *content)
 	{
 		last_node = ft_last_node(*env_cpy);
 		last_node->next = new_node;
+		new_node->prev = last_node;
 	}
 }
 
