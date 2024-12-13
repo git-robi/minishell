@@ -18,8 +18,8 @@ int	call_builtin_function(t_mini *data, t_parser *cmd)
 		return (ft_echo(data, cmd));
 	if (!ft_strcmp(cmd->commands[0], "env"))
 		return (ft_env(data));
-//	if (!ft_strcmp(cmd->commands[0], "exit"))
-//		return (ft_exit());
+	if (!ft_strcmp(cmd->commands[0], "exit"))
+		ft_exit(data, cmd);
 	if (!ft_strcmp(cmd->commands[0], "export"))
 		return (ft_export(data, cmd));
 	if (!ft_strcmp(cmd->commands[0], "pwd"))

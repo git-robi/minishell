@@ -127,8 +127,8 @@ void	mini_loop(t_mini *data)
 		add_history(data->line);
 		if (continue_case(data->line))
 			continue ;
-		if (ft_strcmp(data->line, "exit") == 0)
-			exit (0);
+//		if (ft_strcmp(data->line, "exit") == 0)
+//			exit (0);
 		read_token(data);
 		if (unexpected_token_error(error_check(data)))
 			continue ;
