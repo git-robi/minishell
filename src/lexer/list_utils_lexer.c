@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 13:51:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:25:40 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:43:52 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_lexer	*delete_redirection_lexer(t_mini *data, t_lexer **node)
 	}
 	else if ((*node)->prev == NULL)
 		data->lexer = new_next;
+	if ((*node)->next->next == NULL)
+		new_next = NULL;
 	free((*node)->next->token);
 	free((*node)->next);
 	free(*node);

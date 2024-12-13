@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:33:44 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:13:20 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,47 @@ t_lexer	*store_redirection(t_lexer **token, t_parser **pars_node, t_mini *data)
 	return (new_position);
 }
 
-void	handle_redirections(t_mini *data, t_parser *node)
+t_lexer	*handle_redirections(t_mini *data, t_lexer *lex_node, t_parser *node)
 {
 	t_lexer	*tmp;
+	int		i;
 
-	tmp = data->lexer;
+	i = 0;
+	tmp = lex_node;
 	while (tmp)
 	{
 		if (tmp->type == PIPE)
 			break ;
 		if (tmp->type != WORD)
+		{
 			tmp = store_redirection(&tmp, &node, data);
+			if (i == 0)
+				lex_node = tmp;
+			if (tmp == NULL && i == 0)
+				return (NULL);
+		}
 		else
+		{
 			tmp = tmp->next;
+			i++;
+		}
 	}
+	return (lex_node);
 }
 
-void	store_commands(t_mini *data, t_lexer *tmp, t_parser **parser_node)
+t_lexer	*store_commands(t_mini *data, t_lexer *tmp, t_parser **parser_node)
 {
 	int		cmds_num;
 	int		i;
-//	t_lexer	*tmp;
 
 	i = 0;
-	handle_redirections(data, *parser_node);
-	cmds_num = count_commands(data);
-//	tmp = data->lexer;
+	tmp = handle_redirections(data, tmp, *parser_node);
+	cmds_num = count_commands(data, tmp);
+	if (cmds_num == 0)
+	{
+		(*parser_node)->commands = NULL;
+		return (tmp);
+	}
 	(*parser_node)->commands = malloc(sizeof(char *) * (cmds_num + 1));
 	if ((*parser_node)->commands == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
@@ -67,15 +82,16 @@ void	store_commands(t_mini *data, t_lexer *tmp, t_parser **parser_node)
 		tmp = tmp->next;
 	}
 	(*parser_node)->commands[i] = NULL;
+	return (tmp);
 }
 
 t_lexer	*remove_pipe(t_mini *data, t_lexer *tmp)
 {
-//	t_lexer	*tmp;
 	t_lexer	*new_position;
 
 	new_position = NULL;
-//	tmp = data->lexer;
+	if (tmp == NULL)
+		return (NULL);
 	while (tmp && tmp->type != PIPE)
 		tmp = tmp->next;
 	if (tmp && tmp->type == PIPE)
@@ -85,11 +101,12 @@ t_lexer	*remove_pipe(t_mini *data, t_lexer *tmp)
 		new_position->prev->next = new_position;
 		free(tmp);
 	}
-	if (new_position == NULL)
-	{
-		data->lexer = get_lexer_head(data->lexer);
-		free_lexer_list(&data->lexer);
-	}
+//	if (new_position == NULL)
+//	{
+//		data->lexer = get_lexer_head(data->lexer);
+//		free_lexer_list(&data->lexer);
+//	}
+	(void)data;
 	return (new_position);
 }
 
@@ -107,7 +124,7 @@ void	parser(t_mini *data)
 		node = new_node_parser(tmp->token);
 		if (node == NULL)
 			free_data_and_exit(data, EXIT_FAILURE);
-		store_commands(data, tmp, &node);
+		tmp = store_commands(data, tmp, &node);
 		add_node_parser(node, &parser);
 		tmp = remove_pipe(data, tmp);
 	}

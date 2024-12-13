@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:27 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:30:59 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:37:38 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/mini.h"
@@ -66,13 +66,14 @@ t_lexer	*error_check(t_mini *data)
 	return (NULL);
 }
 
-int	count_commands(t_mini *data)
+int	count_commands(t_mini *data, t_lexer *tmp)
 {
 	int		cmds_num;
-	t_lexer	*tmp;
 
+	(void)data;
 	cmds_num = 0;
-	tmp = data->lexer;
+	if (!tmp)
+		return (0);
 	while (tmp)
 	{
 		if (tmp->type == PIPE)

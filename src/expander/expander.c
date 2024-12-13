@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:47:32 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:47:42 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:58:00 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	expander(t_mini *data)
 	tmp = data->parser;
 	while (tmp)
 	{
-		i = 0;
-		while (tmp->commands[i])
+		i = 0;		
+		while (tmp->commands && tmp->commands[i])
 		{
 			expand_string(data, &tmp->commands[i]);
 			i++;
@@ -85,9 +85,12 @@ void	expander(t_mini *data)
 				expand_string(data, &redir->token);
 			redir = redir->next;
 		}
-		cmd_tmp = strarr_cpy(tmp->commands);
-		free_strarr(tmp->commands);
-		tmp->commands = cmd_tmp;
+		if (tmp->commands)
+		{
+			cmd_tmp = strarr_cpy(tmp->commands);
+			free_strarr(tmp->commands);
+			tmp->commands = cmd_tmp;
+		}
 		tmp = tmp->next;
 	}
 	clean_quotes(data);

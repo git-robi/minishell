@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 12:36:27 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:07:34 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	print_lexer_list(t_lexer *lexer_list)
 void	print_array(char **array)
 {
 	int i = 0;
+	if(!array)
+		return ;
 	while (array[i])
 	{
 		printf("command[%d] = -%s-\n", i + 1, array[i]);

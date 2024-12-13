@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:37:24 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:06:23 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	char	*path;
 	char	**env;
 
-	if (!cmd->commands[0])
+	if (!cmd->commands || !cmd->commands[0])
 		exit (EXIT_SUCCESS);
 	if (is_a_directory(cmd->commands[0]))
 		exit (directory_path(cmd->commands[0]));
