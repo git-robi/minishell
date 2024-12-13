@@ -35,6 +35,7 @@ void	clear_data(t_mini *data)
 		data->pids = NULL;
 	}
 	data->in_fd = STDIN_FILENO;
+	g_status = 0;
 }
 
 int	continue_case(char *line)
@@ -65,6 +66,11 @@ void	mini_loop(t_mini *data)
 	{
 		clear_data(data);
 		data->line = readline("minishell$ " );
+//		if (g_status != 0)
+//		{
+//			data->exit_code = g_status;
+//			continue ;
+//		}
 		if (!data->line)
 		{
 			ft_putstr_fd("exit", STDOUT_FILENO);

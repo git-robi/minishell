@@ -31,7 +31,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-extern int	g_status;
+extern int g_status;
 
 typedef struct s_env
 {

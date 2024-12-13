@@ -1,5 +1,11 @@
 #include "../includes/mini.h"
 
+void	handle_sigquit(int signal)
+{
+	(void)signal;
+	ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
+}
+
 int	event(void)
 {
 	return (EXIT_SUCCESS);
@@ -8,9 +14,21 @@ int	event(void)
 
 void	handle_sigint(int s)
 {
-	(void)s;
-	exit_status = 2;
-	rl_done = 1;
+	if (g_status == 0)
+	{
+		if (s == SIGINT)
+            		g_status = 130;
+        	else if (s == SIGQUIT)
+            		g_status = 131;
+		rl_done = 1;
+	}
+	else
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	init_signals(void)

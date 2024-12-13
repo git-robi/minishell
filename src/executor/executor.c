@@ -68,6 +68,7 @@ void	one_command(t_mini *data)
 	int			pid;
 	t_parser	*cmd;
 
+	signal(SIGQUIT, handle_sigquit);
 	cmd = data->parser;
 	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
 	{
@@ -83,12 +84,21 @@ void	one_command(t_mini *data)
 	waitpid(pid, &child_status, 0);
 	if (WIFEXITED(child_status))
 		data->exit_code = WEXITSTATUS(child_status);
+	else if (WIFSIGNALED(child_status))
+	{
+		if (WTERMSIG(child_status) == SIGINT)
+			data->exit_code = 130;
+		else if (WTERMSIG(child_status) == SIGQUIT)
+			data->exit_code = 131;
+	}
 }
 
 void	executor(t_mini *data)
 {
 	int		commands;
 
+//	signal(SIGQUIT, handle_sigquit);
+	g_status = 0;
 	commands = count_nodes(data->parser);
 	if (commands > 1)
 	{
@@ -99,4 +109,10 @@ void	executor(t_mini *data)
 	}
 	else
 		one_command(data);
+	if (g_status != 0)
+	{
+		data->exit_code = g_status;
+		printf("\n");
+
+	}
 }

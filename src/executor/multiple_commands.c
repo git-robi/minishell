@@ -53,17 +53,24 @@ void	update_in_fd(t_mini **data, t_parser *cmd, int pipes_ends[2])
 
 void	wait_for_processes(t_mini **data)
 {
-	int	exit_code;
+	int	child_status;
 	int	i;
 
 	i = 0;
 	while (i < count_nodes((*data)->parser))
 	{
-		waitpid((*data)->pids[i], &exit_code, 0);
+		waitpid((*data)->pids[i], &child_status, 0);
 		i++;
 	}
-	if (WIFEXITED(exit_code))
-		(*data)->exit_code = WEXITSTATUS(exit_code);
+	if (WIFEXITED(child_status))
+		(*data)->exit_code = WEXITSTATUS(child_status);
+	else if (WIFSIGNALED(child_status))
+	{
+		if (WTERMSIG(child_status) == SIGINT)
+			(*data)->exit_code = 130;
+		else if (WTERMSIG(child_status) == SIGQUIT)
+			(*data)->exit_code = 131;
+	}
 }
 
 void	multiple_commands(t_mini *data)
@@ -72,6 +79,7 @@ void	multiple_commands(t_mini *data)
 	t_parser	*cmd;
 	int			pid_idx;
 
+	signal(SIGQUIT, handle_sigquit);
 	pid_idx = 0;
 	cmd = data->parser;
 	while (cmd)

@@ -12,6 +12,8 @@
 
 #include "../includes/mini.h"
 
+int	g_status = 0;
+
 void	set_pwd(t_mini *data, char **env)
 {
 	int	i;
@@ -40,7 +42,7 @@ void	init_data(t_mini *data, char **env)
 	data->exit_code = 0;
 	data->env_list = env_list(env);
 	set_pwd(data, env);
-//	init_signals();
+	init_signals();
 }
 
 int	main(int argc, char **argv, char **env)

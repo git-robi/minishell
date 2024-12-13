@@ -14,5 +14,8 @@
 # define SIGNALS_H
 
 void	init_signals(void);
+void    handle_sigquit(int signal);
+int     event(void);
+void    handle_sigint(int s);
 
 #endif
