@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:21:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/27 16:15:35 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:30:48 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	wait_for_processes(t_mini **data)
 
 void	multiple_commands(t_mini *data)
 {
-	int		pipes_ends[2];
+	int			pipes_ends[2];
 	t_parser	*cmd;
-	int		pid_idx;
+	int			pid_idx;
 
 	pid_idx = 0;
 	cmd = data->parser;

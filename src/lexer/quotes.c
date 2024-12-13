@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:10:16 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:23:56 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:23:43 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	store_token_in_quotes(char *input, t_lexer **token_list)
 	end = 1;
 	if (input[0] == '\'')
 		while (input[end] && !(input[end] == '\'' && (input[end + 1] == '\0'
-			|| input[end + 1] == ' ')))
+					|| input[end + 1] == ' ')))
 			end++;
 	else if (input[0] == '\"')
 		while (input[end] && !(input[end] == '\"' && (input[end + 1] == '\0'
-				|| input[end + 1] == ' ')))
+					|| input[end + 1] == ' ')))
 			end++;
 	new_node = new_node_lexer(ft_substr(input, 0, end + 1), WORD);
 	if (new_node == NULL)

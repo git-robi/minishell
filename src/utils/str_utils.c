@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:55 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 12:46:03 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:32:46 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while((s1[i] == s2[i]) && s1[i] && s2[i])
+	while ((s1[i] == s2[i]) && s1[i] && s2[i])
 		i++;
 	return (s1[i] - s2[i]);
 }

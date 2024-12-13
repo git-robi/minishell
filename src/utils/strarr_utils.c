@@ -6,17 +6,16 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:45 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 12:50:26 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:39:38 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
-#include <stdlib.h>
 
 int	count_env_nodes(t_env *env_list)
 {
 	t_env	*tmp;
-	int	count;
+	int		count;
 
 	count = 0;
 	tmp = env_list;
@@ -28,11 +27,11 @@ int	count_env_nodes(t_env *env_list)
 	return (count);
 }
 
-char **env_list_to_strarr(t_mini *data)
+char	**env_list_to_strarr(t_mini *data)
 {
-	t_env *tmp;
+	t_env	*tmp;
 	char	**env_strarr;
-	int	i;
+	int		i;
 
 	i = 0;
 	tmp = data->env_list;
@@ -52,7 +51,7 @@ char **env_list_to_strarr(t_mini *data)
 size_t	strarr_len(char **strarr)
 {
 	size_t	len;
-	int	i;
+	int		i;
 
 	i = 0;
 	len = 0;
@@ -69,11 +68,21 @@ size_t	strarr_len(char **strarr)
 	return (len);
 }
 
+int	skip_empty_line(char **strarr, int *i)
+{
+	if (strarr[*i][0] == '\0')
+	{
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
+
 char	**strarr_cpy(char **strarr)
 {
 	char	**cpy;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -82,11 +91,8 @@ char	**strarr_cpy(char **strarr)
 		exit (EXIT_FAILURE);
 	while (strarr[i])
 	{
-		if (strarr[i][0] == '\0')
-		{
-			i++;
+		if (skip_empty_line(strarr, &i))
 			continue ;
-		}
 		cpy[j] = ft_strdup(strarr[i]);
 		if (cpy[j] == NULL)
 		{

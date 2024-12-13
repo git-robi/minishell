@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:36:22 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 14:13:20 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:26:12 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_lexer	*store_commands(t_mini *data, t_lexer *tmp, t_parser **parser_node)
 	return (tmp);
 }
 
-t_lexer	*remove_pipe(t_mini *data, t_lexer *tmp)
+t_lexer	*remove_pipe(t_lexer *tmp)
 {
 	t_lexer	*new_position;
 
@@ -101,12 +101,6 @@ t_lexer	*remove_pipe(t_mini *data, t_lexer *tmp)
 		new_position->prev->next = new_position;
 		free(tmp);
 	}
-//	if (new_position == NULL)
-//	{
-//		data->lexer = get_lexer_head(data->lexer);
-//		free_lexer_list(&data->lexer);
-//	}
-	(void)data;
 	return (new_position);
 }
 
@@ -126,7 +120,7 @@ void	parser(t_mini *data)
 			free_data_and_exit(data, EXIT_FAILURE);
 		tmp = store_commands(data, tmp, &node);
 		add_node_parser(node, &parser);
-		tmp = remove_pipe(data, tmp);
+		tmp = remove_pipe(tmp);
 	}
 	data->parser = parser;
 }

@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:11:02 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/10 16:03:25 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:31:58 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_lexer_list(t_lexer **lexer_list)
 {
 	t_lexer	*tmp;
 	t_lexer	*next;
-	
+
 	tmp = *lexer_list;
 	while (tmp)
 	{
