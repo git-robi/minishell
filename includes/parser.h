@@ -27,8 +27,8 @@ typedef struct	s_parser
 }	t_parser;
 
 void		parser(t_mini *data);
-void		store_commands(t_mini *data, t_parser **node);
-t_lexer		*remove_pipe(t_mini *data);
+void		store_commands(t_mini *data, t_lexer *tmp, t_parser **node);
+t_lexer		*remove_pipe(t_mini *data, t_lexer *tmp);
 void		handle_redirections(t_mini *data, t_parser *node);
 t_lexer		*store_redirection(t_lexer **token, t_parser **pars_node, t_mini *data);
 void		add_node_parser(t_parser *node, t_parser **parser_list);

@@ -45,16 +45,16 @@ void	handle_redirections(t_mini *data, t_parser *node)
 	}
 }
 
-void	store_commands(t_mini *data, t_parser **parser_node)
+void	store_commands(t_mini *data, t_lexer *tmp, t_parser **parser_node)
 {
 	int		cmds_num;
 	int		i;
-	t_lexer	*tmp;
+//	t_lexer	*tmp;
 
 	i = 0;
 	handle_redirections(data, *parser_node);
 	cmds_num = count_commands(data);
-	tmp = data->lexer;
+//	tmp = data->lexer;
 	(*parser_node)->commands = malloc(sizeof(char *) * (cmds_num + 1));
 	if ((*parser_node)->commands == NULL)
 		free_data_and_exit(data, EXIT_FAILURE);
@@ -69,13 +69,13 @@ void	store_commands(t_mini *data, t_parser **parser_node)
 	(*parser_node)->commands[i] = NULL;
 }
 
-t_lexer	*remove_pipe(t_mini *data)
+t_lexer	*remove_pipe(t_mini *data, t_lexer *tmp)
 {
-	t_lexer	*tmp;
+//	t_lexer	*tmp;
 	t_lexer	*new_position;
 
 	new_position = NULL;
-	tmp = data->lexer;
+//	tmp = data->lexer;
 	while (tmp && tmp->type != PIPE)
 		tmp = tmp->next;
 	if (tmp && tmp->type == PIPE)
@@ -97,17 +97,19 @@ void	parser(t_mini *data)
 {
 	t_parser	*node;
 	t_parser	*parser;
+	t_lexer		*tmp;
 
+	tmp = data->lexer;
 	node = NULL;
 	parser = NULL;
-	while (data->lexer)
+	while (tmp)
 	{
-		node = new_node_parser(data->lexer->token);
+		node = new_node_parser(tmp->token);
 		if (node == NULL)
 			free_data_and_exit(data, EXIT_FAILURE);
-		store_commands(data, &node);
+		store_commands(data, tmp, &node);
 		add_node_parser(node, &parser);
-		data->lexer = remove_pipe(data);
+		tmp = remove_pipe(data, tmp);
 	}
 	data->parser = parser;
 }

@@ -53,7 +53,12 @@ t_lexer	*error_check(t_mini *data)
 		{
 			if (node->next == NULL)
 				return (node);
-			else if (node->prev->type != WORD || node->next->type != WORD)
+			if (node->type == PIPE && node->next->type != PIPE)
+			{
+				node = node->next;
+				continue ;
+			}
+			else if (node->next->type != WORD)
 				return (node);
 		}
 		node = node->next;

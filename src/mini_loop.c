@@ -133,6 +133,7 @@ void	mini_loop(t_mini *data)
 		if (unexpected_token_error(error_check(data)))
 			continue ;
 		parser(data);
+//		print_parser_list(data->parser);
 		expander(data);
 		executor(data);
 	}
