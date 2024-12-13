@@ -97,6 +97,7 @@ void fill_env_list(t_env **env_cpy, const char *variable, const char *content)
 	if (!new_node)
 	{
 		write(2, "error", 6);
+        //print error "break"
 		exit(1);
 	}
 	new_node->variable = strdup(variable);

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/28 05:22:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/13 11:38:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int ft_export(t_mini *data)
     int i;
     t_env *export_cpy;
     t_content content;
+    t_env *temp;
     char **arg;
     arg = data->parser->commands;
     i = 1;
@@ -56,15 +57,16 @@ int ft_export(t_mini *data)
     {
         if (len == 1)
         {
-            while (export_cpy)
+            temp = export_cpy;
+            while (temp)
             {
-                if (strchr(export_cpy->variable, '=') && export_cpy->content == NULL)
-                    printf("declare -x %s%s\n", export_cpy->variable, "''");
-                else if (export_cpy->content == NULL)
-                    printf("declare -x %s\n", export_cpy->variable);
+                if (strchr(temp->variable, '=') && temp->content == NULL)
+                    printf("declare -x %s%s\n", temp->variable, "''");
+                else if (temp->content == NULL)
+                    printf("declare -x %s\n", temp->variable);
                 else
-                    printf("declare -x %s\"%s\"\n", export_cpy->variable, export_cpy->content);   
-                export_cpy = export_cpy->next;
+                    printf("declare -x %s\"%s\"\n", temp->variable, temp->content);
+                temp = temp->next;
             }
         }
         else
@@ -96,6 +98,14 @@ int ft_export(t_mini *data)
             }
         }
     }
+    while (export_cpy) 
+    {
+        temp = export_cpy;
+        export_cpy = export_cpy->next;
+        free(temp->variable);
+        free(temp->content);
+        free(temp);
+    }
     return (0);
 }
 
@@ -116,7 +126,7 @@ int main()
     
     ft_export(&mini);
 
-    char *line2[] = { "export", NULL };
+    char *line2[] = {"export", NULL};
     parser.commands = line2;
     ft_export(&mini);
     
@@ -130,16 +140,16 @@ int main()
     char *line4[] = { "export", NULL };
     parser.commands = line4;
     ft_export(&mini);
-
+    printf("cacaculo");
+    
     t_env *temp;
-    while (env) 
+    while (mini.env) 
     {
-        temp = env;
-        env = env->next;
+        temp = mini.env;
+        mini.env = mini.env->next;
         free(temp->variable);
         free(temp->content);
         free(temp);
     }
-
     return 0;
 }
