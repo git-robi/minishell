@@ -68,7 +68,6 @@ void	one_command(t_mini *data)
 	int			pid;
 	t_parser	*cmd;
 
-	signal(SIGQUIT, handle_sigquit);
 	cmd = data->parser;
 	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
 	{
@@ -76,6 +75,7 @@ void	one_command(t_mini *data)
 		return ;
 	}
 	check_heredoc(data, data->parser);
+	signal(SIGQUIT, handle_sigquit);
 	pid = fork();
 	if (pid < 0)
 		free_data_and_exit(data, 1);
