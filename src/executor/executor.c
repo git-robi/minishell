@@ -75,7 +75,8 @@ void	one_command(t_mini *data)
 		return ;
 	}
 	check_heredoc(data, data->parser);
-	signal(SIGQUIT, handle_sigquit);
+	if (g_status != 0)
+		return ;
 	pid = fork();
 	if (pid < 0)
 		free_data_and_exit(data, 1);
@@ -84,20 +85,17 @@ void	one_command(t_mini *data)
 	waitpid(pid, &child_status, 0);
 	if (WIFEXITED(child_status))
 		data->exit_code = WEXITSTATUS(child_status);
-	else if (WIFSIGNALED(child_status))
+	if (g_status != 0)
 	{
-		if (WTERMSIG(child_status) == SIGINT)
-			data->exit_code = 130;
-		else if (WTERMSIG(child_status) == SIGQUIT)
-			data->exit_code = 131;
-	}
+		data->exit_code = g_status;
+		printf("\n");
+	}	
 }
 
 void	executor(t_mini *data)
 {
 	int		commands;
 
-//	signal(SIGQUIT, handle_sigquit);
 	g_status = 0;
 	commands = count_nodes(data->parser);
 	if (commands > 1)
@@ -109,10 +107,6 @@ void	executor(t_mini *data)
 	}
 	else
 		one_command(data);
-	if (g_status != 0)
-	{
-		data->exit_code = g_status;
-		printf("\n");
-
-	}
+//	if (data->exit_code == 130)
+//		printf("\n");
 }

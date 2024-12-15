@@ -64,12 +64,10 @@ void	wait_for_processes(t_mini **data)
 	}
 	if (WIFEXITED(child_status))
 		(*data)->exit_code = WEXITSTATUS(child_status);
-	else if (WIFSIGNALED(child_status))
+	if (g_status != 0)
 	{
-		if (WTERMSIG(child_status) == SIGINT)
-			(*data)->exit_code = 130;
-		else if (WTERMSIG(child_status) == SIGQUIT)
-			(*data)->exit_code = 131;
+		(*data)->exit_code = g_status;
+		printf("\n");
 	}
 }
 
@@ -78,8 +76,7 @@ void	multiple_commands(t_mini *data)
 	int			pipes_ends[2];
 	t_parser	*cmd;
 	int			pid_idx;
-
-	signal(SIGQUIT, handle_sigquit);
+	
 	pid_idx = 0;
 	cmd = data->parser;
 	while (cmd)

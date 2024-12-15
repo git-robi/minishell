@@ -66,11 +66,11 @@ void	mini_loop(t_mini *data)
 	{
 		clear_data(data);
 		data->line = readline("minishell$ " );
-//		if (g_status != 0)
-//		{
-//			data->exit_code = g_status;
-//			continue ;
-//		}
+		if (g_status != 0)
+		{
+			data->exit_code = g_status;
+			continue ;
+		}
 		if (!data->line)
 		{
 			ft_putstr_fd("exit", STDOUT_FILENO);

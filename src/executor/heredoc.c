@@ -17,10 +17,17 @@ int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 	char	*line;
 	int		heredoc_fd;
 
+	g_status = 0;
 	heredoc_fd = open((*cmd)->heredoc_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
 		line = readline("> ");
+		if (g_status == 130)
+		{
+			data->exit_code = g_status;	
+			free(line);
+			break ;
+		}
 		if (!line)
 			break ;
 		if (ft_strcmp(line, (*cmd)->heredoc_delim) == 0)
@@ -59,6 +66,8 @@ void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 	if ((*cmd)->heredoc_name)
 		free((*cmd)->heredoc_name);
 	(*cmd)->heredoc_name = new_heredoc_name();
+	if ((*cmd)->heredoc_delim)
+		free((*cmd)->heredoc_delim);
 	(*cmd)->heredoc_delim = ft_strdup((*heredoc)->token);
 	replace_quotes((*cmd)->heredoc_delim, &marker_count, 0);
 	(*cmd)->heredoc_delim = remove_marker((*cmd)->heredoc_delim, marker_count);
