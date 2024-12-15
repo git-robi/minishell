@@ -40,14 +40,16 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	char	*path;
 	char	**env;
 
-	if (!cmd->commands || !cmd->commands[0])
+	if ((!cmd->commands || !cmd->commands[0]) && !cmd->redirections)
 		exit (EXIT_SUCCESS);
-	if (is_a_directory(cmd->commands[0]))
+	if (cmd->commands && is_a_directory(cmd->commands[0]))
 		exit (directory_path(cmd->commands[0]));
 	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
 		exit (EXIT_FAILURE);
 	if (cmd->builtin)
 		exit (call_builtin_function(data, cmd));
+	if ((!cmd->commands || !cmd->commands[0]))
+		exit(EXIT_SUCCESS);
 	env = env_list_to_strarr(data);
 	path = path_finder(cmd->commands[0], env);
 	if (path == NULL)

@@ -98,7 +98,8 @@ t_lexer	*remove_pipe(t_lexer *tmp)
 	{
 		new_position = tmp->next;
 		new_position->prev = tmp->prev;
-		new_position->prev->next = new_position;
+		if (new_position->prev)
+			new_position->prev->next = new_position;
 		free(tmp);
 	}
 	return (new_position);
