@@ -1,5 +1,4 @@
 #include "../includes/builtins.h"
-//acces
 
 static char *pathishome(char **env) {
     int i = 0;
@@ -56,7 +55,11 @@ int cd(t_mini *data)
 {
     char **env = data->original_env;
     char *path = NULL;
-
+    if (data->parser->commands && data->parser->commands[2])
+    {
+        write(2, "cd: too many arguments\n", 24);
+        return -1;
+    }
     if (data->parser->commands && data->parser->commands[1]) 
         path = data->parser->commands[1];
 
@@ -88,7 +91,8 @@ int main() {
     data.parser = &parser;
 
     // Llamamos a la función cd
-    if (cd(&data) == 0) {
+    if (cd(&data) == 0) 
+    {
         printf("Directory changed successfully.\n");
     }
     pwd(&data);

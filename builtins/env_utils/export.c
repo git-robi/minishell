@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/13 11:38:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/15 15:36:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int doublepointerlenght(char **line)
         i++;
     return (i);    
 }
-int ft_export(t_mini *data)
+ int ft_export(t_mini *data)
 {
     int len;
     int i;
@@ -118,17 +118,15 @@ int main()
     char *line[] = { "export", NULL };
     parser.commands = NULL;
     mini.parser = &parser;
-
     
     t_env *env = NULL;
     fill_env_list(&env, "USER=", "john_doe");
     mini.env = env;
-    
     ft_export(&mini);
 
-    char *line2[] = {"export", NULL};
-    parser.commands = line2;
-    ft_export(&mini);
+    //char *line2[] = {"export", NULL};
+    //parser.commands = line2;
+    //ft_export(&mini);
     
     if (ft_env(env) == 1)
         return(1);
@@ -140,7 +138,6 @@ int main()
     char *line4[] = { "export", NULL };
     parser.commands = line4;
     ft_export(&mini);
-    printf("cacaculo");
     
     t_env *temp;
     while (mini.env) 

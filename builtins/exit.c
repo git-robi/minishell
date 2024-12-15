@@ -26,10 +26,6 @@ int check_number(char *number)
 
 int ft_exit(t_mini *data)
 {
-    //si no hay argumentos free de todo y a tomar por culo return (0);
-    //mirar si hay mas de un argumento y si el argumento es numerico;
-    //si el todo es correcto exit con el valor del numero:
-    // si no hay numero exit (0); si es incorrecto sale con estado dos mostrando mensaje y si hay mas de dos args no sale
     int exit_code;
     int comands_len;
 
