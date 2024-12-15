@@ -71,6 +71,21 @@ void	wait_for_processes(t_mini **data)
 	}
 }
 
+int	signal_heredoc(t_mini *data)
+{
+	t_parser	*cmd;
+
+	cmd = data->parser;
+	while (cmd)
+	{
+		check_heredoc(data, cmd);
+		if (g_status == 130)
+			return (1);
+		cmd = cmd->next;
+	}
+	return (0);
+}
+
 void	multiple_commands(t_mini *data)
 {
 	int			pipes_ends[2];
@@ -78,22 +93,13 @@ void	multiple_commands(t_mini *data)
 	int			pid_idx;
 	
 	pid_idx = 0;
-	cmd = data->parser;
-	while (cmd)
-	{
-		check_heredoc(data, cmd);
-		if (g_status == 130)
-			return ;
-		cmd = cmd->next;
-	}
+	if (signal_heredoc(data))
+		return ;
 	cmd = data->parser;
 	while (cmd)
 	{
 		if (cmd->next)
 			pipe(pipes_ends);
-	//	check_heredoc(data, cmd);
-	//	if (g_status == 130)
-	//		return  ;
 		make_process(&data, cmd, pipes_ends, pid_idx);
 		close(pipes_ends[1]);
 		if (cmd->prev)

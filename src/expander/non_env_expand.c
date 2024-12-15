@@ -50,35 +50,39 @@ char	*handle_question_mark(t_mini *data, char *string, int start, int exit_code)
 	return (string);
 }
 
-char	*unmatched_var(t_mini *data, char *string, int start, int end)
+char	*join_strings(t_mini *data, char *string, int start, int end)
 {
 	char	*before_var;
 	char	*after_var;
 
+	if (start == 1)
+		before_var = ft_strdup("");
+	else
+		before_var = ft_substr(string, 0, start - 1);
+	if (string[end + 1] == '\0')
+	{
+		string = before_var;
+		data->exp_idx = (int)ft_strlen(string);
+	}
+	else
+	{
+		after_var = ft_substr(string, end + 1, ft_strlen(string) - end - 1);
+		string = ft_strjoin(before_var, after_var);
+		data->exp_idx = (int)ft_strlen(before_var);
+		free(after_var);
+		free(before_var);
+	}
+	return (string);
+}
+
+char	*unmatched_var(t_mini *data, char *string, int start, int end)
+{
 	if (start == 1 && string[end + 1] == '\0')
 	{
 		data->exp_idx = 0;
 		string = ft_strdup("\0");
 	}
 	else
-	{
-		if (start == 1)
-			before_var = ft_strdup("");
-		else
-			before_var = ft_substr(string, 0, start - 1);
-		if (string[end + 1] == '\0')
-		{
-			string = before_var;
-			data->exp_idx = (int)ft_strlen(string);
-		}
-		else
-		{
-			after_var = ft_substr(string, end + 1, ft_strlen(string) - end - 1);
-			string = ft_strjoin(before_var, after_var);
-			data->exp_idx = (int)ft_strlen(before_var);
-			free(after_var);
-			free(before_var);
-		}
-	}
+		string = join_strings(data, string, start, end);
 	return (string);
 }

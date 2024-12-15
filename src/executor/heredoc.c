@@ -22,6 +22,27 @@ void	print_err_hd(char *delim)
 	ft_putstr_fd("')\n", 2);
 }
 
+int	break_case(t_mini *data, char *line, t_parser **cmd)
+{
+	if (g_status == 130)
+	{
+		data->exit_code = g_status;
+		free(line);
+		return (1);
+	}
+	if (!line)
+	{
+		print_err_hd((*cmd)->heredoc_delim);
+			return (1) ;
+	}
+	if (ft_strcmp(line, (*cmd)->heredoc_delim) == 0)
+	{
+		free(line);
+		return (1);
+	}
+	return (0);
+}
+
 int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 {
 	char	*line;
@@ -32,22 +53,8 @@ int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 	while (1)
 	{
 		line = readline("> ");
-		if (g_status == 130)
-		{
-			data->exit_code = g_status;	
-			free(line);
+		if (break_case(data, line, cmd))
 			break ;
-		}
-		if (!line)
-		{
-			print_err_hd((*cmd)->heredoc_delim);
-			break ;
-		}
-		if (ft_strcmp(line, (*cmd)->heredoc_delim) == 0)
-		{
-			free(line);
-			break ;
-		}
 		if (!is_single_quoted(heredoc_token))
 			expand_string(data, &line);
 		write(heredoc_fd, line, ft_strlen(line));

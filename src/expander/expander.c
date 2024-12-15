@@ -26,7 +26,8 @@ char	*env_expand(t_mini *data, char **tmp, char **string)
 	else
 	{
 		j = i;
-		while ((*tmp)[j] && (*tmp)[j] != '$' && !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]))
+		while ((*tmp)[j] && (*tmp)[j] != '$'
+				&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]))
 			j++;
 		*string = expand_substring(data, *tmp, i, j - 1);
 	}
@@ -62,34 +63,36 @@ void	expand_string(t_mini *data, char **string)
 	free(tmp);
 }
 
+void	expand_redirections(t_mini *data, t_parser *node)
+{
+	t_lexer	*redir;
+
+	redir = node->redirections;
+	while (redir)
+	{
+		if (redir->type != HERE_DOC)
+			expand_string(data, &redir->token);
+		redir = redir->next;
+	}
+}
+
 void	expander(t_mini *data)
 {
 	t_parser	*tmp;
 	char		**cmd_tmp;
 	int			i;
-	t_lexer		*redir;
 
 	tmp = data->parser;
 	while (tmp)
 	{
-		i = 0;		
-		while (tmp->commands && tmp->commands[i])
+		i = -1;
+		while (tmp->commands && tmp->commands[++i])
 		{
 			if (!ft_strcmp(tmp->commands[i], "\"$\""))
-			{
-				i++;
 				continue ;
-			}
 			expand_string(data, &tmp->commands[i]);
-			i++;
 		}
-		redir = tmp->redirections;
-		while (redir)
-		{
-			if (redir->type != HERE_DOC)
-				expand_string(data, &redir->token);
-			redir = redir->next;
-		}
+		expand_redirections(data, tmp);
 		if (tmp->commands)
 		{
 			cmd_tmp = strarr_cpy(tmp->commands);

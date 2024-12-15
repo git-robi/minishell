@@ -62,6 +62,16 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	exit (EXIT_SUCCESS);
 }
 
+int	builtin(t_mini *data, t_parser *cmd)
+{
+	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
+	{
+		data->exit_code = call_builtin_function(data, cmd);
+		return (1);
+	}
+	return (0);
+}
+
 void	one_command(t_mini *data)
 {
 	int			child_status;
@@ -69,11 +79,8 @@ void	one_command(t_mini *data)
 	t_parser	*cmd;
 
 	cmd = data->parser;
-	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
-	{
-		data->exit_code = call_builtin_function(data, cmd);
+	if (builtin(data, cmd))
 		return ;
-	}
 	check_heredoc(data, data->parser);
 	if (g_status != 0)
 		return ;
@@ -89,7 +96,7 @@ void	one_command(t_mini *data)
 	{
 		data->exit_code = g_status;
 		printf("\n");
-	}	
+	}
 }
 
 void	executor(t_mini *data)
