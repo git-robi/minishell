@@ -12,6 +12,16 @@
 
 #include "../../includes/mini.h"
 
+void	print_err_hd(char *delim)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("warning: ", 2);
+	ft_putstr_fd("here-document at last line delimited by end-of-file", 2);
+	ft_putstr_fd(" (wanted '", 2);
+	ft_putstr_fd(delim, 2);
+	ft_putstr_fd("')\n", 2);
+}
+
 int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 {
 	char	*line;
@@ -29,7 +39,10 @@ int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 			break ;
 		}
 		if (!line)
+		{
+			print_err_hd((*cmd)->heredoc_delim);
 			break ;
+		}
 		if (ft_strcmp(line, (*cmd)->heredoc_delim) == 0)
 		{
 			free(line);
