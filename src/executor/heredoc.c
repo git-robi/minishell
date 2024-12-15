@@ -96,7 +96,11 @@ void	check_heredoc(t_mini *data, t_parser *cmd)
 	while (redir_tmp)
 	{
 		if (redir_tmp->type == HERE_DOC)
+		{
 			handle_heredoc(data, &cmd, &redir_tmp);
+			if (g_status == 130)
+				break ;
+		}
 		redir_tmp = redir_tmp->next;
 	}
 }
