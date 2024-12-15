@@ -81,11 +81,19 @@ void	multiple_commands(t_mini *data)
 	cmd = data->parser;
 	while (cmd)
 	{
-		if (cmd->next)
-			pipe(pipes_ends);
 		check_heredoc(data, cmd);
 		if (g_status == 130)
-			return  ;
+			return ;
+		cmd = cmd->next;
+	}
+	cmd = data->parser;
+	while (cmd)
+	{
+		if (cmd->next)
+			pipe(pipes_ends);
+	//	check_heredoc(data, cmd);
+	//	if (g_status == 130)
+	//		return  ;
 		make_process(&data, cmd, pipes_ends, pid_idx);
 		close(pipes_ends[1]);
 		if (cmd->prev)
