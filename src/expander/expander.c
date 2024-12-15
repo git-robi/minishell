@@ -75,6 +75,11 @@ void	expander(t_mini *data)
 		i = 0;		
 		while (tmp->commands && tmp->commands[i])
 		{
+			if (!ft_strcmp(tmp->commands[i], "\"$\""))
+			{
+				i++;
+				continue ;
+			}
 			expand_string(data, &tmp->commands[i]);
 			i++;
 		}
