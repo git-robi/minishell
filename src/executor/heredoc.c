@@ -33,6 +33,20 @@ int	break_case(t_mini *data, char *line, t_parser **cmd)
 	return (0);
 }
 
+int	heredoc_is_quoted(char *heredoc_token)
+{
+	int	i;
+	
+	i = 0;
+	while (heredoc_token[i])
+	{
+		if (heredoc_token[i] == '\'' || heredoc_token[i] == '\"')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 {
 	char	*line;
@@ -45,7 +59,7 @@ int	make_heredoc(t_mini *data, t_parser **cmd, char *heredoc_token)
 		line = readline("> ");
 		if (break_case(data, line, cmd))
 			break ;
-		if (!is_single_quoted(heredoc_token))
+		if (!heredoc_is_quoted(heredoc_token))
 			expand_string(data, &line);
 		write(heredoc_fd, line, ft_strlen(line));
 		write(heredoc_fd, "\n", 1);

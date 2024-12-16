@@ -76,9 +76,9 @@ void	mini_loop(t_mini *data)
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			exit (EXIT_SUCCESS);
 		}
-		add_history(data->line);
 		if (continue_case(data->line))
 			continue ;
+		add_history(data->line);
 		read_token(data);
 		if (unexpected_token_error(error_check(data)))
 			continue ;
