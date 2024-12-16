@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:08:36 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/16 14:39:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/16 18:47:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,23 +118,4 @@ char	*get_cd_path(t_mini *data)
 	if (data->parser->commands && data->parser->commands[1])
 		return (data->parser->commands[1]);
 	return (pathishome(env));
-}
-
-
-int main() {
-	char *env[] = { "HOME=/home/codespace", "banana=xd",  "lmao=dx", NULL };
-	char *commands[] = { "cd", "../xd", NULL };
-
-	t_parser parser = { commands };
-	t_mini data;
-	data.original_env = env;
-	data.parser = &parser;
-
-	// Llamamos a la función cd
-	if (cd(&data) == 0) 
-	{
-		printf("Directory changed successfully.\n");
-	}
-	pwd(&data);
-	return 0;
 }
