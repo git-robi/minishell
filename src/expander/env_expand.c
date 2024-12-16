@@ -59,8 +59,7 @@ char	*expand_var(t_mini *data, char *string, t_xy xy, char *expansion)
 	if (xy.start == 1 && string[xy.end + 1] == '\0')
 	{
 		data->exp_idx = (int)ft_strlen(expansion) + 1;
-
-		string = mark_expansion(expansion); //here
+		string = mark_expansion(expansion);
 	}
 	else
 	{
