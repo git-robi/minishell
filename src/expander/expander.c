@@ -76,6 +76,39 @@ void	expand_redirections(t_mini *data, t_parser *node)
 	}
 }
 
+void	clean_spaces(t_mini *data)
+{
+	t_parser	*node;
+	int		i;
+	int		j;
+	int		in_quotes;
+	int		in_var;
+
+	in_var = 0;
+	in_quotes = 0;
+	node = data->parser;
+	while (node)
+	{
+		i = 0;
+		while (node->commands[i])
+		{
+			j = 0;
+			while (node->commands[i][j])
+			{
+				if (node->commands[i][j] == '\"')
+					in_quotes = !in_quotes;
+				if (node->commands[i][j] == '\x02')
+					in_var = !in_var;
+				if (node->commands[i][j] == ' ' && node->commands[i][j + 1] == ' ' && !in_quotes && in_var)
+					node->commands[i][j] = '\x03';
+				j++;
+			}
+			i++;
+		}
+		node = node->next;
+	}
+}
+
 void	expander(t_mini *data)
 {
 	t_parser	*tmp;
@@ -101,5 +134,6 @@ void	expander(t_mini *data)
 		}
 		tmp = tmp->next;
 	}
+	clean_spaces(data);
 	clean_quotes(data);
 }
