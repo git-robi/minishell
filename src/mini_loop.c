@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 16:00:45 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:37:04 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	mini_loop(t_mini *data)
 		}
 		if (!data->line)
 		{
-			ft_putstr_fd("exit", STDOUT_FILENO);
+			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			exit (EXIT_SUCCESS);
 		}
 		add_history(data->line);

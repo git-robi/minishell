@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:06:53 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:21:58 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:41:40 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ int	signal_heredoc(t_mini *data)
 		cmd = cmd->next;
 	}
 	return (0);
-}
-
-void	handle_sigquit(int signal)
-{
-	(void)signal;
-	ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
 }
 
 int	event(void)
