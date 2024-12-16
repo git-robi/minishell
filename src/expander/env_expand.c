@@ -6,13 +6,14 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:44:54 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:44:56 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:18:50 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
 
-char	*expand_and_reassemble(t_mini *data, char *string, t_xy xy, char *expansion)
+char	*expand_and_reassemble(t_mini *data, char *string, \
+t_xy xy, char *expansion)
 {
 	char	*before_var;
 	char	*after_var;
@@ -28,7 +29,8 @@ char	*expand_and_reassemble(t_mini *data, char *string, t_xy xy, char *expansion
 	}
 	else
 	{
-		after_var = ft_substr(string, xy.end + 1, ft_strlen(string) - xy.end - 1);
+		after_var = ft_substr(string, xy.end + 1, \
+		ft_strlen(string) - xy.end - 1);
 		tmp = ft_strjoin(before_var, expansion);
 		data->exp_idx = (int)ft_strlen(tmp) - 1;
 		string = ft_strjoin(tmp, after_var);

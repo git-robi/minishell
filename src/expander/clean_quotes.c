@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:42:18 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:42:21 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:17:52 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #define MARKER '\x01'
 
-void	replace_and_reset(char *str, int *marker_count, int *first, int *second)
+void	replace_and_reset(char *str, int *marker_count, \
+int *first, int *second)
 {
 	str[*first] = MARKER;
 	str[*second] = MARKER;
@@ -52,7 +53,7 @@ void	replace_quotes(char *str, int *marker_count, int i)
 	}
 }
 
-char	*remove_marker(char *str, int marker_count)
+char	*remove_marker(t_mini *data, char *str, int marker_count)
 {
 	char	*new_string;
 	int		i;
@@ -63,7 +64,8 @@ char	*remove_marker(char *str, int marker_count)
 	if (marker_count == 0)
 		return (str);
 	new_string = malloc(sizeof(char) * (ft_strlen(str) - marker_count) + 1);
-	// protect malloc
+	if (new_string == NULL)
+		free_data_and_exit(data, 1);
 	while (str[++i])
 	{
 		if (str[i] == MARKER)
@@ -76,7 +78,7 @@ char	*remove_marker(char *str, int marker_count)
 	return (new_string);
 }
 
-void	clean_redirections(t_parser *tmp, int *marker_count)
+void	clean_redirections(t_mini *data, t_parser *tmp, int *marker_count)
 {
 	t_lexer	*redir;
 
@@ -88,7 +90,7 @@ void	clean_redirections(t_parser *tmp, int *marker_count)
 			*marker_count = 0;
 			replace_quotes(redir->token, marker_count, 0);
 			if (*marker_count > 0)
-				redir->token = remove_marker(redir->token, *marker_count);
+				redir->token = remove_marker(data, redir->token, *marker_count);
 		}
 		redir = redir->next;
 	}
@@ -109,10 +111,13 @@ void	clean_quotes(t_mini *data)
 			marker_count = 0;
 			replace_quotes(tmp->commands[i], &marker_count, 0);
 			if (marker_count > 0)
-				tmp->commands[i] = remove_marker(tmp->commands[i], marker_count);
+			{
+				tmp->commands[i] = remove_marker(data, \
+				tmp->commands[i], marker_count);
+			}
 			i++;
 		}
-		clean_redirections(tmp, &marker_count);
+		clean_redirections(data, tmp, &marker_count);
 		tmp = tmp->next;
 	}
 }

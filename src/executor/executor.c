@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 13:06:23 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:02:38 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,6 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	exit (EXIT_SUCCESS);
 }
 
-int	builtin(t_mini *data, t_parser *cmd)
-{
-	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
-	{
-		data->exit_code = call_builtin_function(data, cmd);
-		return (1);
-	}
-	return (0);
-}
-
 void	one_command(t_mini *data)
 {
 	int			child_status;
@@ -116,6 +106,4 @@ void	executor(t_mini *data)
 	}
 	else
 		one_command(data);
-//	if (data->exit_code == 130)
-//		printf("\n");
 }

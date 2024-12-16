@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:48:36 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 15:53:45 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:58:55 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-extern int g_status;
+extern int	g_status;
 
 typedef struct s_env
 {

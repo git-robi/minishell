@@ -1,4 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   call_builtin_function.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 11:23:37 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/16 11:23:39 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini.h"
+
+int	builtin(t_mini *data, t_parser *cmd)
+{
+	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
+	{
+		data->exit_code = call_builtin_function(data, cmd);
+		return (1);
+	}
+	return (0);
+}
 
 int	builtin_in_parent(char *cmd)
 {

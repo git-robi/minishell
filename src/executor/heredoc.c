@@ -6,21 +6,11 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:36:12 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 14:31:04 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:23:11 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
-
-void	print_err_hd(char *delim)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd("warning: ", 2);
-	ft_putstr_fd("here-document at last line delimited by end-of-file", 2);
-	ft_putstr_fd(" (wanted '", 2);
-	ft_putstr_fd(delim, 2);
-	ft_putstr_fd("')\n", 2);
-}
 
 int	break_case(t_mini *data, char *line, t_parser **cmd)
 {
@@ -33,7 +23,7 @@ int	break_case(t_mini *data, char *line, t_parser **cmd)
 	if (!line)
 	{
 		print_err_hd((*cmd)->heredoc_delim);
-			return (1) ;
+		return (1);
 	}
 	if (ft_strcmp(line, (*cmd)->heredoc_delim) == 0)
 	{
@@ -90,7 +80,8 @@ void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 		free((*cmd)->heredoc_delim);
 	(*cmd)->heredoc_delim = ft_strdup((*heredoc)->token);
 	replace_quotes((*cmd)->heredoc_delim, &marker_count, 0);
-	(*cmd)->heredoc_delim = remove_marker((*cmd)->heredoc_delim, marker_count);
+	(*cmd)->heredoc_delim = remove_marker(data, \
+	(*cmd)->heredoc_delim, marker_count);
 	make_heredoc(data, cmd, (*heredoc)->token);
 }
 

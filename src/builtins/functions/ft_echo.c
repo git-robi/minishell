@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 11:24:16 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/16 11:24:20 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/mini.h"
 
 int	is_there_flag(char **args)
@@ -20,7 +32,7 @@ int	is_there_flag(char **args)
 
 int	ft_echo(t_mini *data, t_parser *cmd)
 {
-	int	i;
+	int		i;
 	char	**args;
 
 	(void)data;

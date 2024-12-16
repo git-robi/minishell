@@ -6,13 +6,14 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:48:35 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/10 13:48:38 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:19:23 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
 
-char	*expand_and_replace_qm(t_mini *data, char *string, int start, char *exit_code)
+char	*expand_and_replace_qm(t_mini *data, char *string, \
+int start, char *exit_code)
 {
 	char	*before_var;
 	char	*after_var;
@@ -38,7 +39,8 @@ char	*expand_and_replace_qm(t_mini *data, char *string, int start, char *exit_co
 	return (string);
 }
 
-char	*handle_question_mark(t_mini *data, char *string, int start, int exit_code)
+char	*handle_question_mark(t_mini *data, char *string, \
+int start, int exit_code)
 {
 	if (start == 1 && string[2] == '\0')
 	{

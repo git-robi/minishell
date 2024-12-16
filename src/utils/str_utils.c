@@ -6,11 +6,21 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:55 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 14:32:46 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:10:28 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
+
+void	print_err_hd(char *delim)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("warning: ", 2);
+	ft_putstr_fd("here-document at last line delimited by end-of-file", 2);
+	ft_putstr_fd(" (wanted '", 2);
+	ft_putstr_fd(delim, 2);
+	ft_putstr_fd("')\n", 2);
+}
 
 int	is_whitespace(char c)
 {

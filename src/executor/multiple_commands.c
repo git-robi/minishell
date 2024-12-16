@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:21:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 14:30:48 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:07:48 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,12 @@ void	wait_for_processes(t_mini **data)
 	}
 }
 
-int	signal_heredoc(t_mini *data)
-{
-	t_parser	*cmd;
-
-	cmd = data->parser;
-	while (cmd)
-	{
-		check_heredoc(data, cmd);
-		if (g_status == 130)
-			return (1);
-		cmd = cmd->next;
-	}
-	return (0);
-}
-
 void	multiple_commands(t_mini *data)
 {
 	int			pipes_ends[2];
 	t_parser	*cmd;
 	int			pid_idx;
-	
+
 	pid_idx = 0;
 	if (signal_heredoc(data))
 		return ;

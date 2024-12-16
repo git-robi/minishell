@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:54:06 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 15:51:06 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:57:11 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct s_parser
 void		parser(t_mini *data);
 t_lexer		*store_commands(t_mini *data, t_lexer *tmp, t_parser **node);
 t_lexer		*remove_pipe(t_lexer *tmp);
-t_lexer		*handle_redirections(t_mini *data, t_lexer *lex_node, t_parser *node);
-t_lexer		*store_redirection(t_lexer **token, t_parser **pars_node, t_mini *data);
+t_lexer		*handle_redirections(t_mini *data, t_lexer *lex_node, \
+t_parser *node);
+t_lexer		*store_redirection(t_lexer **token, t_parser **pars_node, \
+t_mini *data);
 void		add_node_parser(t_parser *node, t_parser **parser_list);
 t_parser	*new_node_parser(char *cmd);
 void		free_node_parser(t_parser **node);
