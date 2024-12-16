@@ -61,6 +61,5 @@ int		count_env_nodes(t_env *env_list);
 char	**env_list_to_strarr(t_mini *data);
 void	mini_loop(t_mini *data);
 int		is_whitespace(char c);
-void	expander(t_mini *data);
 
 #endif

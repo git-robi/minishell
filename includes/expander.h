@@ -27,7 +27,7 @@ typedef struct s_xy
 	int	end;
 }	t_xy;
 
-void	expander(t_mini *data);
+int	expander(t_mini *data);
 void	expand_string(t_mini *data, char **string);
 char	*handle_question_mark(t_mini *data, char *string, \
 int start, int exit_code);
@@ -41,7 +41,7 @@ char *expansion);
 char	*env_expand(t_mini *data, char **tmp, char **string);
 void	clean_quotes(t_mini *data);
 void    clean_redirections(t_mini *data, t_parser *tmp, int *marker_count);
-char	*remove_marker(t_mini *data, char *str, int marker_count);
+char	*remove_marker(t_mini *data, char *str, int marker_count, char marker);
 void	replace_quotes(char *str, int *marker_count, int i);
 
 #endif

@@ -83,7 +83,8 @@ void	mini_loop(t_mini *data)
 		if (unexpected_token_error(error_check(data)))
 			continue ;
 		parser(data);
-		expander(data);
+		if (expander(data))
+			continue ;
 		executor(data);
 	}
 }

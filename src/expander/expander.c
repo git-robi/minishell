@@ -62,18 +62,46 @@ void	expand_string(t_mini *data, char **string)
 	}
 	free(tmp);
 }
+int	space_in_redirection(char *redir)
+{
+	int	i;
+	int	in_single;
+	int	in_double;
 
-void	expand_redirections(t_mini *data, t_parser *node)
+	in_double = 0;
+	in_single = 0;	
+	i = 0;
+	while (redir[i])
+	{
+		if (redir[i] == '\"')
+			in_double = !in_double;
+		if (redir[i] == '\'')
+			in_single = !in_single;
+		if (!in_single && !in_double && is_whitespace(redir[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	expand_redirections(t_mini *data, t_parser *node)
 {
 	t_lexer	*redir;
-
+	
 	redir = node->redirections;
 	while (redir)
 	{
 		if (redir->type != HERE_DOC)
 			expand_string(data, &redir->token);
+		if (space_in_redirection(redir->token))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd("ambiguous redirect\n", 2);
+			return (1);
+		}
 		redir = redir->next;
 	}
+	return (0);
 }
 
 void	clean_spaces(t_mini *data)
@@ -90,7 +118,7 @@ void	clean_spaces(t_mini *data)
 	while (node)
 	{
 		i = 0;
-		while (node->commands[i])
+		while (node->commands && node->commands[i])
 		{
 			j = 0;
 			while (node->commands[i][j])
@@ -109,7 +137,52 @@ void	clean_spaces(t_mini *data)
 	}
 }
 
-void	expander(t_mini *data)
+int	count_marker(char *str, char marker)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == marker)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void	clean_markers(t_mini *data)
+{
+	t_parser	*node;
+	t_lexer		*redir;
+	int		i;
+
+	node = data->parser;
+	while (node)
+	{
+		i = 0;
+		while (node->commands && node->commands[i])
+		{
+			node->commands[i] = remove_marker(data, node->commands[i], \
+			count_marker(node->commands[i], '\x02'), '\x02');
+			node->commands[i] = remove_marker(data, node->commands[i], \
+			count_marker(node->commands[i], '\x03'), '\x03');
+			i++;
+		}
+		redir = node->redirections;
+		while (redir)
+		{
+			redir->token = remove_marker(data, redir->token, count_marker(redir->token, '\x02'), '\x02');
+			redir->token = remove_marker(data, redir->token, count_marker(redir->token, '\x03'), '\x03');
+			redir = redir->next;
+		}
+		node = node->next;
+	}
+}
+
+int	expander(t_mini *data)
 {
 	t_parser	*tmp;
 	char		**cmd_tmp;
@@ -125,7 +198,8 @@ void	expander(t_mini *data)
 				continue ;
 			expand_string(data, &tmp->commands[i]);
 		}
-		expand_redirections(data, tmp);
+		if(expand_redirections(data, tmp))
+			return (1);
 		if (tmp->commands)
 		{
 			cmd_tmp = strarr_cpy(tmp->commands);
@@ -136,4 +210,6 @@ void	expander(t_mini *data)
 	}
 	clean_spaces(data);
 	clean_quotes(data);
+	clean_markers(data);
+	return (0);
 }

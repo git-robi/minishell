@@ -61,7 +61,7 @@ void	replace_quotes(char *str, int *marker_count, int i)
 	}
 }
 
-char	*remove_marker(t_mini *data, char *str, int marker_count)
+char	*remove_marker(t_mini *data, char *str, int marker_count, char marker)
 {
 	char	*new_string;
 	int		i;
@@ -76,7 +76,7 @@ char	*remove_marker(t_mini *data, char *str, int marker_count)
 		free_data_and_exit(data, 1);
 	while (str[++i])
 	{
-		if (str[i] == MARKER)
+		if (str[i] == marker)
 			continue ;
 		new_string[j] = str[i];
 		j++;
@@ -98,7 +98,7 @@ void	clean_redirections(t_mini *data, t_parser *tmp, int *marker_count)
 			*marker_count = 0;
 			replace_quotes(redir->token, marker_count, -1);
 			if (*marker_count > 0)
-				redir->token = remove_marker(data, redir->token, *marker_count);
+				redir->token = remove_marker(data, redir->token, *marker_count, MARKER);
 		}
 		redir = redir->next;
 	}
@@ -121,7 +121,7 @@ void	clean_quotes(t_mini *data)
 			if (marker_count > 0)
 			{
 				tmp->commands[i] = remove_marker(data, \
-				tmp->commands[i], marker_count);
+				tmp->commands[i], marker_count, MARKER);
 			}
 			i++;
 		}
