@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/15 15:36:51 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/15 21:09:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int doublepointerlenght(char **line)
         i++;
     return (i);    
 }
- int ft_export(t_mini *data)
+int ft_export(t_mini *data)
 {
     int len;
     int i;
@@ -84,9 +84,15 @@ static int doublepointerlenght(char **line)
                         else
                             fill_env_list(&data->env, content.variable, NULL);
                     }
-
-                    free(content.variable);
-                    free(content.content); 
+                    else
+                    {
+                        free(existing->content); // Liberar el contenido actual
+                        if (content.has_equal == 1)
+                            existing->content = content.content; // Asignar el nuevo contenido
+                        else
+                            existing->content = NULL; // Si no hay '=', asignar NULL
+                        free(content.variable);
+                    }
                 }
                 else
                 {
@@ -110,9 +116,10 @@ static int doublepointerlenght(char **line)
 }
 
 
-int main() 
+/*int main() 
 {
     t_mini mini;
+    char *line5[] = {"export", NULL};
     
     t_parser parser;
     char *line[] = { "export", NULL };
@@ -124,9 +131,15 @@ int main()
     mini.env = env;
     ft_export(&mini);
 
-    //char *line2[] = {"export", NULL};
-    //parser.commands = line2;
-    //ft_export(&mini);
+    parser.commands = line5;
+    ft_export(&mini);
+
+    char *line2[] = {"export", "USER=alex", NULL};
+    parser.commands = line2;
+    ft_export(&mini);
+
+    parser.commands = line5;
+    ft_export(&mini);
     
     if (ft_env(env) == 1)
         return(1);
@@ -149,4 +162,4 @@ int main()
         free(temp);
     }
     return 0;
-}
+}*/

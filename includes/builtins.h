@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:41:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/28 04:03:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/16 14:41:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_mini
 	t_parser	*parser;
 	int			*pids;
 	int		in_fd;
+	char	*oldpwd;
 }	t_mini;
 
 int pwd(t_mini *data);
@@ -71,4 +72,5 @@ void free_parser(t_parser *parser);
 void free_everything(t_mini *data);
 int ft_exit(t_mini *data);
 void free_lexer(t_lexer *lexer);
+int	update_env_variable(t_mini *data, const char *value, const char *prefix);
 #endif 
