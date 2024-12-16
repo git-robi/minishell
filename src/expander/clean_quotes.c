@@ -24,32 +24,40 @@ int *first, int *second)
 	*second = -1;
 }
 
+void	init_quote_struct(t_quotes *q)
+{
+	q->f_s = -1;
+	q->s_s = -1;
+	q->f_d = -1;
+	q->s_d = -1;
+}
+
+
 void	replace_quotes(char *str, int *marker_count, int i)
 {
-	int	first_double;
-	int	second_double;
-	int	first_single;
-	int	second_single;
+	t_quotes	q;
+	int	in_expansion;
 
-	first_double = -1;
-	second_double = -1;
-	first_single = -1;
-	second_single = -1;
-	while (str[i])
+	init_quote_struct(&q);
+	in_expansion = 0;
+	while (str[++i])
 	{
-		if (first_double == -1 && str[i] == '\"' && first_single == -1)
-			first_double = i;
-		else if (first_double != -1 && str[i] == '\"')
-			second_double = i;
-		else if (first_single == -1 && str[i] == '\'' && first_double == -1)
-			first_single = i;
-		else if (first_single != -1 && str[i] == '\'')
-			second_single = i;
-		if (first_single != -1 && second_single != -1)
-			replace_and_reset(str, marker_count, &first_single, &second_single);
-		else if (first_double != -1 && second_double != -1)
-			replace_and_reset(str, marker_count, &first_double, &second_double);
-		i++;
+		if (str[i] == '\x02')
+			in_expansion = !in_expansion;
+		if (in_expansion)
+			continue ;
+		if (q.f_d == -1 && str[i] == '\"' && q.f_s == -1)
+			q.f_d = i;
+		else if (q.f_d != -1 && str[i] == '\"')
+			q.s_d = i;
+		else if (q.f_s == -1 && str[i] == '\'' && q.f_d == -1)
+			q.f_s = i;
+		else if (q.f_s != -1 && str[i] == '\'')
+			q.s_s = i;
+		if (q.f_s != -1 && q.s_s != -1)
+			replace_and_reset(str, marker_count, &q.f_s, &q.s_s);
+		else if (q.f_d != -1 && q.s_d != -1)
+			replace_and_reset(str, marker_count, &q.f_d, &q.s_d);
 	}
 }
 
@@ -88,7 +96,7 @@ void	clean_redirections(t_mini *data, t_parser *tmp, int *marker_count)
 		if (redir->type != HERE_DOC)
 		{
 			*marker_count = 0;
-			replace_quotes(redir->token, marker_count, 0);
+			replace_quotes(redir->token, marker_count, -1);
 			if (*marker_count > 0)
 				redir->token = remove_marker(data, redir->token, *marker_count);
 		}
@@ -109,7 +117,7 @@ void	clean_quotes(t_mini *data)
 		while (tmp->commands && tmp->commands[i])
 		{
 			marker_count = 0;
-			replace_quotes(tmp->commands[i], &marker_count, 0);
+			replace_quotes(tmp->commands[i], &marker_count, -1);
 			if (marker_count > 0)
 			{
 				tmp->commands[i] = remove_marker(data, \

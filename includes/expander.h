@@ -13,6 +13,14 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+typedef struct s_quotes
+{
+        int     f_s;
+        int     f_d;
+	int	s_s;
+	int	s_d;
+}       t_quotes;
+
 typedef struct s_xy
 {
 	int	start;
