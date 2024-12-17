@@ -12,8 +12,6 @@
 
 #include "../../includes/mini.h"
 
-#define MARKER '\x01'
-
 void	replace_and_reset(char *str, int *marker_count, \
 int *first, int *second)
 {
@@ -31,7 +29,6 @@ void	init_quote_struct(t_quotes *q)
 	q->f_d = -1;
 	q->s_d = -1;
 }
-
 
 void	replace_quotes(char *str, int *marker_count, int i)
 {
@@ -84,24 +81,6 @@ char	*remove_marker(t_mini *data, char *str, int marker_count, char marker)
 	free(str);
 	new_string[j] = '\0';
 	return (new_string);
-}
-
-void	clean_redirections(t_mini *data, t_parser *tmp, int *marker_count)
-{
-	t_lexer	*redir;
-
-	redir = tmp->redirections;
-	while (redir)
-	{
-		if (redir->type != HERE_DOC)
-		{
-			*marker_count = 0;
-			replace_quotes(redir->token, marker_count, -1);
-			if (*marker_count > 0)
-				redir->token = remove_marker(data, redir->token, *marker_count, MARKER);
-		}
-		redir = redir->next;
-	}
 }
 
 void	clean_quotes(t_mini *data)

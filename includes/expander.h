@@ -13,6 +13,8 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+# define MARKER '\x01'
+
 typedef struct s_quotes
 {
         int     f_s;
@@ -43,5 +45,11 @@ void	clean_quotes(t_mini *data);
 void    clean_redirections(t_mini *data, t_parser *tmp, int *marker_count);
 char	*remove_marker(t_mini *data, char *str, int marker_count, char marker);
 void	replace_quotes(char *str, int *marker_count, int i);
+int	expand_redirections(t_mini *data, t_parser *node);
+int	space_in_redirection(char *redir);
+int	count_marker(char *str, char marker);
+void	clean_cmd(char *cmd);
+void	clean_spaces(t_mini *data);
+void	clean_markers(t_mini *data);
 
 #endif

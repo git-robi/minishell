@@ -24,16 +24,16 @@ t_xy xy, char *expansion)
 	before_var = ft_substr(string, 0, xy.start - 1);
 	if (string[xy.end + 1] == '\0')
 	{
-		string = ft_strjoin(before_var, expansion); //here
+		string = ft_strjoin(before_var, expansion);
 		data->exp_idx = (int)ft_strlen(string) - 1;
 	}
 	else
 	{
 		after_var = ft_substr(string, xy.end + 1, \
 		ft_strlen(string) - xy.end - 1);
-		tmp = ft_strjoin(before_var, expansion); //here
+		tmp = ft_strjoin(before_var, expansion);
 		data->exp_idx = (int)ft_strlen(tmp) - 1;
-		string = ft_strjoin(tmp, after_var); 
+		string = ft_strjoin(tmp, after_var);
 		free(after_var);
 		free(tmp);
 	}
