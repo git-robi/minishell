@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:42:18 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:17:52 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:08:32 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_quote_struct(t_quotes *q)
 void	replace_quotes(char *str, int *marker_count, int i)
 {
 	t_quotes	q;
-	int	in_expansion;
+	int			in_expansion;
 
 	init_quote_struct(&q);
 	in_expansion = 0;

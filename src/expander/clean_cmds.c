@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_cmds.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 14:13:21 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/18 14:18:04 by rgiambon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini.h"
 
 int	count_marker(char *str, char marker)
@@ -16,11 +28,25 @@ int	count_marker(char *str, char marker)
 	return (count);
 }
 
+void	clean_markers_redir(t_mini *data, t_parser *node)
+{
+	t_lexer	*redir;
+
+	redir = node->redirections;
+	while (redir)
+	{
+		redir->token = remove_marker(data, redir->token, \
+		count_marker(redir->token, '\x02'), '\x02');
+		redir->token = remove_marker(data, redir->token, \
+		count_marker(redir->token, '\x03'), '\x03');
+		redir = redir->next;
+	}
+}
+
 void	clean_markers(t_mini *data)
 {
 	t_parser	*node;
-	t_lexer		*redir;
-	int		i;
+	int			i;
 
 	node = data->parser;
 	while (node)
@@ -34,15 +60,7 @@ void	clean_markers(t_mini *data)
 			count_marker(node->commands[i], '\x03'), '\x03');
 			i++;
 		}
-		redir = node->redirections;
-		while (redir)
-		{
-			redir->token = remove_marker(data, redir->token, \
-			count_marker(redir->token, '\x02'), '\x02');
-			redir->token = remove_marker(data, redir->token, \
-			count_marker(redir->token, '\x03'), '\x03');
-			redir = redir->next;
-		}
+		clean_markers_redir(data, node);
 		node = node->next;
 	}
 }
@@ -50,7 +68,7 @@ void	clean_markers(t_mini *data)
 void	clean_spaces(t_mini *data)
 {
 	t_parser	*node;
-	int		i;
+	int			i;
 
 	node = data->parser;
 	while (node)
@@ -58,12 +76,13 @@ void	clean_spaces(t_mini *data)
 		i = 0;
 		while (node->commands && node->commands[i])
 		{
-			clean_cmd(node->commands[i]);	
+			clean_cmd(node->commands[i]);
 			i++;
 		}
 		node = node->next;
 	}
 }
+
 void	clean_cmd(char *cmd)
 {
 	int	i;

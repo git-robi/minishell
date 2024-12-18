@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:36:12 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:23:11 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:11:58 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,6 @@ int	break_case(t_mini *data, char *line, t_parser **cmd)
 	{
 		free(line);
 		return (1);
-	}
-	return (0);
-}
-
-int	heredoc_is_quoted(char *heredoc_token)
-{
-	int	i;
-	
-	i = 0;
-	while (heredoc_token[i])
-	{
-		if (heredoc_token[i] == '\'' || heredoc_token[i] == '\"')
-			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -94,7 +80,8 @@ void	handle_heredoc(t_mini *data, t_parser **cmd, t_lexer **heredoc)
 		free((*cmd)->heredoc_delim);
 	(*cmd)->heredoc_delim = ft_strdup((*heredoc)->token);
 	replace_quotes((*cmd)->heredoc_delim, &marker_count, 0);
-	(*cmd)->heredoc_delim = remove_marker(data, (*cmd)->heredoc_delim, marker_count, MARKER);
+	(*cmd)->heredoc_delim = remove_marker(data, \
+	(*cmd)->heredoc_delim, marker_count, MARKER);
 	make_heredoc(data, cmd, (*heredoc)->token);
 }
 

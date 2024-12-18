@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:44:40 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:10:22 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:11:29 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ char	*path_finder(char *cmd, char **env);
 char	*find_path_string(char **env);
 char	*path_checker(char **all_path, char *cmd);
 void	print_err_hd(char *delim);
-
+int		heredoc_is_quoted(char *heredoc_token);
 #endif

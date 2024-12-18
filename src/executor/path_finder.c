@@ -6,10 +6,24 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 12:09:37 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/23 12:51:41 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:11:37 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/mini.h"
+
+int	heredoc_is_quoted(char *heredoc_token)
+{
+	int	i;
+
+	i = 0;
+	while (heredoc_token[i])
+	{
+		if (heredoc_token[i] == '\'' || heredoc_token[i] == '\"')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static int	is_absolute_or_relative_path(char *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:46:33 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 14:06:23 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:17:10 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int		count_marker(char *str, char marker);
 void	clean_cmd(char *cmd);
 void	clean_spaces(t_mini *data);
 void	clean_markers(t_mini *data);
-
+void	clean_markers_redir(t_mini *data, t_parser *node);
 #endif
