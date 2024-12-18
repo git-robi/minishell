@@ -6,11 +6,37 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:12:49 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/11/22 12:03:24 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:17:24 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
+
+void	remove_heredoc(void)
+{
+	struct dirent	*entry;
+	DIR				*dp;
+	char			filepath[1024];
+
+	dp = opendir(".");
+	if (dp == NULL)
+	{
+		perror("opendir");
+		return ;
+	}
+	entry = readdir(dp);
+	while (entry != NULL)
+	{
+		if (strncmp(entry->d_name, "heredoc_n.", 10) == 0)
+		{
+			ft_strcpy(filepath, "./");
+			ft_strcat(filepath, entry->d_name);
+			unlink(filepath);
+		}
+		entry = readdir(dp);
+	}
+	closedir(dp);
+}
 
 int	check_fd(int fd, int type)
 {

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:35:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/18 15:20:32 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:19:02 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_env	*find_env_variable(t_env *env, const char *variable)
 			free(sinigual);
 			return (temp);
 		}
-			temp = temp->next;
+		temp = temp->next;
 	}
 	return (free(conigual), free(sinigual), NULL);
 }

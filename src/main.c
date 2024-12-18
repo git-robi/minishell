@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:19 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 16:19:02 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:14:10 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	main(int argc, char **argv, char **env)
 		printf("No arguments accepted.\n");
 		return (EXIT_SUCCESS);
 	}
-	//if (!env[0])
-	//	exit (1);
 	init_data(&data, env);
 	mini_loop(&data);
 	return (EXIT_SUCCESS);

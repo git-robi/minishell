@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:41:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/18 15:28:30 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:19:37 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_env	*env_list(char **env);
 void	free_t_content(t_content *content);
 int		builtin(t_mini *data, t_parser *cmd);
 int		doublepointerlenght(char **line);
-int	process_export_variables(t_mini *data, char **arg, int len, \
+int		process_export_variables(t_mini *data, char **arg, int len, \
 t_content *content);
 void	print_export_list(t_env *export_cpy);
 char	*ft_strndup(const char *s, size_t n);
@@ -58,5 +58,5 @@ t_env	*find_env_variable(t_env *env, const char *variable);
 void	add_new_variable(t_mini *data, t_content *content);
 void	update_existing_variable(t_env *existing, t_content *content);
 t_env	*ft_last_node(t_env *env_cpy);
-
+void	remove_heredoc(void);
 #endif

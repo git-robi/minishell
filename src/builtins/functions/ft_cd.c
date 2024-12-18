@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:31:21 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 14:31:01 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:18:22 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,3 @@ int	ft_cd(t_mini *data, t_parser *node)
 		return (cd_error("chdir failed\n"));
 	return (0);
 }
-

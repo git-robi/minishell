@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:36:04 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/18 14:59:56 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:15:01 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mini.h"
 
-static int ft_isnumber(char *number)
+static int	ft_isnumber(char *number)
 {
 	int	i;
 
@@ -20,13 +20,13 @@ static int ft_isnumber(char *number)
 	while (number[i])
 	{
 		if (!ft_isdigit(number[i]))
-			return(-1);
+			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-static int ft_sintax(char *arg)
+static int	ft_sintax(char *arg)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ static int ft_sintax(char *arg)
 			i++;
 		}
 	}
-	else	
+	else
 	{
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd(": not a valid identifier\n", 2);

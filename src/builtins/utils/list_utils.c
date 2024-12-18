@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:11:07 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/18 15:00:55 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:15:30 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	invalid_arg(char *arg)
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
-

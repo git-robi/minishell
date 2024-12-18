@@ -6,7 +6,7 @@
 #    By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:47:59 by rgiambon          #+#    #+#              #
-#    Updated: 2024/12/18 16:02:01 by rgiambon         ###   ########.fr        #
+#    Updated: 2024/12/18 18:20:31 by rgiambon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ HEADER = includes/expander.h includes/builtins.h includes/strarr_utils.h include
 LIBFT_DIR = libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-#READLINE_DIR = libs/readline_macOS
 READLINE_DIR = libs/readline_linux_1
 READLINE_LIBS = $(READLINE_DIR)/lib/libreadline.a $(READLINE_DIR)/lib/libhistory.a
 READLINE_INCLUDE = $(READLINE_DIR)/include
@@ -47,6 +46,6 @@ fclean: clean
 
 re: fclean all
 
-#.SILENT: 
+.SILENT: 
 
 .PHONY: all clean fclean re
