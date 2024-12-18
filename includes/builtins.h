@@ -44,7 +44,7 @@ t_env	*env_list(char **env);
 void	free_t_content(t_content *content);
 int		builtin(t_mini *data, t_parser *cmd);
 int		doublepointerlenght(char **line);
-void	process_export_variables(t_mini *data, char **arg, int len, \
+int	process_export_variables(t_mini *data, char **arg, int len, \
 t_content *content);
 void	print_export_list(t_env *export_cpy);
 char	*ft_strndup(const char *s, size_t n);

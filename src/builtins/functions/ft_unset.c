@@ -85,8 +85,7 @@ int	ft_unset(t_mini *data, t_parser *node)
 		i = 1;
 		while (args[i])
 		{
-			if (ft_strncmp(env_node->variable, args[i], ft_strlen(args[i])) == 0
-				&& env_node->variable[ft_strlen(args[i])] == '=')
+			if (ft_strncmp(env_node->variable, args[i], ft_strlen(args[i])) == 0)
 			{
 				ft_free_from_env(&data->env_list, env_node);
 				break ;

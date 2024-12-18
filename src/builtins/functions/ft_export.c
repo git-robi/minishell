@@ -63,10 +63,12 @@ void	print_export_variable(t_env *temp)
 int	ft_export(t_mini *data, t_parser *node)
 {
 	int			len;
+	int			j;
 	t_env		*export_cpy;
 	char		**arg;
 	t_content	content;
 
+	j = 0;
 	if (node->prev)
 		return (0);
 	arg = data->parser->commands;
@@ -74,8 +76,6 @@ int	ft_export(t_mini *data, t_parser *node)
 		return (1);
 	len = doublepointerlenght(arg);
 	export_cpy = export_list(data->env_list);
-	if (!export_cpy)
-		return (1);
 	content.variable = NULL;
 	content.content = NULL;
 	if (ft_strcmp("export", arg[0]) == 0)
@@ -83,8 +83,8 @@ int	ft_export(t_mini *data, t_parser *node)
 		if (len == 1)
 			print_export_list(export_cpy);
 		else
-			process_export_variables(data, arg, len, &content);
+			j = process_export_variables(data, arg, len, &content);
 	}
 	free_env_list(export_cpy);
-	return (0);
+	return (j);
 }
