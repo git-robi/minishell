@@ -6,11 +6,12 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:12:49 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 18:17:24 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:58:27 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mini.h"
+#include <dirent.h>
 
 void	remove_heredoc(void)
 {

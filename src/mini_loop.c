@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 18:16:05 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:03:43 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	clear_data(t_mini *data)
 	g_status = 0;
 }
 
-int	continue_case(char *line)
+int	continue_case(t_mini *data, char *line)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ int	continue_case(char *line)
 		return (1);
 	if (line[0] == '\t')
 		return (1);
-	if (count_quotes(line))
+	if (count_quotes(data, line))
 		return (1);
 	while (line[i])
 	{
@@ -76,7 +76,7 @@ void	mini_loop(t_mini *data)
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			exit (EXIT_SUCCESS);
 		}
-		if (continue_case(data->line))
+		if (continue_case(data, data->line))
 			continue ;
 		add_history(data->line);
 		read_token(data);

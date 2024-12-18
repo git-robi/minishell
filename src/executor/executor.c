@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 18:17:53 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:57:34 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,59 @@ int	is_a_directory(char *cmd)
 	return (0);
 }
 
+int	n_of_strings(char **commands)
+{
+	int	n;
+	int	i;
+	int	j;
+
+	n = 0;
+	i = 0;
+	while (commands[i])
+	{
+		j = 0;
+		while (commands[j][i])
+		{
+			if (commands[j][i] == ' ')
+				n++;
+			j++;
+		}
+		i++;
+		n++;
+	}
+	return (n);
+}	
+
+/*char	**make_commands_cpy(char **commands)
+{
+	char	**cpy;
+	int		i;
+	int		j;
+	int		k;
+	char	**split;
+
+	j = 0;
+	i = 0;
+	cpy = malloc(sizeof(char *) * (n_of_strings(commands) + 1);
+	//add malloc check
+	while (commands[i])
+	{
+		k = 0;
+		while(commands[i][k])
+		{
+			if (commands[i][k]) == ' ');
+		}	
+		cpy[j] = 
+	}
+}
+*/
 void	execute_command(t_mini *data, t_parser *cmd)
 {
 	char	*path;
 	char	**env;
+//	char	**commands;
 
+//	commands = make_commands_cpy;
 	if ((!cmd->commands || !cmd->commands[0]) && !cmd->redirections)
 		exit (EXIT_SUCCESS);
 	if (cmd->commands && is_a_directory(cmd->commands[0]))

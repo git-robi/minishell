@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:12:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 15:48:31 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:02:22 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_node_lexer(t_lexer *new_node, t_lexer **token_list);
 void	delete_node_lexer(t_mini *data, t_lexer **node);
 void	free_node_lexer(t_lexer **node);
 t_lexer	*delete_redirection_lexer(t_mini *data, t_lexer **node);
-int		count_quotes(char *line);
+int		count_quotes(t_mini *data, char *line);
 int		store_token_in_quotes(char *input, t_lexer **token_list);
 int		is_quote(char c);
 int		is_double_quoted(char *str);
