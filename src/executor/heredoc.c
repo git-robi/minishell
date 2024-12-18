@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:36:12 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 14:11:58 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:00:10 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*new_heredoc_name(void)
 
 	hd_num++;
 	heredoc_num = ft_itoa(hd_num);
-	heredoc_name = ft_strjoin("heredoc_n.", heredoc_num);
+	heredoc_name = ft_strjoin("heredoc_n.\x04", heredoc_num);
 	free(heredoc_num);
 	return (heredoc_name);
 }

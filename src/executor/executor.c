@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:02:38 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:06:54 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,30 @@ void	one_command(t_mini *data)
 	}
 }
 
+void remove_heredoc(void)
+{
+	struct dirent *entry;
+	DIR *dp;
+	char filepath[1024];
+
+	dp = opendir(".");
+	if (dp == NULL)
+	{
+		perror("opendir");
+		return ;
+	}
+	while ((entry = readdir(dp)) != NULL)
+	{
+		if (strncmp(entry->d_name, "heredoc_n.", 10) == 0)
+		{
+			ft_strcpy(filepath, "./");
+			ft_strcat(filepath, entry->d_name);
+			unlink(filepath);
+		}
+	}
+	closedir(dp);
+}
+
 void	executor(t_mini *data)
 {
 	int		commands;
@@ -106,4 +130,5 @@ void	executor(t_mini *data)
 	}
 	else
 		one_command(data);
+	remove_heredoc();
 }
