@@ -1,138 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 15:09:19 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/22 17:15:29 by codespace        ###   ########.fr       */
+/*   Created: 2024/12/16 17:35:28 by codespace         #+#    #+#             */
+/*   Updated: 2024/12/18 15:20:32 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mini.h"
 
-static t_env *find_env_variable(t_env *env, const char *variable)
+t_env	*find_env_variable(t_env *env, const char *variable)
 {
-    t_env *temp = env;
+	t_env	*temp;
+	char	*sinigual;
+	char	*conigual;
 
-    while (temp)
-    {
-        if (strcmp(temp->variable, variable) == 0)
-            return temp;  // La variable ya existe
-        temp = temp->next;
-    }
-    return NULL;  // No se encontró
+	temp = env;
+	sinigual = ft_strtrim(variable, "=");
+	conigual = ft_strjoin(sinigual, "=");
+	while (temp)
+	{
+		if (!ft_strcmp(temp->variable, sinigual))
+		{
+			free(conigual);
+			free(sinigual);
+			return (temp);
+		}
+		if (!ft_strcmp(temp->variable, conigual))
+		{
+			free(conigual);
+			free(sinigual);
+			return (temp);
+		}
+			temp = temp->next;
+	}
+	return (free(conigual), free(sinigual), NULL);
 }
 
-static int doublepointerlenght(char **line)
+int	doublepointerlenght(char **line)
 {
-    int i;
-    
-    i = 0;
-    while (line[i])
-        i++;
-    return (i);    
-}
-int ft_export(t_mini *data, t_parser *cmd)
-{
-    int len;
-    int i;
-    t_env *export_cpy;
-    t_content content;
-    char **arg;
-    arg = cmd->commands;
-    i = 1;
-    content.variable = NULL;
-    content.content = NULL;
+	int	i;
 
-    if (!arg || !data)
-        return (1);
-
-    len = doublepointerlenght(arg);
-    export_cpy = export_list(data->env_list);
-    if (!export_cpy)
-        return (1);
-
-    if (ft_strcmp("export", arg[0]) == 0)
-    {
-        if (len == 1)
-        {
-            while (export_cpy)
-            {
-                if (ft_strchr(export_cpy->variable, '=') && export_cpy->content == NULL)
-                    printf("declare -x %s%s\n", export_cpy->variable, "''");
-                else if (export_cpy->content == NULL)
-                    printf("declare -x %s\n", export_cpy->variable);
-                else
-                    printf("declare -x %s%s\n", export_cpy->variable, export_cpy->content);   
-                export_cpy = export_cpy->next;
-            }
-        }
-        else
-        {
-            while (i < len)
-            {
-                if (separate_varcont(arg[i], &content) == 0)
-                {
-                    t_env *existing = find_env_variable(data->env_list, content.variable);
-                    if (!existing)
-                    {
-                        // Si no existe, agregarla
-                        if (content.has_equal == 1)
-                            fill_env_list(&data->env_list, content.variable, content.content);
-                        else
-                            fill_env_list(&data->env_list, content.variable, NULL);
-                    }
-
-                    free(content.variable);
-                    free(content.content); 
-                }
-                else
-                {
-                    free(content.variable);
-                    free(content.content);
-                    return 1;
-                }
-                i++;
-            }
-        }
-    }
-    return (0);
+	i = 0;
+	while (line[i])
+		i++;
+	return (i);
 }
 
-
-/*int main() 
+void	print_export_variable(t_env *temp)
 {
-    t_mini mini;
-    
-    t_parser parser;
-    char *line[] = { "export", "hola=bomboclat", "adios=haolo", "xd=", NULL };
-    parser.commands = line;
-    mini.parser = &parser;
+	if (ft_strchr(temp->variable, '=') && temp->content == NULL)
+		printf("declare -x %s%s\n", temp->variable, "''");
+	else if (temp->content == NULL)
+		printf("declare -x %s\n", temp->variable);
+	else
+		printf("declare -x %s\"%s\"\n", temp->variable, temp->content);
+}
 
-    
-    t_env *env = NULL;
-    fill_env_list(&env, "USER=", "john_doe");
-    fill_env_list(&env, "PATH=", "/usr/bin:/bin");
-    fill_env_list(&env, "HOME=", "/home/john");
-    mini.env = env;
-    
-    ft_export(&mini);
+int	ft_export(t_mini *data, t_parser *node)
+{
+	int			len;
+	t_env		*export_cpy;
+	char		**arg;
+	t_content	content;
 
-    char *line2[] = { "export", NULL };
-    parser.commands = line2;
-    ft_export(&mini);
-    if (ft_env(env) == 1)
-        return(1);
-    t_env *temp;
-    while (env) {
-        temp = env;
-        env = env->next;
-        free(temp->variable);
-        free(temp->content);
-        free(temp);
-    }
-
-    return 0;
-}*/
+	if (node->prev)
+		return (0);
+	arg = data->parser->commands;
+	if (!arg || !data)
+		return (1);
+	len = doublepointerlenght(arg);
+	export_cpy = export_list(data->env_list);
+	if (!export_cpy)
+		return (1);
+	content.variable = NULL;
+	content.content = NULL;
+	if (ft_strcmp("export", arg[0]) == 0)
+	{
+		if (len == 1)
+			print_export_list(export_cpy);
+		else
+			process_export_variables(data, arg, len, &content);
+	}
+	free_env_list(export_cpy);
+	return (0);
+}

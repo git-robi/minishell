@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 18:38:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/18 14:33:27 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/12/16 17:07:54 by codespace         #+#    #+#             */
+/*   Updated: 2024/12/18 15:00:26 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/mini.h"
 
-int	ft_env(t_mini *data)
+void	free_env_list(t_env *env)
 {
-	t_env	*temp;
-	int		i;
+	t_env	*tmp;
+	t_env	*next;
 
-	i = 0;
-	temp = data->env_list;
-	if (!temp)
-		return (1);
-	while (temp)
+	tmp = env;
+	while (tmp)
 	{
-		if (ft_strchr(temp->variable, '='))
-		{
-			if (!temp->content)
-				printf("%s\n", temp->variable);
-			else
-				printf("%s%s\n", temp->variable, temp->content);
-		}
-		temp = temp->next;
-		i++;
+		next = tmp->next;
+		free(tmp->variable);
+		free(tmp->content);
+		free(tmp);
+		tmp = next;
 	}
-	return (0);
+}
+
+void	free_t_content(t_content *content)
+{
+	if (content)
+	{
+		if (content->variable)
+			free(content->variable);
+		if (content->content)
+			free(content->content);
+	}
 }

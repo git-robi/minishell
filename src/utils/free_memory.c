@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:11:02 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 14:31:58 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:18:01 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_data_and_exit(t_mini *data, int exit_code)
 	if (data->parser != NULL)
 		free_parser_list(&data->parser);
 	if (data->env_list != NULL)
-		free_env_list(&data->env_list);
+		free_env_list(data->env_list);
 	if (exit_code >= 0)
 		exit (exit_code);
 }

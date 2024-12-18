@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 11:24:16 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:24:20 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/12/17 16:21:40 by rgiambon          #+#    #+#             */
+/*   Updated: 2024/12/18 14:31:36 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 int	is_there_flag(char **args)
 {
 	int	j;
+	int	i;
 
-	if (args[1])
+	j = 1;
+	while (args[j])
 	{
-		if (!ft_strncmp(args[1], "-n", 2))
+		if (ft_strncmp(args[j], "-n", 2) == 0)
 		{
-			j = 2;
-			while (args[1][j] == 'n')
+			i = 2;
+			while (args[j][i] == 'n')
+				i++;
+			if (args[j][i] == '\0')
 				j++;
-			if (args[1][j] == '\0')
-				return (1);
+			else
+				break ;
 		}
+		else
+			break ;
 	}
-	return (0);
+	return (j);
 }
 
 int	ft_echo(t_mini *data, t_parser *cmd)
@@ -43,8 +49,7 @@ int	ft_echo(t_mini *data, t_parser *cmd)
 		printf("\n");
 		return (0);
 	}
-	if (is_there_flag(args))
-		i++;
+	i = is_there_flag(args);
 	while (args[i])
 	{
 		printf("%s", args[i]);
@@ -52,7 +57,7 @@ int	ft_echo(t_mini *data, t_parser *cmd)
 		if (args[i])
 			printf(" ");
 	}
-	if (!is_there_flag(args))
+	if (is_there_flag(args) == 1)
 		printf("\n");
 	return (0);
 }
