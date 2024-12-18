@@ -6,11 +6,22 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:34 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:37:04 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:33:12 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
+
+void	print_lexer_list(t_lexer *node)
+{
+	t_lexer *tmp = node;
+
+	while (tmp)
+	{
+		printf("%s\n", tmp->token);
+		tmp = tmp->next;
+	}
+}
 
 void	clear_data(t_mini *data)
 {
@@ -82,7 +93,9 @@ void	mini_loop(t_mini *data)
 		read_token(data);
 		if (unexpected_token_error(error_check(data)))
 			continue ;
+//		print_lexer_list(data->lexer);
 		parser(data);
+//		print_lexer_list(data->lexer);
 		if (expander(data))
 			continue ;
 		executor(data);

@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:35:45 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/13 15:39:38 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:59:36 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ char	**env_list_to_strarr(t_mini *data)
 		free_data_and_exit(data, 1);
 	while (tmp)
 	{
+		if (tmp->content == NULL)
+		{
+			env_strarr[i] = ft_strdup(tmp->variable);
+			i++;
+			tmp = tmp->next;
+			continue ;
+		}
 		env_strarr[i] = ft_strjoin(tmp->variable, tmp->content);
 		i++;
 		tmp = tmp->next;
