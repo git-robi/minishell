@@ -19,6 +19,11 @@ int	ft_env(t_mini *data)
 
 	i = 0;
 	temp = data->env_list;
+	if (data->parser->commands[1])
+	{
+		write(2, "too many arguments\n", 20);
+		return (1);
+	}
 	if (!temp)
 		return (1);
 	while (temp)

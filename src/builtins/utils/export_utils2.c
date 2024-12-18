@@ -67,18 +67,22 @@ void	print_export_list(t_env *export_cpy)
 	}
 }
 
-void	process_export_variables(t_mini *data, char **arg,
+int	process_export_variables(t_mini *data, char **arg,
 		int len, t_content *content)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 1;
 	while (i < len)
 	{
-		if (ft_sintax(arg[i]) == 0)
+		j = ft_sintax(arg[i]);
+		if (j == 0)
 			process_single_export_variable(data, arg, i, content);
 		i++;
 	}
+	return (j);
 }
 
 void	process_single_export_variable(t_mini *data, char **arg,
@@ -122,6 +126,7 @@ void	update_existing_variable(t_env *existing, t_content *content)
 	{
 		if (!content->content)
 		{
+			free(existing->content);
 			existing->content = ft_strdup("");
 		}
 		else
