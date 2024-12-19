@@ -28,7 +28,7 @@ static int	ft_free_from_env(t_env **head, t_env *env)
 	return (0);
 }
 
-size_t		ft_strnlen(const char *string, size_t max)
+size_t	ft_strnlen(const char *string, size_t max)
 {
 	size_t	len;
 
@@ -73,24 +73,22 @@ int	ft_unset(t_mini *data, t_parser *node)
 	char	**args;
 	int		i;
 
-	if (node->prev)
-		return (0);
 	env_node = data->env_list;
 	args = data->parser->commands;
-	if (!args[1])
+	if (node->prev || !args[1])
 		return (0);
 	while (env_node)
 	{
 		next_node = env_node->next;
-		i = 1;
-		while (args[i])
+		i = -1;
+		while (args[++i])
 		{
-			if (ft_strncmp(env_node->variable, args[i], ft_strlen(args[i])) == 0)
+			if (ft_strncmp(env_node->variable, args[i], \
+			ft_strlen(args[i])) == 0)
 			{
 				ft_free_from_env(&data->env_list, env_node);
 				break ;
 			}
-			i++;
 		}
 		env_node = next_node;
 	}

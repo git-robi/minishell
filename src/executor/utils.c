@@ -2,11 +2,11 @@
 
 int	count_words(char **commands)
 {
-	int	count;
-	int	i;
+	int		count;
+	int		i;
 	char	*command;
-	int	in_word;
-	int	j;
+	int		in_word;
+	int		j;
 
 	count = 0;
 	i = -1;
@@ -50,12 +50,13 @@ void	replace_marker(char **commands)
 
 char	*copy_word(const char *command, int start, int end)
 {
-	int	word_length;
+	int		word_length;
 	char	*word;
 
 	word_length = end - start;
 	word = (char *)malloc((word_length + 1) * sizeof(char));
-	//protect
+	if (word == NULL)
+		free_data_and_exit(word, 1);
 	ft_strncpy(word, ((char *)command + start), word_length);
 	word[word_length] = '\0';
 	return (word);
@@ -84,14 +85,15 @@ int	parse_command(char *command, char **result, int index)
 
 char	**make_commands_cpy(char **commands)
 {
-	int	total_words;
+	int		total_words;
 	char	**result;
-	int	index;
-	int	i;
+	int		index;
+	int		i;
 
 	total_words = count_words(commands);
 	result = (char **)malloc((total_words + 1) * sizeof(char *));
-	//protect
+	if (result == NULL)
+		free_data_and_exit(result, 1);
 	index = 0;
 	i = 0;
 	while (commands[i])

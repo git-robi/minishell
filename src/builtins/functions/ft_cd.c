@@ -35,7 +35,7 @@ static int	ft_error(char *path)
 {
 	if (access(path, F_OK) == -1)
 	{
-		ft_putstr_fd("cd: ",2);
+		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
 		return (1);
