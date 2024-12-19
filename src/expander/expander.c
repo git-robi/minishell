@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:47:32 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/19 20:43:44 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:49:32 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void	mark_quotes(t_parser *cmd, int i)
 	int	j;
 	int	in_single;
 	int	in_double;
+
 	in_single = 0;
 	in_double = 0;
-
 	while (cmd)
 	{
 		i = 0;
-		while (cmd->commands[i])
+		while (cmd->commands[i++])
 		{
 			j = 0;
 			while (cmd->commands[i][j])
@@ -88,7 +88,6 @@ void	mark_quotes(t_parser *cmd, int i)
 					cmd->commands[i][j] = '\x05';
 				j++;
 			}
-			i++;
 		}
 		cmd = cmd->next;
 	}
