@@ -52,5 +52,5 @@ void	clean_cmd(char *cmd);
 void	clean_spaces(t_mini *data);
 void	clean_markers(t_mini *data);
 void	clean_markers_redir(t_mini *data, t_parser *node);
-int	is_delim(char c);
+int		is_delim(char c);
 #endif
