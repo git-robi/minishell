@@ -35,9 +35,9 @@ static int	ft_error(char *path)
 {
 	if (access(path, F_OK) == -1)
 	{
-		ft_putstr_fd("cd: no such file or directory: ", 2);
-		ft_putstr_fd("%s", 2);
-		write(2, "\n", 1);
+		ft_putstr_fd("cd: ",2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": no such file or directory\n", 2);
 		return (1);
 	}
 	if (access(path, R_OK) == -1)
@@ -56,7 +56,7 @@ static int	ft_error(char *path)
 static int	cd_error(char *msg)
 {
 	ft_putstr_fd(msg, 2);
-	return (-1);
+	return (1);
 }
 
 int	ft_cd(t_mini *data, t_parser *node)
@@ -77,7 +77,7 @@ int	ft_cd(t_mini *data, t_parser *node)
 	if (!path)
 		return (cd_error("HOME is not configured\n"));
 	if (ft_error(path) == 1)
-		return (-1);
+		return (1);
 	if (chdir(path) != 0)
 		return (cd_error("chdir failed\n"));
 	return (0);
