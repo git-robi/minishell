@@ -12,7 +12,7 @@
 
 #include "../../../includes/mini.h"
 
-char    *mark_cont(char *content);
+/*char    *mark_cont(char *content);
 
 static int	ft_isnumber(char *number)
 {
@@ -26,33 +26,40 @@ static int	ft_isnumber(char *number)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 static int	ft_sintax(char *arg)
 {
 	int	i;
 
 	i = 0;
-	if (ft_isnumber(arg) && arg[i] != '=')
+	while (arg[i] && arg[i] != '=')
 	{
-		while (arg[i] && arg[i] != '=')
+		if (!ft_isdigit(arg[i]))
+			break;
+		i++;
+	}
+	if (i > 0 && arg[i] == '\0') 
+		return(invalid_arg(arg));	
+	i = 0;
+	while (arg[i++])
+	{
+		if (arg[i] == '-' && ft_strchr(arg, '=') != NULL)
 		{
-			if (arg[i] == '-' && ft_strchr(arg, '=') != NULL)
-			{
-				if (arg[i + 1] == '=')
-					invalid_arg(arg);
-				else
-					ft_export_error();
-				return (-1);
-			}
-			i++;
+			if (arg[i + 1] == '=')
+				invalid_arg(arg);
+			else
+				return (ft_export_error());
 		}
 	}
-	else
+	if (!ft_isalpha(arg[0]) && arg[0] != '_') 
+		return(invalid_arg(arg));
+	i = 1;
+	while (arg[i] && arg[i] != '=')
 	{
-		ft_putstr_fd(arg, 2);
-		ft_putstr_fd(": not a valid identifier\n", 2);
-		return (-1);
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return(invalid_arg(arg));
+		i++;
 	}
 	return (0);
 }

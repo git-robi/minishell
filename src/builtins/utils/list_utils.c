@@ -41,16 +41,18 @@ t_env	*ft_last_node(t_env *env_cpy)
 	return (last);
 }
 
-void	ft_export_error(void)
+int	ft_export_error(void)
 {
 	ft_putstr_fd("export: -=: invalid option\n", 2);
 	ft_putstr_fd("export:", 2);
 	ft_putstr_fd(" usage: export [-fn] [name[=value] ...] or export -p\n", 2);
+	return (1);
 }
 
-void	invalid_arg(char *arg)
+int	invalid_arg(char *arg)
 {
 	ft_putstr_fd("export: `", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	return (1);
 }

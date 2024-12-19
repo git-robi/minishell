@@ -49,8 +49,8 @@ t_content *content);
 void	print_export_list(t_env *export_cpy);
 char	*ft_strndup(const char *s, size_t n);
 void	add_last_node(t_env **env_cpy, t_env *new_node);
-void	ft_export_error(void);
-void	invalid_arg(char *arg);
+int		ft_export_error(void);
+int		invalid_arg(char *arg);
 void	print_export_variable(t_env *temp);
 void	process_single_export_variable(t_mini *data, \
 char **arg, int i, t_content *content);
@@ -59,4 +59,5 @@ void	add_new_variable(t_mini *data, t_content *content);
 void	update_existing_variable(t_env *existing, t_content *content);
 t_env	*ft_last_node(t_env *env_cpy);
 void	remove_heredoc(void);
+char	*mark_cont(char *content);
 #endif
