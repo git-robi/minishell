@@ -35,59 +35,88 @@ int	is_a_directory(char *cmd)
 	return (0);
 }
 
-int	n_of_strings(char **commands)
-{
-	int	n;
-	int	i;
-	int	j;
+static int count_words(char **commands) {
+    int count = 0;
 
-	n = 0;
-	i = 0;
-	while (commands[i])
-	{
-		j = 0;
-		while (commands[j][i])
-		{
-			if (commands[j][i] == ' ')
-				n++;
-			j++;
-		}
-		i++;
-		n++;
-	}
-	return (n);
-}	
+    for (int i = 0; commands[i]; i++) {
+        char *command = commands[i];
+        int in_word = 0;
+        for (int j = 0; command[j]; j++) {
+            if (!isspace(command[j]) && !in_word) {
+                in_word = 1;
+                count++;
+            } else if (isspace(command[j])) {
+                in_word = 0;
+            }
+        }
+    }
 
-/*char	**make_commands_cpy(char **commands)
-{
-	char	**cpy;
-	int		i;
-	int		j;
-	int		k;
-	char	**split;
-
-	j = 0;
-	i = 0;
-	cpy = malloc(sizeof(char *) * (n_of_strings(commands) + 1);
-	//add malloc check
-	while (commands[i])
-	{
-		k = 0;
-		while(commands[i][k])
-		{
-			if (commands[i][k]) == ' ');
-		}	
-		cpy[j] = 
-	}
+    return count;
 }
-*/
+
+// Function to replace markers with spaces
+void replace_marker(char **commands) {
+    int i = 0;
+    int j;
+
+    while (commands[i]) {
+        j = 0;
+        while (commands[i][j]) {
+            if (commands[i][j] == '\x03' || commands[i][j] == '\x05') {
+                commands[i][j] = ' ';
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
+// Function to create the parsed commands array without strtok
+char **make_commands_cpy(char **commands) {
+    int total_words = count_words(commands);
+    char **result = (char **)malloc((total_words + 1) * sizeof(char *));
+    int index = 0;
+
+    for (int i = 0; commands[i]; i++) {
+        char *command = commands[i];
+        int start = 0, end = 0;
+
+        while (command[start]) {
+            // Skip leading spaces
+            while (command[start] && isspace(command[start])) {
+                start++;
+            }
+            end = start;
+
+            // Find the end of the current word
+            while (command[end] && !isspace(command[end])) {
+                end++;
+            }
+
+            if (end > start) {
+                // Extract the word
+                int word_length = end - start;
+                result[index] = (char *)malloc((word_length + 1) * sizeof(char));
+                strncpy(result[index], command + start, word_length);
+                result[index][word_length] = '\0';
+                index++;
+            }
+            start = end;
+        }
+    }
+
+    result[index] = NULL; // Null-terminate the array
+    replace_marker(result);
+    return result;
+}
+
 void	execute_command(t_mini *data, t_parser *cmd)
 {
 	char	*path;
 	char	**env;
-//	char	**commands;
+	char	**commands;
 
-//	commands = make_commands_cpy;
+	commands = make_commands_cpy(cmd->commands);
 	if ((!cmd->commands || !cmd->commands[0]) && !cmd->redirections)
 		exit (EXIT_SUCCESS);
 	if (cmd->commands && is_a_directory(cmd->commands[0]))
@@ -99,16 +128,17 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	if ((!cmd->commands || !cmd->commands[0]))
 		exit(EXIT_SUCCESS);
 	env = env_list_to_strarr(data);
-	path = path_finder(cmd->commands[0], env);
+	path = path_finder(commands[0], env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->commands[0], STDERR_FILENO);
+		ft_putstr_fd(commands[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		free_strarr(commands);
 		exit (127);
 	}
-	execve(path, cmd->commands, env);
+	execve(path, commands, env);
 	free_strarr(env);
+	free_strarr(commands);
 	exit (EXIT_SUCCESS);
 }
 

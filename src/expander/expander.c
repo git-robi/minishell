@@ -27,7 +27,7 @@ char	*env_expand(t_mini *data, char **tmp, char **string)
 	{
 		j = i;
 		while ((*tmp)[j] && (*tmp)[j] != '$'
-				&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]))
+				&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]) && (*tmp)[j] != '.')
 			j++;
 		*string = expand_substring(data, *tmp, i, j - 1);
 	}
@@ -63,9 +63,45 @@ void	expand_string(t_mini *data, char **string)
 	free(tmp);
 }
 
+void	mark_quotes(t_mini *data)
+{
+	int	i;
+	int	j;
+	int	in_single;
+	int	in_double;
+	t_parser	*cmd;
+	char	**cmds;
+
+	cmd = data->parser;
+	in_single = 0;
+	in_double = 0;
+	i = 0;
+	while (cmd)
+	{
+		cmds = cmd->commands;
+		while (cmds[i])
+		{
+			j = 0;
+			while (cmds[i][j])
+			{
+				if (cmds[i][j] == '\'' && !in_double)
+					in_single = !in_single;
+				if (cmds[i][j] == '\"' && !in_single)
+					in_double = !in_double;
+				if (cmds[i][j] == ' ' && (in_double || in_single))
+					cmds[i][j] = '\x05';
+				j++;
+			}
+			i++;
+		}
+		cmd = cmd->next;
+	}
+}
+
 int	clean_all(t_mini *data)
 {
 	clean_spaces(data);
+	mark_quotes(data);
 	clean_quotes(data);
 	clean_markers(data);
 	return (0);

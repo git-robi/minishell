@@ -89,6 +89,22 @@ int	separate_varcont(char *line, t_content *content)
 	return (0);
 }
 
+char	*mark_cont(char *content)
+{
+	char	*mark;
+	int	i;
+
+	i = 0;
+	mark = ft_strdup(content);
+	while (mark[i])
+	{
+		if (mark[i] == '\x05')
+			mark[i] = ' ';
+		i++;
+	}
+	return (mark);
+}
+
 void	fill_env_list(t_env **env_cpy, const char *variable,
 		const char *content)
 {
@@ -104,7 +120,7 @@ void	fill_env_list(t_env **env_cpy, const char *variable,
 	}
 	new_node->variable = ft_strdup(variable);
 	if (content)
-		new_node->content = ft_strdup(content);
+		new_node->content = mark_cont((char *)content);
 	else
 		new_node->content = NULL;
 	new_node->next = NULL;
