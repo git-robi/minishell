@@ -1,57 +1,32 @@
 #include "../../includes/mini.h"
 
-void	path_error(char **commands)
+int	count_words(char **commands)
 {
-	ft_putstr_fd(commands[0], STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	free_strarr(commands);
-	exit (127);
-}
+	int	count;
+	int	i;
+	char	*command;
+	int	in_word;
+	int	j;
 
-/*int	count_words(char **commands)
-{
-    int count;
-
-    count = 0;
-    for (int i = 0; commands[i]; i++) {
-        char *command = commands[i];
-        int in_word = 0;
-        for (int j = 0; command[j]; j++) {
-            if (!isspace(command[j]) && !in_word) {
-                in_word = 1;
-                count++;
-            } else if (isspace(command[j])) {
-                in_word = 0;
-            }
-        }
-    }
-
-    return count;
-}*/
-
-int count_words(char **commands)
-{
-    int count = 0;
-    int i = 0;
-
-    while (commands[i]) { // Outer loop
-        char *command = commands[i];
-        int j = 0;
-        int in_word = 0;
-
-        while (command[j]) { // Inner loop
-            if (!isspace(command[j]) && !in_word) {
-                in_word = 1;
-                count++;
-            } else if (isspace(command[j])) {
-                in_word = 0;
-            }
-            j++;
-        }
-        i++;
-    }
-
-    return count;
+	count = 0;
+	i = -1;
+	while (commands[++i])
+	{
+		command = commands[i];
+		j = -1;
+		in_word = 0;
+		while (command[++j])
+		{
+			if (!isspace(command[j]) && !in_word)
+			{
+				in_word = 1;
+				count++;
+			}
+			else if (isspace(command[j]))
+				in_word = 0;
+		}
+	}
+	return (count);
 }
 
 void	replace_marker(char **commands)
@@ -73,42 +48,56 @@ void	replace_marker(char **commands)
 	}
 }
 
-// Function to create the parsed commands array without strtok
-char **make_commands_cpy(char **commands) {
-    int total_words = count_words(commands);
-    char **result = (char **)malloc((total_words + 1) * sizeof(char *));
-    int index = 0;
+char	*copy_word(const char *command, int start, int end)
+{
+	int	word_length;
+	char	*word;
 
-    for (int i = 0; commands[i]; i++) {
-        char *command = commands[i];
-        int start = 0, end = 0;
-
-        while (command[start]) {
-            // Skip leading spaces
-            while (command[start] && isspace(command[start])) {
-                start++;
-            }
-            end = start;
-
-            // Find the end of the current word
-            while (command[end] && !isspace(command[end])) {
-                end++;
-            }
-
-            if (end > start) {
-                // Extract the word
-                int word_length = end - start;
-                result[index] = (char *)malloc((word_length + 1) * sizeof(char));
-                strncpy(result[index], command + start, word_length);
-                result[index][word_length] = '\0';
-                index++;
-            }
-            start = end;
-        }
-    }
-
-    result[index] = NULL; // Null-terminate the array
-    replace_marker(result);
-    return result;
+	word_length = end - start;
+	word = (char *)malloc((word_length + 1) * sizeof(char));
+	strncpy(word, command + start, word_length);
+	word[word_length] = '\0';
+	return (word);
 }
 
+int	parse_command(char *command, char **result, int index)
+{
+	int	start;
+	int	end;
+
+	start = 0;
+	end = 0;
+	while (command[start])
+	{
+		while (command[start] && isspace(command[start]))
+			start++;
+		end = start;
+		while (command[end] && !isspace(command[end]))
+			end++;
+		if (end > start)
+			result[index++] = copy_word(command, start, end);
+		start = end;
+	}
+	return (index);
+}
+
+char	**make_commands_cpy(char **commands)
+{
+	int	total_words;
+	char	**result;
+	int	index;
+	int	i;
+
+	total_words = count_words(commands);
+	result = (char **)malloc((total_words + 1) * sizeof(char *));
+	index = 0;
+	i = 0;
+	while (commands[i])
+	{
+		index = parse_command(commands[i], result, index);
+		i++;
+	}
+	result[index] = NULL;
+	replace_marker(result);
+	return (result);
+}

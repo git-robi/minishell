@@ -25,9 +25,12 @@ int	heredoc_is_quoted(char *heredoc_token)
 	return (0);
 }
 
-static int	is_absolute_or_relative_path(char *cmd)
+void	path_error(char **commands)
 {
-	return (cmd[0] == '/' || cmd[0] == '.');
+	ft_putstr_fd(commands[0], STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	free_strarr(commands);
+	exit (127);
 }
 
 char	*path_checker(char **all_path, char *cmd)
@@ -36,7 +39,7 @@ char	*path_checker(char **all_path, char *cmd)
 	int		i;
 	char	*path_to_check;
 
-	if (is_absolute_or_relative_path(cmd))
+	if (cmd[0] == '/' || cmd[0] == '.')
 	{
 		if (access(cmd, X_OK) == 0)
 			return (ft_strdup(cmd));

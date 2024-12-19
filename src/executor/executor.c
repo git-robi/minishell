@@ -35,17 +35,24 @@ int	is_a_directory(char *cmd)
 	return (0);
 }
 
-void	execute_command(t_mini *data, t_parser *cmd)
+char	**new_commands(t_parser *cmd)
 {
-	char	*path;
-	char	**env;
-	char	**commands;
 	char	**tmp;
+	char	**commands;
 
 	tmp = cmd->commands;
 	commands = make_commands_cpy(cmd->commands);
 	cmd->commands = commands;
 	free_strarr(tmp);
+	return (commands);
+}
+
+void	execute_command(t_mini *data, t_parser *cmd)
+{
+	char	*path;
+	char	**env;
+
+	cmd->commands = new_commands(cmd);
 	if ((!cmd->commands || !cmd->commands[0]) && !cmd->redirections)
 		exit (EXIT_SUCCESS);
 	if (cmd->commands && is_a_directory(cmd->commands[0]))
@@ -57,12 +64,11 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	if ((!cmd->commands || !cmd->commands[0]))
 		exit(EXIT_SUCCESS);
 	env = env_list_to_strarr(data);
-	path = path_finder(commands[0], env);
+	path = path_finder(cmd->commands[0], env);
 	if (path == NULL)
-		path_error(commands);
-	execve(path, commands, env);
+		path_error(cmd->commands);
+	execve(path, cmd->commands, env);
 	free_strarr(env);
-	free_strarr(commands);
 	exit (EXIT_SUCCESS);
 }
 
