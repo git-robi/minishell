@@ -39,7 +39,7 @@ void		free_node_parser(t_parser **node);
 int			count_nodes(t_parser *parser_list);
 int			count_commands(t_mini *data, t_lexer *tmp);
 t_lexer		*error_check(t_mini *data);
-int			unexpected_token_error(t_lexer *node);
+int			unexpected_token_error(t_mini *data, t_lexer *node);
 int			check_builtin(char *cmd);
 t_lexer		*get_lexer_head(t_lexer *node);
 

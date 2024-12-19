@@ -80,7 +80,7 @@ void	mini_loop(t_mini *data)
 			continue ;
 		add_history(data->line);
 		read_token(data);
-		if (unexpected_token_error(error_check(data)))
+		if (unexpected_token_error(data, error_check(data)))
 			continue ;
 		parser(data);
 		if (expander(data))

@@ -37,8 +37,7 @@ void	clean_markers_redir(t_mini *data, t_parser *node)
 	{
 		redir->token = remove_marker(data, redir->token, \
 		count_marker(redir->token, '\x02'), '\x02');
-		redir->token = remove_marker(data, redir->token, \
-		count_marker(redir->token, '\x03'), '\x03');
+		redir->token = remove_marker(data, redir->token, count_marker(redir->token, '\x05'), '\x05');
 		redir = redir->next;
 	}
 }

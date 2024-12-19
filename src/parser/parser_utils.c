@@ -23,7 +23,7 @@ int	check_builtin(char *cmd)
 	return (0);
 }
 
-int	unexpected_token_error(t_lexer *node)
+int	unexpected_token_error(t_mini *data, t_lexer *node)
 {
 	if (node != NULL)
 	{
@@ -34,6 +34,7 @@ int	unexpected_token_error(t_lexer *node)
 		else
 			ft_putstr_fd(node->token, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
+		data->exit_code = 2;
 		return (1);
 	}
 	return (0);
