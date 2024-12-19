@@ -12,7 +12,7 @@
 
 #include "../../../includes/mini.h"
 
-char    *mark_cont(char *content);
+char	*mark_cont(char *content);
 
 int	update_env_variable(t_mini *data, const char *value, const char *prefix)
 {
@@ -94,7 +94,7 @@ int	separate_varcont(char *line, t_content *content)
 char	*mark_cont(char *content)
 {
 	char	*mark;
-	int	i;
+	int		i;
 
 	i = 0;
 	mark = ft_strdup(content);
