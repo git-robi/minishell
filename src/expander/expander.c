@@ -12,6 +12,14 @@
 
 #include "../../includes/mini.h"
 
+int	is_delim(char c)
+{
+	if (c == '.' || c == ',' || c == '=' || c == '#' \
+	|| c == ':' || c == '%' || c == '/')
+		return (1);
+	return (0);
+}
+
 char	*env_expand(t_mini *data, char **tmp, char **string)
 {
 	int	j;
@@ -26,8 +34,8 @@ char	*env_expand(t_mini *data, char **tmp, char **string)
 	else
 	{
 		j = i;
-		while ((*tmp)[j] && (*tmp)[j] != '$'
-				&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]) && (*tmp)[j] != '.')
+		while ((*tmp)[j] && (*tmp)[j] != '$' \
+		&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]) && !is_delim((*tmp)[j]))
 			j++;
 		*string = expand_substring(data, *tmp, i, j - 1);
 	}
