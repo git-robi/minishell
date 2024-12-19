@@ -12,6 +12,8 @@
 
 #include "../../../includes/mini.h"
 
+char    *mark_cont(char *content);
+
 int	update_env_variable(t_mini *data, const char *value, const char *prefix)
 {
 	char	*new_entry;

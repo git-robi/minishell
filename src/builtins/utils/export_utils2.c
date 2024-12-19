@@ -12,6 +12,8 @@
 
 #include "../../../includes/mini.h"
 
+char    *mark_cont(char *content);
+
 static int	ft_isnumber(char *number)
 {
 	int	i;
@@ -132,7 +134,8 @@ void	update_existing_variable(t_env *existing, t_content *content)
 		else
 		{
 			free(existing->content);
-			existing->content = content->content;
+			existing->content = mark_cont(content->content);
+			free(content->content);
 		}
 	}
 	free(aux);

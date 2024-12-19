@@ -14,8 +14,15 @@
 
 int	builtin(t_mini *data, t_parser *cmd)
 {
+	char	**tmp;
+	char	**commands;
+
+	tmp = cmd->commands;
 	if (cmd->builtin && builtin_in_parent(cmd->commands[0]))
 	{
+		commands = make_commands_cpy(cmd->commands);
+		cmd->commands = commands;
+		free_strarr(tmp);
 		data->exit_code = call_builtin_function(data, cmd);
 		return (1);
 	}

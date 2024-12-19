@@ -37,7 +37,8 @@ void	clean_markers_redir(t_mini *data, t_parser *node)
 	{
 		redir->token = remove_marker(data, redir->token, \
 		count_marker(redir->token, '\x02'), '\x02');
-		redir->token = remove_marker(data, redir->token, count_marker(redir->token, '\x05'), '\x05');
+		redir->token = remove_marker(data, redir->token, \
+		count_marker(redir->token, '\x05'), '\x05');
 		redir = redir->next;
 	}
 }
@@ -55,7 +56,6 @@ void	clean_markers(t_mini *data)
 		{
 			node->commands[i] = remove_marker(data, node->commands[i], \
 			count_marker(node->commands[i], '\x02'), '\x02');
-//			node->commands[i] = remove_marker(data, node->commands[i], count_marker(node->commands[i], '\x03'), '\x03');
 			i++;
 		}
 		clean_markers_redir(data, node);
@@ -81,41 +81,6 @@ void	clean_spaces(t_mini *data)
 	}
 }
 
-/*void clean_cmd(char *cmd)
-{
-    int i = 0;
-    int in_single = 0;  // Tracks if inside single quotes
-    int in_double = 0;  // Tracks if inside double quotes
-    int in_var = 0;     // Tracks if inside a variable context
-
-    while (cmd[i]) {
-        // Toggle states based on the character encountered
-        if (cmd[i] == '\"' && !in_single) {
-            in_double = !in_double;
-        } else if (cmd[i] == '\'' && !in_double) {
-            in_single = !in_single;
-        } else if (cmd[i] == '\x02') {
-            in_var = !in_var;
-        }
-
-        // Replace space with \x03 when:
-        // - Inside double or single quotes, and
-        // - Not inside a variable context
-        if (cmd[i] == ' ' && !in_var && (in_double || in_single)) {
-            cmd[i] = '\x03';
-        }
-
-        // Replace space with \x03 when:
-        // - Inside double quotes, and
-        // - Inside a variable context
-        if (cmd[i] == ' ' && in_double && in_var) {
-            cmd[i] = '\x03';
-        }
-
-        i++;
-    }
-}*/
-
 void	clean_cmd(char *cmd)
 {
 	int	i;
@@ -126,7 +91,7 @@ void	clean_cmd(char *cmd)
 	in_var = 0;
 	i = 0;
 	while (cmd[i])
-	{	
+	{
 		if (cmd[i] == '\"')
 			in_double = !in_double;
 		if (cmd[i] == '\x02')

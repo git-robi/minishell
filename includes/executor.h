@@ -35,4 +35,7 @@ char	*find_path_string(char **env);
 char	*path_checker(char **all_path, char *cmd);
 void	print_err_hd(char *delim);
 int		heredoc_is_quoted(char *heredoc_token);
+char	**make_commands_cpy(char **commands);
+void    path_error(char **commands);
+
 #endif

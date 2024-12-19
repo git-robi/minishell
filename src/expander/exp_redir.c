@@ -12,6 +12,14 @@
 
 #include "../../includes/mini.h"
 
+int	is_delim(char c)
+{
+	if (c == '.' || c == ',' || c == '=' || c == '#' \
+	|| c == ':' || c == '%' || c == '/')
+		return (1);
+	return (0);
+}
+
 void	clean_redirections(t_mini *data, t_parser *tmp, int *marker_count)
 {
 	t_lexer	*redir;

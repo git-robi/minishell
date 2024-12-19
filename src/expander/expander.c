@@ -12,14 +12,6 @@
 
 #include "../../includes/mini.h"
 
-int	is_delim(char c)
-{
-	if (c == '.' || c == ',' || c == '=' || c == '#' \
-	|| c == ':' || c == '%' || c == '/')
-		return (1);
-	return (0);
-}
-
 char	*env_expand(t_mini *data, char **tmp, char **string)
 {
 	int	j;
@@ -35,7 +27,8 @@ char	*env_expand(t_mini *data, char **tmp, char **string)
 	{
 		j = i;
 		while ((*tmp)[j] && (*tmp)[j] != '$' \
-		&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]) && !is_delim((*tmp)[j]))
+		&& !is_whitespace((*tmp)[j]) && !is_quote((*tmp)[j]) \
+		&& !is_delim((*tmp)[j]))
 			j++;
 		*string = expand_substring(data, *tmp, i, j - 1);
 	}
@@ -71,33 +64,27 @@ void	expand_string(t_mini *data, char **string)
 	free(tmp);
 }
 
-void	mark_quotes(t_mini *data)
+void	mark_quotes(t_parser *cmd, int i)
 {
-	int	i;
 	int	j;
 	int	in_single;
 	int	in_double;
-	t_parser	*cmd;
-	char	**cmds;
 
-	cmd = data->parser;
 	in_single = 0;
 	in_double = 0;
-	i = 0;
 	while (cmd)
 	{
-		cmds = cmd->commands;
-		while (cmds[i])
+		while (cmd->commands[i])
 		{
 			j = 0;
-			while (cmds[i][j])
+			while (cmd->commands[i][j])
 			{
-				if (cmds[i][j] == '\'' && !in_double)
+				if (cmd->commands[i][j] == '\'' && !in_double)
 					in_single = !in_single;
-				if (cmds[i][j] == '\"' && !in_single)
+				if (cmd->commands[i][j] == '\"' && !in_single)
 					in_double = !in_double;
-				if (cmds[i][j] == ' ' && (in_double || in_single))
-					cmds[i][j] = '\x05';
+				if (cmd->commands[i][j] == ' ' && (in_double || in_single))
+					cmd->commands[i][j] = '\x05';
 				j++;
 			}
 			i++;
@@ -108,8 +95,11 @@ void	mark_quotes(t_mini *data)
 
 int	clean_all(t_mini *data)
 {
+	t_parser	*cmd;
+
+	cmd = data->parser;
 	clean_spaces(data);
-	mark_quotes(data);
+	mark_quotes(cmd, 0);
 	clean_quotes(data);
 	clean_markers(data);
 	return (0);
