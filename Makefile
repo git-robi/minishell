@@ -6,7 +6,7 @@
 #    By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 10:47:59 by rgiambon          #+#    #+#              #
-#    Updated: 2024/12/19 20:10:42 by rgiambon         ###   ########.fr        #
+#    Updated: 2024/12/19 20:21:42 by rgiambon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,15 @@ READLINE_DIR = libs/readline_linux_1
 READLINE_LIBS = $(READLINE_DIR)/lib/libreadline.a $(READLINE_DIR)/lib/libhistory.a
 READLINE_INCLUDE = $(READLINE_DIR)/include
 
-all: $(NAME)
+all: make_lib $(NAME)
+
+make_lib:
+	make -C $(LIBFT_DIR) all
 
 $(NAME): $(OBJS) $(LIBFT) Makefile $(HEADER)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFT_DIR) -lft $(READLINE_LIBS) -lncurses
 	chmod +x $(NAME)
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
 
 %.o:%.c Makefile $(HEADER)
 	$(CC) $(CFLAGS) -I $(READLINE_INCLUDE) -c $< -o $@
@@ -48,4 +49,4 @@ re: fclean all
 
 #.SILENT: 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re make_lib
