@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:19:23 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/19 19:19:25 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:45:07 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*copy_word(const char *command, int start, int end)
 	word_length = end - start;
 	word = (char *)malloc((word_length + 1) * sizeof(char));
 	if (word == NULL)
-		free_data_and_exit(word, 1);
+		free_data_and_exit((void *)word, 1);
 	ft_strncpy(word, ((char *)command + start), word_length);
 	word[word_length] = '\0';
 	return (word);
@@ -105,7 +105,7 @@ char	**make_commands_cpy(char **commands)
 	total_words = count_words(commands);
 	result = (char **)malloc((total_words + 1) * sizeof(char *));
 	if (result == NULL)
-		free_data_and_exit(result, 1);
+		free_data_and_exit((void *)result, 1);
 	index = 0;
 	i = 0;
 	while (commands[i])
