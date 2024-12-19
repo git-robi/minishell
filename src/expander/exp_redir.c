@@ -12,6 +12,16 @@
 
 #include "../../includes/mini.h"
 
+void	print_err_hd(char *delim)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("warning: ", 2);
+	ft_putstr_fd("here-document at last line delimited by end-of-file", 2);
+	ft_putstr_fd(" (wanted '", 2);
+	ft_putstr_fd(delim, 2);
+	ft_putstr_fd("')\n", 2);
+}
+
 int	is_delim(char c)
 {
 	if (c == '.' || c == ',' || c == '=' || c == '#' \

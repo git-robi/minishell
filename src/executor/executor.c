@@ -13,22 +13,17 @@
 #include "../../includes/mini.h"
 #include <dirent.h>
 
-int	directory_path(char *cmd)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": is a directory\n", STDERR_FILENO);
-	return (126);
-}
-
 int	is_a_directory(char *cmd)
 {
 	DIR	*dir;
 
 	dir = opendir(cmd);
-	if ((cmd[0] == '/' || cmd[0] == '.') && dir != NULL)
+	if (dir != NULL)
 	{
 		closedir(dir);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(": is a directory\n", STDERR_FILENO);
 		return (1);
 	}
 	closedir(dir);
@@ -56,7 +51,7 @@ void	execute_command(t_mini *data, t_parser *cmd)
 	if ((!cmd->commands || !cmd->commands[0]) && !cmd->redirections)
 		exit (EXIT_SUCCESS);
 	if (cmd->commands && is_a_directory(cmd->commands[0]))
-		exit (directory_path(cmd->commands[0]));
+		exit (126);
 	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
 		exit (EXIT_FAILURE);
 	if (cmd->builtin)

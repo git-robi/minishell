@@ -12,14 +12,22 @@
 
 #include "../../includes/mini.h"
 
-void	print_err_hd(char *delim)
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd("warning: ", 2);
-	ft_putstr_fd("here-document at last line delimited by end-of-file", 2);
-	ft_putstr_fd(" (wanted '", 2);
-	ft_putstr_fd(delim, 2);
-	ft_putstr_fd("')\n", 2);
+	unsigned int	i;
+
+	i = 0;
+	while (src[i] != '\0' && i < n)
+	{
+		dest[i] = src[i];
+		++i;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }
 
 int	is_whitespace(char c)

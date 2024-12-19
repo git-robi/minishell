@@ -55,7 +55,8 @@ char	*copy_word(const char *command, int start, int end)
 
 	word_length = end - start;
 	word = (char *)malloc((word_length + 1) * sizeof(char));
-	strncpy(word, command + start, word_length);
+	//protect
+	ft_strncpy(word, ((char *)command + start), word_length);
 	word[word_length] = '\0';
 	return (word);
 }
@@ -69,10 +70,10 @@ int	parse_command(char *command, char **result, int index)
 	end = 0;
 	while (command[start])
 	{
-		while (command[start] && isspace(command[start]))
+		while (command[start] && is_whitespace(command[start]))
 			start++;
 		end = start;
-		while (command[end] && !isspace(command[end]))
+		while (command[end] && !is_whitespace(command[end]))
 			end++;
 		if (end > start)
 			result[index++] = copy_word(command, start, end);
@@ -90,6 +91,7 @@ char	**make_commands_cpy(char **commands)
 
 	total_words = count_words(commands);
 	result = (char **)malloc((total_words + 1) * sizeof(char *));
+	//protect
 	index = 0;
 	i = 0;
 	while (commands[i])
