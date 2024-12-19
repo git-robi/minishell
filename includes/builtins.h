@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:41:17 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/18 18:19:37 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:04:50 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void	update_existing_variable(t_env *existing, t_content *content);
 t_env	*ft_last_node(t_env *env_cpy);
 void	remove_heredoc(void);
 char	*mark_cont(char *content);
+void	length_2(long long exit_code, t_mini *data);
 #endif

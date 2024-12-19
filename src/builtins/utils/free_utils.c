@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 19:11:55 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/19 19:11:57 by rgiambon         ###   ########.fr       */
+/*   Created: 2024/12/16 17:07:54 by codespace         #+#    #+#             */
+/*   Updated: 2024/12/19 20:05:58 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,16 @@ void	free_t_content(t_content *content)
 		if (content->content)
 			free(content->content);
 	}
+}
+
+void	length_2(long long exit_code, t_mini *data)
+{
+	if (exit_code == LLONG_MAX)
+	{
+		printf("exit: %s: value too large\n", data->parser->commands[1]);
+		free_data_and_exit(data, 2);
+	}
+	if (exit_code < 0 || exit_code > 255)
+		exit_code = exit_code % 256;
+	printf("exit\n");
 }
