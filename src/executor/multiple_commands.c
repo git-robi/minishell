@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:21:51 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/16 11:07:48 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/29 13:26:06 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,6 @@ void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2], int idx)
 		redirect_in_out(data, cmd, pipes_ends);
 		execute_command(*data, cmd);
 	}
-}
-
-void	update_in_fd(t_mini **data, t_parser *cmd, int pipes_ends[2])
-{
-	if (cmd->heredoc_name)
-	{
-		close(pipes_ends[0]);
-		(*data)->in_fd = open(cmd->heredoc_name, O_RDONLY);
-	}
-	else
-		(*data)->in_fd = pipes_ends[0];
 }
 
 void	wait_for_processes(t_mini **data)
@@ -89,7 +78,7 @@ void	multiple_commands(t_mini *data)
 		close(pipes_ends[1]);
 		if (cmd->prev)
 			close(data->in_fd);
-		update_in_fd(&data, cmd, pipes_ends);
+		data->in_fd = pipes_ends[0];
 		cmd = cmd->next;
 		pid_idx++;
 	}

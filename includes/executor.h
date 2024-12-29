@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:44:40 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 14:11:29 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/29 13:24:38 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ void	update_in_fd(t_mini **data, t_parser *cmd, int pipes_ends[2]);
 void	make_process(t_mini **data, t_parser *cmd, int pipes_ends[2], \
 int pid_idx);
 void	redirect_in_out(t_mini **data, t_parser *cmd, int pipes_ends[2]);
-int		redirections(t_parser *cmd);
-int		dispatch_redirections(t_lexer *redirection, t_parser *cmd);
-int		check_fd(int fd, int type);
+int		redirections(t_mini *data, t_parser *cmd);
+int		dispatch_redirections(t_mini *data, t_lexer *redirection, \
+t_parser *cmd);
+int		check_fd(int fd, int type, char *str);
 char	*path_finder(char *cmd, char **env);
 char	*find_path_string(char **env);
 char	*path_checker(char **all_path, char *cmd);

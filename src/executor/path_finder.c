@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 12:09:37 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 16:56:31 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:23:09 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/mini.h"
@@ -39,12 +39,6 @@ char	*path_checker(char **all_path, char *cmd)
 	int		i;
 	char	*path_to_check;
 
-	if (cmd[0] == '/' || cmd[0] == '.')
-	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-		return (NULL);
-	}
 	i = -1;
 	while (all_path[++i] != NULL)
 	{
@@ -86,6 +80,9 @@ char	*path_finder(char *cmd, char **env)
 	char	**all_path;
 	char	*right_path;
 
+	if (cmd[0] == '/' || cmd[0] == '.')
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
 	path_str = find_path_string(env);
 	if (path_str == NULL)
 		return (NULL);

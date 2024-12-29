@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:19:23 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/19 19:45:07 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:45:06 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	count_words(char **commands)
 
 	count = 0;
 	i = -1;
-	while (commands[++i])
+	while (commands && commands[++i])
 	{
 		command = commands[i];
 		j = -1;
@@ -108,7 +108,7 @@ char	**make_commands_cpy(char **commands)
 		free_data_and_exit((void *)result, 1);
 	index = 0;
 	i = 0;
-	while (commands[i])
+	while (commands && commands[i])
 	{
 		index = parse_command(commands[i], result, index);
 		i++;

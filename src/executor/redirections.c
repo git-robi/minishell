@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:12:49 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 18:58:27 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/29 13:36:04 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	remove_heredoc(void)
 	closedir(dp);
 }
 
-int	check_fd(int fd, int type)
+int	check_fd(int fd, int type, char *str)
 {
 	int	std_in_out;
 
@@ -50,10 +50,8 @@ int	check_fd(int fd, int type)
 	if (fd < 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		if (type == REDIR_IN || type == HERE_DOC)
-			ft_putstr_fd("infile: No such file or directory\n", STDERR_FILENO);
-		else
-			ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	if (fd > 0 && dup2(fd, std_in_out) < 0)
@@ -66,7 +64,7 @@ int	check_fd(int fd, int type)
 	return (EXIT_SUCCESS);
 }
 
-int	dispatch_redirections(t_lexer *redirection, t_parser *cmd)
+int	dispatch_redirections(t_mini *data, t_lexer *redirection, t_parser *cmd)
 {
 	int	fd;
 
@@ -78,10 +76,11 @@ int	dispatch_redirections(t_lexer *redirection, t_parser *cmd)
 		fd = open(redirection->token, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (redirection->type == APPEND)
 		fd = open(redirection->token, O_CREAT | O_RDWR | O_APPEND, 0644);
-	return (check_fd(fd, redirection->type));
+	data->in_fd = fd;
+	return (check_fd(fd, redirection->type, redirection->token));
 }
 
-int	redirections(t_parser *cmd)
+int	redirections(t_mini *data, t_parser *cmd)
 {
 	t_lexer	*redirection;
 
@@ -90,7 +89,7 @@ int	redirections(t_parser *cmd)
 		return (EXIT_SUCCESS);
 	while (redirection)
 	{
-		if (dispatch_redirections(redirection, cmd))
+		if (dispatch_redirections(data, redirection, cmd))
 			return (EXIT_FAILURE);
 		redirection = redirection->next;
 	}

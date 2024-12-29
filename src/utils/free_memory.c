@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:11:02 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 17:06:57 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:45:49 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_strarr(char **strarr)
 	int	i;
 
 	i = 0;
-	while (strarr[i])
+	while (strarr && strarr[i])
 	{
 		free(strarr[i]);
 		i++;

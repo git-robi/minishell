@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:07:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/12/19 20:05:58 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:10:35 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_t_content(t_content *content)
 	}
 }
 
-void	length_2(long long exit_code, t_mini *data)
+long long	length_2(long long exit_code, t_mini *data)
 {
 	if (exit_code == LLONG_MAX)
 	{
@@ -49,4 +49,5 @@ void	length_2(long long exit_code, t_mini *data)
 	if (exit_code < 0 || exit_code > 255)
 		exit_code = exit_code % 256;
 	printf("exit\n");
+	return (exit_code);
 }

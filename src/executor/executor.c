@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:11:59 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/18 18:57:34 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/29 13:14:03 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	is_a_directory(char *cmd)
 {
 	DIR	*dir;
 
-	dir = opendir(cmd);
+	dir = NULL;
+	if (cmd)
+		dir = opendir(cmd);
 	if (dir != NULL)
 	{
 		closedir(dir);
@@ -52,7 +54,7 @@ void	execute_command(t_mini *data, t_parser *cmd)
 		exit (EXIT_SUCCESS);
 	if (cmd->commands && is_a_directory(cmd->commands[0]))
 		exit (126);
-	if (cmd->redirections && redirections(cmd) != EXIT_SUCCESS)
+	if (cmd->redirections && redirections(data, cmd) != EXIT_SUCCESS)
 		exit (EXIT_FAILURE);
 	if (cmd->builtin)
 		exit (call_builtin_function(data, cmd));

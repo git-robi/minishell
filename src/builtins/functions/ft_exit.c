@@ -48,23 +48,23 @@ static long long	ft_strtoll(const char *str)
 
 	result = 0;
 	sign = 1;
+	while (is_whitespace((unsigned char)*str))
+		str++;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			sign = -1;
 		str++;
 	}
-	while (*str++)
+	while (*str)
 	{
-		digit = *str - '0';
-		if (digit < 0 || digit > 9)
+		if (!ft_isdigit((unsigned char)*str))
 			break ;
+		digit = *str - '0';
 		if (result > (LLONG_MAX - digit) / 10)
-		{
-			errno = ERANGE;
 			return (LLONG_MAX);
-		}
 		result = result * 10 + digit;
+		str++;
 	}
 	return (result * sign);
 }
@@ -97,7 +97,7 @@ int	ft_exit(t_mini *data, t_parser *node)
 	if (comands_len == 2)
 	{
 		exit_code = safe_atoi(data->parser->commands[1]);
-		length_2(exit_code, data);
+		exit_code = length_2(exit_code, data);
 		free_data_and_exit(data, (int)exit_code);
 	}
 	if (comands_len == 1)

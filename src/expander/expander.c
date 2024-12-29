@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:47:32 by rgiambon          #+#    #+#             */
-/*   Updated: 2024/12/19 20:49:32 by rgiambon         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:43:53 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	mark_quotes(t_parser *cmd, int i)
 	in_double = 0;
 	while (cmd)
 	{
-		i = 0;
-		while (cmd->commands[i++])
+		i = -1;
+		while (cmd->commands && cmd->commands[++i])
 		{
 			j = 0;
 			while (cmd->commands[i][j])
@@ -99,7 +99,7 @@ int	clean_all(t_mini *data)
 
 	cmd = data->parser;
 	clean_spaces(data);
-	mark_quotes(cmd, 0);
+	mark_quotes(cmd, -1);
 	clean_quotes(data);
 	clean_markers(data);
 	return (0);
