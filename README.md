@@ -84,11 +84,7 @@ Through these solutions, we created a robust shell that handles complex commands
 
 ## 🎓 What I Learned
 
-This project was an incredible learning experience that went beyond just technical skills:
-
-## 🎓 Key Learning Outcomes
-
-This project provided extensive learning in both technical and collaborative aspects of software development.
+This project was an incredible learning experience in both technical and collaborative aspects of software development.
 
 ### System Programming and Shell Internals
 Developing a shell required mastering process management, file descriptors, and signal handling. Working with environment variables and understanding bash's behavior patterns gave us deep insights into shell operations and UNIX system programming concepts.
