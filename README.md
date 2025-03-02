@@ -14,7 +14,7 @@ Ever wondered how your terminal works under the hood? Well, I built one! My mini
 
 ## 🛠️ Building the shell
 
-The project is structured into several key components:
+The project is structured into key components:
 
 1. **Lexer & Parser**:
    - Tokenize input into meaningful chunks
@@ -61,72 +61,46 @@ The project is structured into several key components:
 - Exit status with `$?`
 - Signal handling
 
-## 🤔 The Tricky Parts
+## 🤔 Main Challenges and Solutions
 
-As our most challenging project yet, minishell pushed us to our limits with numerous complex features to implement:
+Building a shell from scratch presented several significant challenges that required careful planning and smart solutions.
 
-1. **Bash Feature Recreation**:
-   - Implementing numerous bash functionalities from scratch
-   - Matching bash's exact behavior in various scenarios
-   - Handling complex edge cases just like bash does
-   - Deep diving into bash documentation and behavior
+### 🔥 Bash Behavior Implementation
+Replicating bash's behavior required deep understanding of edge cases. Complex commands like `echo "$HOME'$USER'" > outfile` needed careful handling of quotes, variables, and redirections. We developed a systematic testing approach to address this challenge. Our solution involved documenting bash's behavior for complex cases and creating a comprehensive test suite. Through careful implementation of quote and variable handling rules, we ensured our shell's output matched bash's behavior precisely.
 
-2. **Command Parsing**:
-   - Handling quotes and escape characters
-   - Managing complex command chains
-   - Proper tokenization of input
-   - Dealing with various syntax rules
+### 🧩 Command Parsing
+Parsing commands like `echo "Hello 'World'" | grep Hello` involved handling nested quotes, pipes, and preserving whitespace correctly. We implemented a state machine parser as our solution. The parser tracks quote states and nested levels while handling special characters and operators. It maintains the integrity of command structure and whitespace while performing syntax validation during the parsing process.
 
-3. **Process Management**:
-   - Creating and managing child processes
-   - Handling multiple pipes
-   - Managing file descriptors
-   - Synchronizing processes correctly
+### 🕹️ Process Management
+Managing multiple processes and pipes required careful coordination of data flow and process lifecycles. Our solution was a structured pipeline system that coordinates process relationships and data flow. We implemented robust file descriptor management and added process synchronization checks. The system handles process failures gracefully, ensuring stable execution even in complex command chains.
 
-4. **Memory Management**:
-   - Preventing memory leaks
-   - Proper cleanup of resources
-   - Managing dynamic structures
+### 📂 Memory Management
+Preventing memory leaks while handling complex command structures and unexpected terminations was crucial. We addressed this by building a comprehensive memory tracking system. This system monitors all memory allocations and implements structured cleanup routines. It handles signal interruptions safely and ensures proper resource deallocation, maintaining stability even during unexpected program termination.
 
-5. **Collaborative Challenges**:
-   - Coordinating work between team members
-   - Maintaining consistent coding style
-   - Managing git workflow together
-   - Resolving merge conflicts
-   - Making design decisions as a team
+### 🧑‍💻 Team Collaboration
+Coordinating work on interconnected shell components required careful planning and communication. We established clear development practices by defining component interfaces upfront and implementing regular code reviews. Our development process used feature branches and followed consistent coding standards. Regular sync meetings ensured all team members were aligned on implementation details and architectural decisions.
+
+Through these solutions, we created a robust shell that handles complex commands reliably while maintaining clean code structure. The combination of careful planning, systematic implementation, and rigorous testing resulted in a stable and efficient command-line interface.
 
 ## 🎓 What I Learned
 
 This project was an incredible learning experience that went beyond just technical skills:
 
-1. **System Programming**:
-   - Deep understanding of processes
-   - File descriptor management
-   - Signal handling
-   - Environment management
+## 🎓 Key Learning Outcomes
 
-2. **Parser Design**:
-   - Lexical analysis
-   - Syntax parsing
-   - Abstract Syntax Tree concepts
+This project provided extensive learning in both technical and collaborative aspects of software development.
 
-3. **Project Structure**:
-   - Large project organization
-   - Code modularity
-   - Error handling
+### System Programming and Shell Internals
+Developing a shell required mastering process management, file descriptors, and signal handling. Working with environment variables and understanding bash's behavior patterns gave us deep insights into shell operations and UNIX system programming concepts.
 
-4. **Collaborative Skills**:
-   - Working effectively in a team
-   - Code review practices
-   - Technical communication
-   - Conflict resolution
-   - Git workflow in a team setting
+### Parser Implementation
+We gained practical experience in compiler theory by implementing a command parser. This involved lexical analysis for breaking down command strings and syntax parsing to interpret command structure. The project helped us understand how programming languages process and interpret input.
 
-5. **Shell Internals**:
-   - Deep understanding of how bash works
-   - Complex command interpretation
-   - Shell behavior and standards
+### Software Architecture
+Organizing a large-scale project taught us the importance of modular design and error handling. We learned to structure code for maintainability and reliability, implementing robust error handling throughout the system.
 
+### Team Development
+Working as a team improved our collaboration skills through code reviews, technical discussions, and git workflow management. We developed effective communication practices and learned to resolve conflicts constructively while maintaining code quality.
 ## 💡 How to Use It
 
 ```bash
