@@ -1,18 +1,18 @@
 # 🐚 minishell - Building a Shell from Scratch
 
-Hey there! 👋 Welcome to our minishell project - the most challenging and complex project I've tackled so far! This was an exciting journey where my teammate and I created our own version of a shell, similar to bash. Not only did we dive deep into how command-line interfaces work, but we also learned the valuable lessons of collaborative coding!
+Welcome to our minishell project - the most challenging and complex project I've tackled so far! This was an exciting journey where my teammate and I created our own version of a shell, similar to bash. Not only did we dive deep into how command-line interfaces work, but we also learned the valuable lessons of collaborative coding!
 
-## 🎯 What's This Project About?
+## What's This Project About?
 
 Ever wondered how your terminal works under the hood? Well, I built one! My minishell can:
-- 📝 Parse and execute commands
-- 🔄 Handle pipes (`|`)
-- ↪️ Manage redirections (`>`, `>>`, `<`, `<<`)
-- 🔍 Expand environment variables (`$PATH`, `$HOME`, etc.)
-- 🎯 Execute built-in commands
-- 🔄 Handle signals (ctrl-C, ctrl-D, ctrl-\\)
+- Parse and execute commands
+- Handle pipes (`|`)
+- Manage redirections (`>`, `>>`, `<`, `<<`)
+- Expand environment variables (`$PATH`, `$HOME`, etc.)
+- Execute built-in commands
+- Handle signals (ctrl-C, ctrl-D, ctrl-\\)
 
-## 🛠️ Building the shell
+## 🛠Building the shell
 
 The project is structured into key components:
 
@@ -40,7 +40,7 @@ The project is structured into key components:
    - Export and unset functionality
    - Path resolution
 
-## 🎨 Features
+## Features
 
 ### Built-in Commands:
 - `echo` with -n flag
@@ -61,23 +61,23 @@ The project is structured into key components:
 - Exit status with `$?`
 - Signal handling
 
-## 🤔 Main Challenges and Solutions
+## Main Challenges and Solutions
 
 Building a shell from scratch presented several significant challenges that required careful planning and smart solutions.
 
-### 🔥 Bash Behavior Implementation
+### Bash Behavior Implementation
 Replicating bash's behavior required deep understanding of edge cases. Complex commands like `echo "$HOME'$USER'" > outfile` needed careful handling of quotes, variables, and redirections. We developed a systematic testing approach to address this challenge. Our solution involved documenting bash's behavior for complex cases and creating a comprehensive test suite. Through careful implementation of quote and variable handling rules, we ensured our shell's output matched bash's behavior precisely.
 
-### 🧩 Command Parsing
+### Command Parsing
 Parsing commands like `echo "Hello 'World'" | grep Hello` involved handling nested quotes, pipes, and preserving whitespace correctly. We implemented a state machine parser as our solution. The parser tracks quote states and nested levels while handling special characters and operators. It maintains the integrity of command structure and whitespace while performing syntax validation during the parsing process.
 
-### 🕹️ Process Management
+### Process Management
 Managing multiple processes and pipes required careful coordination of data flow and process lifecycles. Our solution was a structured pipeline system that coordinates process relationships and data flow. We implemented robust file descriptor management and added process synchronization checks. The system handles process failures gracefully, ensuring stable execution even in complex command chains.
 
-### 📂 Memory Management
+### Memory Management
 Preventing memory leaks while handling complex command structures and unexpected terminations was crucial. We addressed this by building a comprehensive memory tracking system. This system monitors all memory allocations and implements structured cleanup routines. It handles signal interruptions safely and ensures proper resource deallocation, maintaining stability even during unexpected program termination.
 
-### 🧑‍💻 Team Collaboration
+### Team Collaboration
 Coordinating work on interconnected shell components required careful planning and communication. We established clear development practices by defining component interfaces upfront and implementing regular code reviews. Our development process used feature branches and followed consistent coding standards. Regular sync meetings ensured all team members were aligned on implementation details and architectural decisions.
 
 Through these solutions, we created a robust shell that handles complex commands reliably while maintaining clean code structure. The combination of careful planning, systematic implementation, and rigorous testing resulted in a stable and efficient command-line interface.
@@ -97,7 +97,7 @@ Organizing a large-scale project taught us the importance of modular design and 
 
 ### Team Development
 Working as a team improved our collaboration skills through code reviews, technical discussions, and git workflow management. We developed effective communication practices and learned to resolve conflicts constructively while maintaining code quality.
-## 💡 How to Use It
+## How to Use It
 
 ```bash
 # Compile the project
@@ -114,11 +114,11 @@ heredoc>
 heredoc> EOF
 ```
 
-## 🔍 Final Thoughts
+## Final Thoughts
 
 Building a shell from scratch was an amazing journey into system programming! It really opened my eyes to how much happens behind the scenes when we type commands in our terminal.
 
-The skills I learned here - from process management to parsing - have given me a much deeper understanding of how operating systems and command-line interfaces work. Plus, it's pretty cool to use a shell that I built myself! 🚀
+The skills I learned here - from process management to parsing - have given me a much deeper understanding of how operating systems and command-line interfaces work. Plus, it's pretty cool to use a shell that I built myself! 
 
 ---
 *Built with ❤️ and lots of coffee at 42 School*
